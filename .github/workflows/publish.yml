@@ -45,6 +45,7 @@ jobs:
           node-version: 20
           registry-url: https://npm.pkg.github.com
           scope: "@${{ github.repository_owner }}"
+      - run: npm run addscope
       - name: Publish to GitHub Packages
         run: npm publish
         env:
