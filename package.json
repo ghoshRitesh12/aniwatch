@@ -5,11 +5,12 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
+  "type": "module",
   "scripts": {
     "lint": "tsc",
     "build": "tsup",
-    "test": "echo \"intentional_error: no test specified\"",
+    "test": "vitest run --config vitest.config.ts",
     "prepare": "node .husky/install.mjs"
   },
   "author": "https://github.com/ghoshRitesh12",
@@ -30,9 +31,19 @@
     "scraper",
     "package"
   ],
+  "dependencies": {
+    "axios": "^1.7.3",
+    "cheerio": "1.0.0-rc.12",
+    "crypto-js": "^4.2.0",
+    "http-errors": "^2.0.0"
+  },
   "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/http-errors": "^2.0.4",
+    "@types/node": "^22.1.0",
     "husky": "^9.1.4",
     "tsup": "^8.2.4",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.5"
   }
 }
