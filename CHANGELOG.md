@@ -1,4 +1,8 @@
-# 0.1.0 (2024-08-05)
+# [0.2.0](https://github.com/ghoshRitesh12/aniwatch/compare/v0.1.0...v0.2.0) (2024-08-05)
+
+
+
+# [0.1.0](https://github.com/ghoshRitesh12/aniwatch/compare/2496e643ef430955bbb05ad5e547976baf2f4d07...v0.1.0) (2024-08-05)
 
 
 ### Features
