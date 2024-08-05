@@ -1,0 +1,38 @@
+{
+  "name": "aniwatch",
+  "version": "0.0.1",
+  "description": "📦 Scraper package for obtaining anime information from hianime.to (formerly aniwatch.to)",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "module": "dist/index.mjs",
+  "scripts": {
+    "lint": "tsc",
+    "build": "tsup",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ghoshRitesh12/aniwatch/issues"
+  },
+  "homepage": "https://github.com/ghoshRitesh12/aniwatch#readme",
+  "keywords": [
+    "anime",
+    "hianime",
+    "aniwatch",
+    "hianime.to",
+    "aniwatch.to",
+    "scraper",
+    "package"
+  ],
+  "author": "https://github.com/ghoshRitesh12",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "husky": "^9.1.4",
+    "tsup": "^8.2.4",
+    "typescript": "^5.5.4"
+  }
+}
