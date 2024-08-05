@@ -1,5 +1,13 @@
+.github
+.husky
 node_modules
 src
 
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+README.md
+
 tsconfig.json
 tsup.config.ts
+
