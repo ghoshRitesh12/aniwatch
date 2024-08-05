@@ -15,7 +15,7 @@
   "author": "https://github.com/ghoshRitesh12",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ghoshRitesh12/aniwatch"
+    "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
   },
   "bugs": {
     "url": "https://github.com/ghoshRitesh12/aniwatch/issues"
