@@ -7,6 +7,9 @@ jobs:
   changelog:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
       - name: Checkouts repo
         uses: actions/checkout@v4
