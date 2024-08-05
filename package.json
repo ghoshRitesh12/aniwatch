@@ -1,6 +1,6 @@
 {
   "name": "aniwatch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "📦 Scraper package for obtaining anime information from hianime.to (formerly aniwatch.to)",
   "license": "MIT",
   "main": "dist/index.js",
