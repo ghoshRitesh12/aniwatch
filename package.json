@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "tsc",
     "build": "tsup",
-    "prepare": "husky"
+    "prepare": "node .husky/install.mjs"
   },
   "repository": {
     "type": "git",
