@@ -15,6 +15,8 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "verbatimModuleSyntax": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
 
     "outDir": "dist",
     "rootDir": "./",
