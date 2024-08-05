@@ -3,11 +3,11 @@
 node_modules
 src
 
-CHANGELOG.md
-CODE_OF_CONDUCT.md
-CONTRIBUTING.md
 README.md
+CHANGELOG.md
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
 
 tsconfig.json
 tsup.config.ts
-
+vitest.config.ts
