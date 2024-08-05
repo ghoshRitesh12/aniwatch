@@ -9,11 +9,13 @@
   "scripts": {
     "lint": "tsc",
     "build": "tsup",
+    "test": "echo \"intentional_error: no test specified\"",
     "prepare": "node .husky/install.mjs"
   },
+  "author": "https://github.com/ghoshRitesh12",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
+    "url": "https://github.com/ghoshRitesh12/aniwatch"
   },
   "bugs": {
     "url": "https://github.com/ghoshRitesh12/aniwatch/issues"
@@ -28,7 +30,6 @@
     "scraper",
     "package"
   ],
-  "author": "https://github.com/ghoshRitesh12",
   "devDependencies": {
     "husky": "^9.1.4",
     "tsup": "^8.2.4",
