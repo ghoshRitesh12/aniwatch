@@ -1,0 +1,110 @@
+import {
+  SRC_BASE_URL,
+  extractAnimes,
+  extractTop10Animes,
+} from "../utils/index.js";
+import { AxiosError } from "axios";
+import { type AnimeCategories } from "../types/anime.js";
+import createHttpError, { type HttpError } from "http-errors";
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
+import { type ScrapedAnimeCategory } from "../types/scrapers/index.js";
+import { client } from "../config/client.js";
+
+// /anime/:category?page=${page}
+async function scrapeAnimeCategory(
+  category: AnimeCategories,
+  page: number = 1
+): Promise<ScrapedAnimeCategory | HttpError> {
+  const res: ScrapedAnimeCategory = {
+    animes: [],
+    genres: [],
+    top10Animes: {
+      today: [],
+      week: [],
+      month: [],
+    },
+    category,
+    currentPage: Number(page),
+    hasNextPage: false,
+    totalPages: 1,
+  };
+
+  try {
+    const scrapeUrl: URL = new URL(category, SRC_BASE_URL);
+    const mainPage = await client.get(`${scrapeUrl}?page=${page}`);
+
+    const $: CheerioAPI = load(mainPage.data);
+
+    const selector: SelectorType =
+      "#main-content .tab-content .film_list-wrap .flw-item";
+
+    const categoryNameSelector: SelectorType =
+      "#main-content .block_area .block_area-header .cat-heading";
+    res.category = $(categoryNameSelector)?.text()?.trim() ?? category;
+
+    res.hasNextPage =
+      $(".pagination > li").length > 0
+        ? $(".pagination li.active").length > 0
+          ? $(".pagination > li").last().hasClass("active")
+            ? false
+            : true
+          : false
+        : false;
+
+    res.totalPages =
+      Number(
+        $('.pagination > .page-item a[title="Last"]')
+          ?.attr("href")
+          ?.split("=")
+          .pop() ??
+          $('.pagination > .page-item a[title="Next"]')
+            ?.attr("href")
+            ?.split("=")
+            .pop() ??
+          $(".pagination > .page-item.active a")?.text()?.trim()
+      ) || 1;
+
+    res.animes = extractAnimes($, selector);
+
+    if (res.animes.length === 0 && !res.hasNextPage) {
+      res.totalPages = 0;
+    }
+
+    const genreSelector: SelectorType =
+      "#main-sidebar .block_area.block_area_sidebar.block_area-genres .sb-genre-list li";
+    $(genreSelector).each((_, el) => {
+      res.genres.push(`${$(el).text().trim()}`);
+    });
+
+    const top10AnimeSelector: SelectorType =
+      '#main-sidebar .block_area-realtime [id^="top-viewed-"]';
+
+    $(top10AnimeSelector).each((_, el) => {
+      const period = $(el).attr("id")?.split("-")?.pop()?.trim();
+
+      if (period === "day") {
+        res.top10Animes.today = extractTop10Animes($, period);
+        return;
+      }
+      if (period === "week") {
+        res.top10Animes.week = extractTop10Animes($, period);
+        return;
+      }
+      if (period === "month") {
+        res.top10Animes.month = extractTop10Animes($, period);
+      }
+    });
+
+    return res;
+  } catch (err: any) {
+    if (err instanceof AxiosError) {
+      throw createHttpError(
+        err?.response?.status || 500,
+        err?.response?.statusText || "Something went wrong"
+      );
+    }
+    throw createHttpError.InternalServerError(err?.message);
+  }
+}
+
+export default scrapeAnimeCategory;
