@@ -23,7 +23,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           generateReleaseNotes: true
-          token: ${{ secrets.CHANGELOG_SECRET }}
+          token: ${{ secrets.RELEASE_CHANGELOG_SECRET }}
           tag: ${{ steps.changelog.outputs.tag }}
           name: ${{ steps.changelog.outputs.tag }}
           body: ${{ steps.changelog.outputs.clean_changelog }}
