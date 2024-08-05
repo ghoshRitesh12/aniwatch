@@ -1,9 +1,23 @@
-export type Something = {
-  text: string;
-};
+// scraper exports
+export * from "./scrapers/index.js";
 
-const t: Something = {
-  text: "sample text",
-};
+// scraper type exports
+export * from "./types/scrapers/index.js";
 
-console.log(t);
+// common anime type exports
+// export * from "./types/anime.js";
+
+// // anime search type exports
+// export * from "./types/animeSearch.js";
+
+// helpful constant exports
+// export {
+//   typeIdMap,
+//   sortIdMap,
+//   ratedIdMap,
+//   scoreIdMap,
+//   genresIdMap,
+//   seasonIdMap,
+//   statusIdMap,
+//   languageIdMap,
+// } from "./utils/constants.js";
