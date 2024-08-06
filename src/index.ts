@@ -2,7 +2,7 @@
 export * from "./scrapers/index.js";
 
 // scraper type exports
-export * from "./types/scrapers/index.js";
+// export * from "./types/scrapers/index.js";
 
 // common anime type exports
 // export * from "./types/anime.js";
