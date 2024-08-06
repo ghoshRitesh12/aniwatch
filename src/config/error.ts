@@ -7,7 +7,7 @@ export class AniwatchError extends Error {
   public scraper: string;
 
   constructor(errMsg: string, scraperName: string) {
-    super(errMsg);
+    super(`${scraperName}: ${errMsg}`);
 
     this.name = AniwatchError.name;
     this.scraper = scraperName;
