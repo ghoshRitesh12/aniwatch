@@ -5,7 +5,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.mjs",
+  "module": "dist/index.js",
+  "type": "module",
   "scripts": {
     "lint": "tsc",
     "build": "tsup",
