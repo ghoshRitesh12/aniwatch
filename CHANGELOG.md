@@ -1,3 +1,12 @@
+## [1.2.1](https://github.com/ghoshRitesh12/aniwatch/compare/v1.2.0...v1.2.1) (2024-08-06)
+
+
+### Bug Fixes
+
+* **animeEpisodeSrcs:** fix bug where internal fn would call outer wrapper ([4ae88c3](https://github.com/ghoshRitesh12/aniwatch/commit/4ae88c3c80ee12c9ae3912066a1533467df7624f))
+
+
+
 # [1.2.0](https://github.com/ghoshRitesh12/aniwatch/compare/v1.1.1...v1.2.0) (2024-08-06)
 
 
@@ -22,10 +31,6 @@
 
 
 ## [1.0.4](https://github.com/ghoshRitesh12/aniwatch/compare/v1.0.3...v1.0.4) (2024-08-06)
-
-
-
-## [1.0.3](https://github.com/ghoshRitesh12/aniwatch/compare/v1.0.2...v1.0.3) (2024-08-06)
 
 
 
