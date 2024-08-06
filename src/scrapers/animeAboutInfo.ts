@@ -43,7 +43,7 @@ export async function getAnimeAboutInfo(
   };
 
   try {
-    if (id.trim() === null) {
+    if (id.trim() === "") {
       throw new AniwatchError(
         "Anime unique id required",
         getAnimeAboutInfo.name
