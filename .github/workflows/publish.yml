@@ -31,7 +31,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint and build
-        run: pnpm run lint && pnpm build
+        run: pnpm run ci
 
       - name: Publish package
         run: npm publish
