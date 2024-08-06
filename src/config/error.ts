@@ -1,7 +1,6 @@
 import { AxiosError } from "axios";
 
-const RED_COLOR = "\\033[31m";
-const RESET_COLOR = "\\033[0m";
+const ANSI_ESCAPE_CODE_RED_COLOR = "\x1b[31m%s\x1b[0m";
 const DEFAULT_ERROR_MESSAGE = "Something went wrong";
 
 export class AniwatchError extends Error {
@@ -38,16 +37,15 @@ export class AniwatchError extends Error {
 
   private logError() {
     console.error(
-      RED_COLOR +
-        JSON.stringify(
-          {
-            scraper: this.scraper,
-            message: this?.message || DEFAULT_ERROR_MESSAGE,
-          },
-          null,
-          2
-        ) +
-        RESET_COLOR
+      ANSI_ESCAPE_CODE_RED_COLOR,
+      JSON.stringify(
+        {
+          scraper: this.scraper,
+          message: this?.message || DEFAULT_ERROR_MESSAGE,
+        },
+        null,
+        2
+      )
     );
   }
 }
