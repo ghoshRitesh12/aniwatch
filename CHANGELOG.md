@@ -1,3 +1,7 @@
+## [1.0.4](https://github.com/ghoshRitesh12/aniwatch/compare/v1.0.3...v1.0.4) (2024-08-06)
+
+
+
 ## [1.0.3](https://github.com/ghoshRitesh12/aniwatch/compare/v1.0.2...v1.0.3) (2024-08-06)
 
 
@@ -32,10 +36,6 @@
 ### BREAKING CHANGES
 
 * **scrapers:** remove  dependency for convenience
-
-
-
-## [0.3.2](https://github.com/ghoshRitesh12/aniwatch/compare/v0.3.1...v0.3.2) (2024-08-05)
 
 
 
