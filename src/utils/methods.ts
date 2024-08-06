@@ -1,10 +1,10 @@
+import { AniwatchError } from "../config/error.js";
 import type {
   Anime,
   Top10Anime,
   MostPopularAnime,
   Top10AnimeTimePeriod,
 } from "../types/anime.js";
-import type { CheerioAPI, SelectorType } from "cheerio";
 import {
   genresIdMap,
   languageIdMap,
@@ -15,13 +15,14 @@ import {
   statusIdMap,
   typeIdMap,
 } from "./constants.js";
-import { type FilterKeys } from "../types/animeSearch.js";
-import createHttpError, { HttpError } from "http-errors";
+import type { CheerioAPI, SelectorType } from "cheerio";
+import type { FilterKeys } from "../types/animeSearch.js";
 
 export const extractAnimes = (
   $: CheerioAPI,
-  selector: SelectorType
-): Array<Anime> | HttpError => {
+  selector: SelectorType,
+  scraperName: string
+): Array<Anime> => {
   try {
     const animes: Array<Anime> = [];
 
@@ -83,16 +84,15 @@ export const extractAnimes = (
 
     return animes;
   } catch (err: any) {
-    throw createHttpError.InternalServerError(
-      err?.message || "Something went wrong"
-    );
+    throw AniwatchError.wrapError(err, scraperName);
   }
 };
 
 export const extractTop10Animes = (
   $: CheerioAPI,
-  period: Top10AnimeTimePeriod
-): Array<Top10Anime> | HttpError => {
+  period: Top10AnimeTimePeriod,
+  scraperName: string
+): Array<Top10Anime> => {
   try {
     const animes: Array<Top10Anime> = [];
     const selector = `#top-viewed-${period} ul li`;
@@ -138,16 +138,15 @@ export const extractTop10Animes = (
 
     return animes;
   } catch (err: any) {
-    throw createHttpError.InternalServerError(
-      err?.message || "Something went wrong"
-    );
+    throw AniwatchError.wrapError(err, scraperName);
   }
 };
 
 export const extractMostPopularAnimes = (
   $: CheerioAPI,
-  selector: SelectorType
-): Array<MostPopularAnime> | HttpError => {
+  selector: SelectorType,
+  scraperName: string
+): Array<MostPopularAnime> => {
   try {
     const animes: Array<MostPopularAnime> = [];
 
@@ -191,9 +190,7 @@ export const extractMostPopularAnimes = (
 
     return animes;
   } catch (err: any) {
-    throw createHttpError.InternalServerError(
-      err?.message || "Something went wrong"
-    );
+    throw AniwatchError.wrapError(err, scraperName);
   }
 };
 
