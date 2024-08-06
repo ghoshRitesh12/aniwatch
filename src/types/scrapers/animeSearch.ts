@@ -2,13 +2,12 @@ import type {
   ScrapedAnimeCategory,
   CommonAnimeScrapeTypes,
 } from "./animeCategory.js";
-import type { HttpError } from "http-errors";
 import type { MostPopularAnime } from "../anime.js";
 import type { SearchFilters } from "../animeSearch.js";
 
 export interface ScrapedAnimeSearchResult
   extends Pick<ScrapedAnimeCategory, CommonAnimeScrapeTypes> {
-  mostPopularAnimes: Array<MostPopularAnime> | HttpError;
+  mostPopularAnimes: Array<MostPopularAnime>;
   searchQuery: string;
   searchFilters: SearchFilters;
 }
