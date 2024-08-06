@@ -1,10 +1,19 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import { SRC_BASE_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedEpisodeServers } from "../types/scrapers/index.js";
 
-// /anime/servers?episodeId=${id}
+/**
+ * @param {string} episodeId - unique episode id
+ * @example
+ * import { getEpisodeServers } from "aniwatch";
+ *
+ * getEpisodeServers("steinsgate-0-92?ep=2055")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getEpisodeServers(
   episodeId: string
 ): Promise<ScrapedEpisodeServers> {
@@ -17,6 +26,13 @@ export async function getEpisodeServers(
   };
 
   try {
+    if (episodeId.trim() === "" || episodeId.indexOf("?ep=") === -1) {
+      throw new AniwatchError(
+        "invalid anime episode id",
+        getEpisodeServers.name
+      );
+    }
+
     const epId = episodeId.split("?ep=")[1];
 
     const { data } = await client.get(

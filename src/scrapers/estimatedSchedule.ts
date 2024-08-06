@@ -1,10 +1,19 @@
-import { SRC_HOME_URL, SRC_AJAX_URL } from "../utils/index.js";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
-import { type ScrapedEstimatedSchedule } from "../types/scrapers/index.js";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
+import { SRC_HOME_URL, SRC_AJAX_URL } from "../utils/index.js";
+import type { ScrapedEstimatedSchedule } from "../types/scrapers/index.js";
 
-// /anime/schedule?date=${date}
+/**
+ * @param {string} date - date in `YYYY-MM-DD` format
+ * @example
+ * import { getEstimatedSchedule } from "aniwatch";
+ *
+ * getEstimatedSchedule("2024-08-09")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getEstimatedSchedule(
   date: string
 ): Promise<ScrapedEstimatedSchedule> {
@@ -13,6 +22,11 @@ export async function getEstimatedSchedule(
   };
 
   try {
+    date = date?.trim();
+    if (date === "" || /^\d{4}-\d{2}-\d{2}$/.test(date) === false) {
+      throw new AniwatchError("invalid date format", getEstimatedSchedule.name);
+    }
+
     const estScheduleURL =
       `${SRC_AJAX_URL}/schedule/list?tzOffset=-330&date=${date}` as const;
 

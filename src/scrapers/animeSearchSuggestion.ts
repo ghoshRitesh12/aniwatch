@@ -1,18 +1,35 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import { SRC_HOME_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeSearchSuggestion } from "../types/scrapers/index.js";
 
-// /anime/search/suggest?q=${query}
+/**
+ * @param {string} q - search query
+ * @example
+ * import { getAnimeSearchSuggestion } from "aniwatch";
+ *
+ * getAnimeSearchSuggestion("one piece")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getAnimeSearchSuggestion(
   q: string
 ): Promise<ScrapedAnimeSearchSuggestion> {
-  const res: ScrapedAnimeSearchSuggestion = {
-    suggestions: [],
-  };
-
   try {
+    const res: ScrapedAnimeSearchSuggestion = {
+      suggestions: [],
+    };
+
+    q = q.trim() ? decodeURIComponent(q.trim()) : "";
+    if (q.trim() === "") {
+      throw new AniwatchError(
+        "invalid search query",
+        getAnimeSearchSuggestion.name
+      );
+    }
+
     const { data } = await client.get(
       `${SRC_AJAX_URL}/search/suggest?keyword=${encodeURIComponent(q)}`,
       {

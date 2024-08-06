@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -7,27 +8,39 @@ import {
   extractMostPopularAnimes,
   getSearchDateFilterValue,
 } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeSearchResult } from "../types/scrapers/index.js";
 import type { SearchFilters, FilterKeys } from "../types/animeSearch.js";
 
-// /anime/search?q=${query}&page=${page}
-export async function getAnimeSearch(
+const searchFilters: Record<string, boolean> = {
+  filter: true,
+  type: true,
+  status: true,
+  rated: true,
+  score: true,
+  season: true,
+  language: true,
+  start_date: true,
+  end_date: true,
+  sort: true,
+  genres: true,
+} as const;
+
+async function _getAnimeSearchResults(
   q: string,
   page: number = 1,
   filters: SearchFilters
 ): Promise<ScrapedAnimeSearchResult> {
-  const res: ScrapedAnimeSearchResult = {
-    animes: [],
-    mostPopularAnimes: [],
-    currentPage: Number(page),
-    hasNextPage: false,
-    totalPages: 1,
-    searchQuery: q,
-    searchFilters: filters,
-  };
-
   try {
+    const res: ScrapedAnimeSearchResult = {
+      animes: [],
+      mostPopularAnimes: [],
+      searchQuery: q,
+      searchFilters: filters,
+      totalPages: 1,
+      hasNextPage: false,
+      currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
+    };
+
     const url = new URL(SRC_SEARCH_URL);
     url.searchParams.set("keyword", q);
     url.searchParams.set("page", `${page}`);
@@ -84,7 +97,7 @@ export async function getAnimeSearch(
           $(".pagination > .page-item.active a")?.text()?.trim()
       ) || 1;
 
-    res.animes = extractAnimes($, selector, getAnimeSearch.name);
+    res.animes = extractAnimes($, selector, getAnimeSearchResults.name);
 
     if (res.animes.length === 0 && !res.hasNextPage) {
       res.totalPages = 0;
@@ -95,11 +108,58 @@ export async function getAnimeSearch(
     res.mostPopularAnimes = extractMostPopularAnimes(
       $,
       mostPopularSelector,
-      getAnimeSearch.name
+      getAnimeSearchResults.name
     );
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeSearch.name);
+    throw AniwatchError.wrapError(err, getAnimeSearchResults.name);
+  }
+}
+
+/**
+ * @param {string} q - search query
+ * @param {number} page - page number, defaults to `1`
+ * @param {SearchFilters} filters - optional advance search filters
+ * @example
+ * import { getAnimeSearchResults } from "aniwatch";
+ *
+ *  getAnimeSearchResults("monster", 1, {
+ *    genres: "seinen,psychological",
+ *  })
+ *    .then((data) => {
+ *      console.log(data);
+ *    })
+ *    .catch((err) => {
+ *      console.error(err);
+ *    });
+ *
+ */
+export async function getAnimeSearchResults(
+  q: string,
+  page: number = 1,
+  filters: SearchFilters = {}
+): Promise<ScrapedAnimeSearchResult> {
+  try {
+    q = q.trim() ? decodeURIComponent(q.trim()) : "";
+    if (q.trim() === "") {
+      throw new AniwatchError(
+        "invalid search query",
+        getAnimeSearchResults.name
+      );
+    }
+    page = page < 1 ? 1 : page;
+
+    const parsedFilters: SearchFilters = {};
+    for (const key in filters) {
+      if (searchFilters[key]) {
+        parsedFilters[key as keyof SearchFilters] =
+          filters[key as keyof SearchFilters];
+      }
+    }
+
+    return _getAnimeSearchResults(q, page, parsedFilters);
+  } catch (err: any) {
+    throw AniwatchError.wrapError(err, getAnimeSearchResults.name);
   }
 }

@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -5,12 +6,20 @@ import {
   extractAnimes,
   extractMostPopularAnimes,
 } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeAboutInfo } from "../types/scrapers/index.js";
 
-// /anime/info?id=${anime-id}
+/**
+ * @param {string} animeId - unique anime id
+ * @example
+ * import { getAnimeAboutInfo } from "aniwatch";
+ *
+ * getAnimeAboutInfo("steinsgate-3")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getAnimeAboutInfo(
-  id: string
+  animeId: string
 ): Promise<ScrapedAnimeAboutInfo> {
   const res: ScrapedAnimeAboutInfo = {
     anime: {
@@ -43,14 +52,11 @@ export async function getAnimeAboutInfo(
   };
 
   try {
-    if (id.trim() === "") {
-      throw new AniwatchError(
-        "Anime unique id required",
-        getAnimeAboutInfo.name
-      );
+    if (animeId.trim() === "" || animeId.indexOf("-") === -1) {
+      throw new AniwatchError("invalid anime id", getAnimeAboutInfo.name);
     }
 
-    const animeUrl: URL = new URL(id, SRC_BASE_URL);
+    const animeUrl: URL = new URL(animeId, SRC_BASE_URL);
     const mainPage = await client.get(animeUrl.href);
 
     const $: CheerioAPI = load(mainPage.data);

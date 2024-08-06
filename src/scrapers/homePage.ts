@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -7,9 +8,16 @@ import {
   extractMostPopularAnimes,
 } from "../utils/index.js";
 import type { ScrapedHomePage } from "../types/scrapers/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 
-// /anime/home
+/**
+ * @example
+ * import { getHomePage } from "aniwatch";
+ *
+ * getHomePage()
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getHomePage(): Promise<ScrapedHomePage> {
   const res: ScrapedHomePage = {
     spotlightAnimes: [],

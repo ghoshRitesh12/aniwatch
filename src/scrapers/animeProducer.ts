@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -6,10 +7,19 @@ import {
   extractAnimes,
   extractTop10Animes,
 } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedProducerAnime } from "../types/scrapers/index.js";
 
-// /anime/producer/${name}?page=${page}
+/**
+ * @param {string} producerName - anime producer name
+ * @param {number} page - page number, defaults to `1`
+ * @example
+ * import { getProducerAnimes } from "aniwatch";
+ *
+ * getProducerAnimes("toei-animation", 2)
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getProducerAnimes(
   producerName: string,
   page: number = 1
@@ -25,13 +35,14 @@ export async function getProducerAnimes(
     topAiringAnimes: [],
     totalPages: 1,
     hasNextPage: false,
-    currentPage: Number(page),
+    currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
 
   try {
     if (producerName.trim() === "") {
-      throw new AniwatchError("Producer name required", getProducerAnimes.name);
+      throw new AniwatchError("invalid producer name", getProducerAnimes.name);
     }
+    page = page < 1 ? 1 : page;
 
     const producerUrl: URL = new URL(
       `/producer/${producerName}?page=${page}`,

@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -5,11 +6,20 @@ import {
   extractAnimes,
   extractTop10Animes,
 } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { AnimeCategories } from "../types/anime.js";
 import type { ScrapedAnimeCategory } from "../types/scrapers/index.js";
 
-// /anime/:category?page=${page}
+/**
+ * @param {string} category - anime category
+ * @param {number} page - page number, defaults to `1`
+ * @example
+ * import { getAnimeCategory } from "aniwatch";
+ *
+ * getAnimeCategory("subbed-anime")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getAnimeCategory(
   category: AnimeCategories,
   page: number = 1
@@ -23,12 +33,17 @@ export async function getAnimeCategory(
       month: [],
     },
     category,
-    currentPage: Number(page),
-    hasNextPage: false,
     totalPages: 1,
+    hasNextPage: false,
+    currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
 
   try {
+    if (category.trim() === "") {
+      throw new AniwatchError("invalid anime category", getAnimeCategory.name);
+    }
+    page = page < 1 ? 1 : page;
+
     const scrapeUrl: URL = new URL(category, SRC_BASE_URL);
     const mainPage = await client.get(`${scrapeUrl}?page=${page}`);
 

@@ -1,3 +1,4 @@
+import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -5,10 +6,19 @@ import {
   extractAnimes,
   extractMostPopularAnimes,
 } from "../utils/index.js";
-import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedGenreAnime } from "../types/scrapers/index.js";
 
-// /anime/genre/${name}?page=${page}
+/**
+ * @param {string} genreName - anime genre name
+ * @param {number} page - page number, defaults to `1`
+ * @example
+ * import { getGenreAnime } from "aniwatch";
+ *
+ * getGenreAnime("shounen", 2)
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getGenreAnime(
   genreName: string,
   page: number = 1
@@ -20,20 +30,24 @@ export async function getGenreAnime(
     topAiringAnimes: [],
     totalPages: 1,
     hasNextPage: false,
-    currentPage: Number(page),
+    currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
 
   // there's a typo with zoro where martial arts is marial arts
   genreName = genreName === "martial-arts" ? "marial-arts" : genreName;
 
   try {
+    if (genreName.trim() === "") {
+      throw new AniwatchError("invalid genre name", getGenreAnime.name);
+    }
+    page = page < 1 ? 1 : page;
+
     const genreUrl: URL = new URL(
       `/genre/${genreName}?page=${page}`,
       SRC_BASE_URL
     );
 
     const mainPage = await client.get(genreUrl.href);
-
     const $: CheerioAPI = load(mainPage.data);
 
     const selector: SelectorType =

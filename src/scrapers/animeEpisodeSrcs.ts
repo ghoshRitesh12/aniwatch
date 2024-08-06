@@ -1,3 +1,5 @@
+import axios from "axios";
+import { load, type CheerioAPI } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import {
@@ -6,7 +8,6 @@ import {
   retrieveServerId,
   USER_AGENT_HEADER,
 } from "../utils/index.js";
-import { load, type CheerioAPI } from "cheerio";
 import {
   RapidCloud,
   StreamSB,
@@ -21,8 +22,7 @@ import type { ScrapedAnimeEpisodesSources } from "../types/scrapers/index.js";
 // streamsb -> 5
 // streamtape -> 3
 
-// /anime/episode-srcs?id=${episodeId}?server=${server}&category=${category (dub or sub)}
-export async function getAnimeEpisodeSources(
+async function _getAnimeEpisodeSources(
   episodeId: string,
   server: AnimeServers = Servers.VidStreaming,
   category: "sub" | "dub" | "raw" = "sub"
@@ -114,6 +114,77 @@ export async function getAnimeEpisodeSources(
     console.log("THE LINK: ", link);
 
     return await getAnimeEpisodeSources(link, server);
+  } catch (err: any) {
+    throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
+  }
+}
+
+type AnilistID = number | null;
+type MalID = number | null;
+
+/**
+ * @param {string} episodeId - unique episode id
+ * @example
+ * import { getAnimeEpisodeSources } from "aniwatch";
+ *
+ * getAnimeEpisodeSources("steinsgate-3?ep=230", "hd-1", "sub")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
+export async function getAnimeEpisodeSources(
+  episodeId: string,
+  server: AnimeServers = Servers.VidStreaming,
+  category: "sub" | "dub" | "raw" = "sub"
+): Promise<
+  ScrapedAnimeEpisodesSources & { anilistID: AnilistID; malID: MalID }
+> {
+  try {
+    if (episodeId.trim() === "" || episodeId.indexOf("?ep=") === -1) {
+      throw new AniwatchError(
+        "invalid anime episode id",
+        getAnimeEpisodeSources.name
+      );
+    }
+    if (category.trim() === "") {
+      throw new AniwatchError(
+        "invalid anime episode category",
+        getAnimeEpisodeSources.name
+      );
+    }
+
+    let malID: MalID;
+    let anilistID: AnilistID;
+    const animeURL = new URL(episodeId?.split("?ep=")[0], SRC_BASE_URL)?.href;
+
+    const [episodeSrcData, animeSrc] = await Promise.all([
+      _getAnimeEpisodeSources(episodeId, server, category),
+      axios.get(animeURL, {
+        headers: {
+          Referer: SRC_BASE_URL,
+          "User-Agent": USER_AGENT_HEADER,
+          "X-Requested-With": "XMLHttpRequest",
+        },
+      }),
+    ]);
+
+    const $: CheerioAPI = load(animeSrc?.data);
+
+    try {
+      anilistID = Number(
+        JSON.parse($("body")?.find("#syncData")?.text())?.anilist_id
+      );
+      malID = Number(JSON.parse($("body")?.find("#syncData")?.text())?.mal_id);
+    } catch (err) {
+      anilistID = null;
+      malID = null;
+    }
+
+    return {
+      ...episodeSrcData,
+      anilistID,
+      malID,
+    };
   } catch (err: any) {
     throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
   }

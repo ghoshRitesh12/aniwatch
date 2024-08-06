@@ -1,9 +1,19 @@
+import { load, type CheerioAPI } from "cheerio";
 import { client } from "../config/client.js";
 import { AniwatchError } from "../config/error.js";
 import { SRC_BASE_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { load, type CheerioAPI } from "cheerio";
 import type { ScrapedAnimeEpisodes } from "../types/scrapers/index.js";
 
+/**
+ * @param {string} animeId - unique anime id
+ * @example
+ * import { getAnimeEpisodes } from "aniwatch";
+ *
+ * getAnimeEpisodes("attack-on-titan-112")
+ *  .then((data) => console.log(data))
+ *  .catch((err) => console.error(err));
+ *
+ */
 export async function getAnimeEpisodes(
   animeId: string
 ): Promise<ScrapedAnimeEpisodes> {
@@ -13,8 +23,8 @@ export async function getAnimeEpisodes(
   };
 
   try {
-    if (animeId.trim() === "") {
-      throw new AniwatchError("Anime Id required", getAnimeEpisodes.name);
+    if (animeId.trim() === "" || animeId.indexOf("-") === -1) {
+      throw new AniwatchError("invalid anime id", getAnimeEpisodes.name);
     }
 
     const episodesAjax = await client.get(
