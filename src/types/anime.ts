@@ -30,10 +30,11 @@ export interface SpotlightAnime
   extends MostPopularAnime,
     Pick<Top10Anime, "rank"> {
   description: string | null;
+  otherInfo: string[];
 }
 
 export interface TrendingAnime
-  extends Pick<Anime, CommonAnimeProps>,
+  extends Pick<Anime, CommonAnimeProps | "jname">,
     Pick<Top10Anime, "rank"> {}
 
 export interface LatestEpisodeAnime extends Anime {}
