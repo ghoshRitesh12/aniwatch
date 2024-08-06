@@ -1,6 +1,9 @@
 // scraper exports
 export * from "./scrapers/index.js";
 
+// aniwatch error
+export { AniwatchError } from "./config/error.js";
+
 // scraper type exports
 // export * from "./types/scrapers/index.js";
 
