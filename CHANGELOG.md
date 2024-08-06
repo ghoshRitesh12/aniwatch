@@ -1,3 +1,7 @@
+## [1.0.1](https://github.com/ghoshRitesh12/aniwatch/compare/v1.0.0...v1.0.1) (2024-08-06)
+
+
+
 # [1.0.0](https://github.com/ghoshRitesh12/aniwatch/compare/v0.3.2...v1.0.0) (2024-08-06)
 
 
@@ -37,10 +41,6 @@
 * **scrapers:** add pkg scrapers ([967dbb0](https://github.com/ghoshRitesh12/aniwatch/commit/967dbb0970dfbd04be63be012cf52e3e3ced4ce7))
 * **types:** add pkg types ([25c05c9](https://github.com/ghoshRitesh12/aniwatch/commit/25c05c99709d4b0747df78a77c19e173a98816f4))
 * **utils:** add pkg utils ([61cf765](https://github.com/ghoshRitesh12/aniwatch/commit/61cf765d51220d8eafebc5ce11bbf0981f788988))
-
-
-
-## [0.2.3](https://github.com/ghoshRitesh12/aniwatch/compare/v0.2.2...v0.2.3) (2024-08-05)
 
 
 
