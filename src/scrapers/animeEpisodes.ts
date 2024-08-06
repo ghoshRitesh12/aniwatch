@@ -1,13 +1,12 @@
-import { AxiosError } from "axios";
 import { client } from "../config/client.js";
-import { load, type CheerioAPI } from "cheerio";
-import createHttpError, { type HttpError } from "http-errors";
-import { type ScrapedAnimeEpisodes } from "../types/scrapers/index.js";
+import { AniwatchError } from "../config/error.js";
 import { SRC_BASE_URL, SRC_AJAX_URL } from "../utils/index.js";
+import { load, type CheerioAPI } from "cheerio";
+import type { ScrapedAnimeEpisodes } from "../types/scrapers/index.js";
 
-async function scrapeAnimeEpisodes(
+export async function getAnimeEpisodes(
   animeId: string
-): Promise<ScrapedAnimeEpisodes | HttpError> {
+): Promise<ScrapedAnimeEpisodes> {
   const res: ScrapedAnimeEpisodes = {
     totalEpisodes: 0,
     episodes: [],
@@ -15,7 +14,7 @@ async function scrapeAnimeEpisodes(
 
   try {
     if (animeId.trim() === "") {
-      throw createHttpError.BadRequest("Anime Id required");
+      throw new AniwatchError("Anime Id required", getAnimeEpisodes.name);
     }
 
     const episodesAjax = await client.get(
@@ -43,14 +42,6 @@ async function scrapeAnimeEpisodes(
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeEpisodes.name);
   }
 }
-
-export default scrapeAnimeEpisodes;

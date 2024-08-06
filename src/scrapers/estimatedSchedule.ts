@@ -1,14 +1,13 @@
 import { SRC_HOME_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { type ScrapedEstimatedSchedule } from "../types/scrapers/index.js";
 import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 
 // /anime/schedule?date=${date}
-async function scrapeEstimatedSchedule(
+export async function getEstimatedSchedule(
   date: string
-): Promise<ScrapedEstimatedSchedule | HttpError> {
+): Promise<ScrapedEstimatedSchedule> {
   const res: ScrapedEstimatedSchedule = {
     scheduledAnimes: [],
   };
@@ -57,14 +56,6 @@ async function scrapeEstimatedSchedule(
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getEstimatedSchedule.name);
   }
 }
-
-export default scrapeEstimatedSchedule;

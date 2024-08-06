@@ -1,20 +1,19 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_BASE_URL,
   extractMostPopularAnimes,
   extractAnimes,
   extractTop10Animes,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedProducerAnime } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
 
 // /anime/producer/${name}?page=${page}
-async function scrapeProducerAnimes(
+export async function getProducerAnimes(
   producerName: string,
   page: number = 1
-): Promise<ScrapedProducerAnime | HttpError> {
+): Promise<ScrapedProducerAnime> {
   const res: ScrapedProducerAnime = {
     producerName,
     animes: [],
@@ -30,6 +29,10 @@ async function scrapeProducerAnimes(
   };
 
   try {
+    if (producerName.trim() === "") {
+      throw new AniwatchError("Producer name required", getProducerAnimes.name);
+    }
+
     const producerUrl: URL = new URL(
       `/producer/${producerName}?page=${page}`,
       SRC_BASE_URL
@@ -64,7 +67,7 @@ async function scrapeProducerAnimes(
           $(".pagination > .page-item.active a")?.text()?.trim()
       ) || 1;
 
-    res.animes = extractAnimes($, animeSelector);
+    res.animes = extractAnimes($, animeSelector, getProducerAnimes.name);
 
     if (res.animes.length === 0 && !res.hasNextPage) {
       res.totalPages = 0;
@@ -81,32 +84,40 @@ async function scrapeProducerAnimes(
       const period = $(el).attr("id")?.split("-")?.pop()?.trim();
 
       if (period === "day") {
-        res.top10Animes.today = extractTop10Animes($, period);
+        res.top10Animes.today = extractTop10Animes(
+          $,
+          period,
+          getProducerAnimes.name
+        );
         return;
       }
       if (period === "week") {
-        res.top10Animes.week = extractTop10Animes($, period);
+        res.top10Animes.week = extractTop10Animes(
+          $,
+          period,
+          getProducerAnimes.name
+        );
         return;
       }
       if (period === "month") {
-        res.top10Animes.month = extractTop10Animes($, period);
+        res.top10Animes.month = extractTop10Animes(
+          $,
+          period,
+          getProducerAnimes.name
+        );
       }
     });
 
     const topAiringSelector: SelectorType =
       "#main-sidebar .block_area_sidebar:nth-child(2) .block_area-content .anif-block-ul ul li";
-    res.topAiringAnimes = extractMostPopularAnimes($, topAiringSelector);
+    res.topAiringAnimes = extractMostPopularAnimes(
+      $,
+      topAiringSelector,
+      getProducerAnimes.name
+    );
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getProducerAnimes.name);
   }
 }
-
-export default scrapeProducerAnimes;

@@ -1,14 +1,13 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import { SRC_HOME_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeSearchSuggestion } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
 
 // /anime/search/suggest?q=${query}
-async function scrapeAnimeSearchSuggestion(
+export async function getAnimeSearchSuggestion(
   q: string
-): Promise<ScrapedAnimeSearchSuggestion | HttpError> {
+): Promise<ScrapedAnimeSearchSuggestion> {
   const res: ScrapedAnimeSearchSuggestion = {
     suggestions: [],
   };
@@ -34,7 +33,7 @@ async function scrapeAnimeSearchSuggestion(
     $(selector).each((_, el) => {
       const id = $(el).attr("href")?.split("?")[0].includes("javascript")
         ? null
-        : $(el).attr("href")?.split("?")[0]?.slice(1);
+        : $(el).attr("href")?.split("?")[0]?.slice(1) || null;
 
       res.suggestions.push({
         id,
@@ -43,10 +42,11 @@ async function scrapeAnimeSearchSuggestion(
           $(el).find(".srp-detail .film-name")?.attr("data-jname")?.trim() ||
           $(el).find(".srp-detail .alias-name")?.text()?.trim() ||
           null,
-        poster: $(el)
-          .find(".film-poster .film-poster-img")
-          ?.attr("data-src")
-          ?.trim(),
+        poster:
+          $(el)
+            .find(".film-poster .film-poster-img")
+            ?.attr("data-src")
+            ?.trim() || null,
         moreInfo: [
           ...$(el)
             .find(".film-infor")
@@ -58,14 +58,6 @@ async function scrapeAnimeSearchSuggestion(
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeSearchSuggestion.name);
   }
 }
-
-export default scrapeAnimeSearchSuggestion;

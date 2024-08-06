@@ -1,19 +1,18 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_BASE_URL,
   extractAnimes,
   extractMostPopularAnimes,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedGenreAnime } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
 
 // /anime/genre/${name}?page=${page}
-async function scrapeGenreAnime(
+export async function getGenreAnime(
   genreName: string,
   page: number = 1
-): Promise<ScrapedGenreAnime | HttpError> {
+): Promise<ScrapedGenreAnime> {
   const res: ScrapedGenreAnime = {
     genreName,
     animes: [],
@@ -66,7 +65,7 @@ async function scrapeGenreAnime(
           $(".pagination > .page-item.active a")?.text()?.trim()
       ) || 1;
 
-    res.animes = extractAnimes($, selector);
+    res.animes = extractAnimes($, selector, getGenreAnime.name);
 
     if (res.animes.length === 0 && !res.hasNextPage) {
       res.totalPages = 0;
@@ -80,18 +79,14 @@ async function scrapeGenreAnime(
 
     const topAiringSelector: SelectorType =
       "#main-sidebar .block_area.block_area_sidebar.block_area-realtime .anif-block-ul ul li";
-    res.topAiringAnimes = extractMostPopularAnimes($, topAiringSelector);
+    res.topAiringAnimes = extractMostPopularAnimes(
+      $,
+      topAiringSelector,
+      getGenreAnime.name
+    );
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getGenreAnime.name);
   }
 }
-
-export default scrapeGenreAnime;

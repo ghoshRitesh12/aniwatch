@@ -1,18 +1,17 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_BASE_URL,
   extractAnimes,
   extractMostPopularAnimes,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import { client } from "../config/client.js";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeAboutInfo } from "../types/scrapers/index.js";
 
 // /anime/info?id=${anime-id}
-async function scrapeAnimeAboutInfo(
+export async function getAnimeAboutInfo(
   id: string
-): Promise<ScrapedAnimeAboutInfo | HttpError> {
+): Promise<ScrapedAnimeAboutInfo> {
   const res: ScrapedAnimeAboutInfo = {
     anime: {
       info: {
@@ -45,7 +44,10 @@ async function scrapeAnimeAboutInfo(
 
   try {
     if (id.trim() === null) {
-      throw createHttpError.BadRequest("Anime unique id required");
+      throw new AniwatchError(
+        "Anime unique id required",
+        getAnimeAboutInfo.name
+      );
     }
 
     const animeUrl: URL = new URL(id, SRC_BASE_URL);
@@ -214,26 +216,30 @@ async function scrapeAnimeAboutInfo(
 
     const relatedAnimeSelector: SelectorType =
       "#main-sidebar .block_area.block_area_sidebar.block_area-realtime:nth-of-type(1) .anif-block-ul ul li";
-    res.relatedAnimes = extractMostPopularAnimes($, relatedAnimeSelector);
+    res.relatedAnimes = extractMostPopularAnimes(
+      $,
+      relatedAnimeSelector,
+      getAnimeAboutInfo.name
+    );
 
     const mostPopularSelector: SelectorType =
       "#main-sidebar .block_area.block_area_sidebar.block_area-realtime:nth-of-type(2) .anif-block-ul ul li";
-    res.mostPopularAnimes = extractMostPopularAnimes($, mostPopularSelector);
+    res.mostPopularAnimes = extractMostPopularAnimes(
+      $,
+      mostPopularSelector,
+      getAnimeAboutInfo.name
+    );
 
     const recommendedAnimeSelector: SelectorType =
       "#main-content .block_area.block_area_category .tab-content .flw-item";
-    res.recommendedAnimes = extractAnimes($, recommendedAnimeSelector);
+    res.recommendedAnimes = extractAnimes(
+      $,
+      recommendedAnimeSelector,
+      getAnimeAboutInfo.name
+    );
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeAboutInfo.name);
   }
 }
-
-export default scrapeAnimeAboutInfo;

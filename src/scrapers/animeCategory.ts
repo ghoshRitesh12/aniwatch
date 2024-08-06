@@ -1,20 +1,19 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_BASE_URL,
   extractAnimes,
   extractTop10Animes,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import { type AnimeCategories } from "../types/anime.js";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
-import { type ScrapedAnimeCategory } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
+import type { AnimeCategories } from "../types/anime.js";
+import type { ScrapedAnimeCategory } from "../types/scrapers/index.js";
 
 // /anime/:category?page=${page}
-async function scrapeAnimeCategory(
+export async function getAnimeCategory(
   category: AnimeCategories,
   page: number = 1
-): Promise<ScrapedAnimeCategory | HttpError> {
+): Promise<ScrapedAnimeCategory> {
   const res: ScrapedAnimeCategory = {
     animes: [],
     genres: [],
@@ -64,7 +63,7 @@ async function scrapeAnimeCategory(
           $(".pagination > .page-item.active a")?.text()?.trim()
       ) || 1;
 
-    res.animes = extractAnimes($, selector);
+    res.animes = extractAnimes($, selector, getAnimeCategory.name);
 
     if (res.animes.length === 0 && !res.hasNextPage) {
       res.totalPages = 0;
@@ -83,28 +82,32 @@ async function scrapeAnimeCategory(
       const period = $(el).attr("id")?.split("-")?.pop()?.trim();
 
       if (period === "day") {
-        res.top10Animes.today = extractTop10Animes($, period);
+        res.top10Animes.today = extractTop10Animes(
+          $,
+          period,
+          getAnimeCategory.name
+        );
         return;
       }
       if (period === "week") {
-        res.top10Animes.week = extractTop10Animes($, period);
+        res.top10Animes.week = extractTop10Animes(
+          $,
+          period,
+          getAnimeCategory.name
+        );
         return;
       }
       if (period === "month") {
-        res.top10Animes.month = extractTop10Animes($, period);
+        res.top10Animes.month = extractTop10Animes(
+          $,
+          period,
+          getAnimeCategory.name
+        );
       }
     });
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeCategory.name);
   }
 }
-
-export default scrapeAnimeCategory;

@@ -1,3 +1,5 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_SEARCH_URL,
   extractAnimes,
@@ -5,19 +7,16 @@ import {
   extractMostPopularAnimes,
   getSearchDateFilterValue,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedAnimeSearchResult } from "../types/scrapers/index.js";
 import type { SearchFilters, FilterKeys } from "../types/animeSearch.js";
-import { client } from "../config/client.js";
 
 // /anime/search?q=${query}&page=${page}
-async function scrapeAnimeSearch(
+export async function getAnimeSearch(
   q: string,
   page: number = 1,
   filters: SearchFilters
-): Promise<ScrapedAnimeSearchResult | HttpError> {
+): Promise<ScrapedAnimeSearchResult> {
   const res: ScrapedAnimeSearchResult = {
     animes: [],
     mostPopularAnimes: [],
@@ -85,7 +84,7 @@ async function scrapeAnimeSearch(
           $(".pagination > .page-item.active a")?.text()?.trim()
       ) || 1;
 
-    res.animes = extractAnimes($, selector);
+    res.animes = extractAnimes($, selector, getAnimeSearch.name);
 
     if (res.animes.length === 0 && !res.hasNextPage) {
       res.totalPages = 0;
@@ -93,18 +92,14 @@ async function scrapeAnimeSearch(
 
     const mostPopularSelector: SelectorType =
       "#main-sidebar .block_area.block_area_sidebar.block_area-realtime .anif-block-ul ul li";
-    res.mostPopularAnimes = extractMostPopularAnimes($, mostPopularSelector);
+    res.mostPopularAnimes = extractMostPopularAnimes(
+      $,
+      mostPopularSelector,
+      getAnimeSearch.name
+    );
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeSearch.name);
   }
 }
-
-export default scrapeAnimeSearch;

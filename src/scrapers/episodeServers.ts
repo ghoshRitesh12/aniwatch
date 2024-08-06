@@ -1,14 +1,13 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import { SRC_BASE_URL, SRC_AJAX_URL } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import type { ScrapedEpisodeServers } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
 
 // /anime/servers?episodeId=${id}
-async function scrapeEpisodeServers(
+export async function getEpisodeServers(
   episodeId: string
-): Promise<ScrapedEpisodeServers | HttpError> {
+): Promise<ScrapedEpisodeServers> {
   const res: ScrapedEpisodeServers = {
     sub: [],
     dub: [],
@@ -64,14 +63,6 @@ async function scrapeEpisodeServers(
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getEpisodeServers.name);
   }
 }
-
-export default scrapeEpisodeServers;

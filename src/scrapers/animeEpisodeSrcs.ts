@@ -1,21 +1,20 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_AJAX_URL,
   SRC_BASE_URL,
   retrieveServerId,
   USER_AGENT_HEADER,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
 import { load, type CheerioAPI } from "cheerio";
-import createHttpError, { type HttpError } from "http-errors";
-import { type AnimeServers, Servers } from "../types/anime.js";
 import {
   RapidCloud,
   StreamSB,
   StreamTape,
   MegaCloud,
 } from "../extractors/index.js";
-import { type ScrapedAnimeEpisodesSources } from "../types/scrapers/index.js";
-import { client } from "../config/client.js";
+import { type AnimeServers, Servers } from "../types/anime.js";
+import type { ScrapedAnimeEpisodesSources } from "../types/scrapers/index.js";
 
 // vidtreaming -> 4
 // rapidcloud  -> 1
@@ -23,11 +22,11 @@ import { client } from "../config/client.js";
 // streamtape -> 3
 
 // /anime/episode-srcs?id=${episodeId}?server=${server}&category=${category (dub or sub)}
-async function scrapeAnimeEpisodeSources(
+export async function getAnimeEpisodeSources(
   episodeId: string,
   server: AnimeServers = Servers.VidStreaming,
   category: "sub" | "dub" | "raw" = "sub"
-): Promise<ScrapedAnimeEpisodesSources | HttpError> {
+): Promise<ScrapedAnimeEpisodesSources> {
   if (episodeId.startsWith("http")) {
     const serverUrl = new URL(episodeId);
     switch (server) {
@@ -103,8 +102,9 @@ async function scrapeAnimeEpisodeSources(
         }
       }
     } catch (err) {
-      throw createHttpError.NotFound(
-        "Couldn't find server. Try another server"
+      throw new AniwatchError(
+        "Couldn't find server. Try another server",
+        getAnimeEpisodeSources.name
       );
     }
 
@@ -113,17 +113,8 @@ async function scrapeAnimeEpisodeSources(
     } = await client.get(`${SRC_AJAX_URL}/v2/episode/sources?id=${serverId}`);
     console.log("THE LINK: ", link);
 
-    return await scrapeAnimeEpisodeSources(link, server);
+    return await getAnimeEpisodeSources(link, server);
   } catch (err: any) {
-    console.log(err);
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
   }
 }
-
-export default scrapeAnimeEpisodeSources;

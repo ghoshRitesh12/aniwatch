@@ -1,17 +1,16 @@
+import { client } from "../config/client.js";
+import { AniwatchError } from "../config/error.js";
 import {
   SRC_HOME_URL,
   extractTop10Animes,
   extractAnimes,
   extractMostPopularAnimes,
 } from "../utils/index.js";
-import { AxiosError } from "axios";
-import createHttpError, { type HttpError } from "http-errors";
 import type { ScrapedHomePage } from "../types/scrapers/index.js";
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
-import { client } from "../config/client.js";
 
 // /anime/home
-async function scrapeHomePage(): Promise<ScrapedHomePage | HttpError> {
+export async function getHomePage(): Promise<ScrapedHomePage> {
   const res: ScrapedHomePage = {
     spotlightAnimes: [],
     trendingAnimes: [],
@@ -54,30 +53,34 @@ async function scrapeHomePage(): Promise<ScrapedHomePage | HttpError> {
               .split(" ")[0]
               .slice(1)
           ) || null,
-        id: $(el)
-          .find(".deslide-item-content .desi-buttons a")
-          ?.last()
-          ?.attr("href")
-          ?.slice(1)
-          ?.trim(),
+        id:
+          $(el)
+            .find(".deslide-item-content .desi-buttons a")
+            ?.last()
+            ?.attr("href")
+            ?.slice(1)
+            ?.trim() || null,
         name: $(el)
           .find(".deslide-item-content .desi-head-title.dynamic-name")
           ?.text()
           .trim(),
-        description: $(el)
-          .find(".deslide-item-content .desi-description")
-          ?.text()
-          ?.split("[")
-          ?.shift()
-          ?.trim(),
-        poster: $(el)
-          .find(".deslide-cover .deslide-cover-img .film-poster-img")
-          ?.attr("data-src")
-          ?.trim(),
-        jname: $(el)
-          .find(".deslide-item-content .desi-head-title.dynamic-name")
-          ?.attr("data-jname")
-          ?.trim(),
+        description:
+          $(el)
+            .find(".deslide-item-content .desi-description")
+            ?.text()
+            ?.split("[")
+            ?.shift()
+            ?.trim() || null,
+        poster:
+          $(el)
+            .find(".deslide-cover .deslide-cover-img .film-poster-img")
+            ?.attr("data-src")
+            ?.trim() || null,
+        jname:
+          $(el)
+            .find(".deslide-item-content .desi-head-title.dynamic-name")
+            ?.attr("data-jname")
+            ?.trim() || null,
         episodes: {
           sub:
             Number(
@@ -98,6 +101,7 @@ async function scrapeHomePage(): Promise<ScrapedHomePage | HttpError> {
                 ?.trim()
             ) || null,
         },
+        type: otherInfo?.[0] || null,
         otherInfo,
       });
     });
@@ -110,29 +114,41 @@ async function scrapeHomePage(): Promise<ScrapedHomePage | HttpError> {
         rank: parseInt(
           $(el).find(".item .number")?.children()?.first()?.text()?.trim()
         ),
-        id: $(el).find(".item .film-poster")?.attr("href")?.slice(1)?.trim(),
+        id:
+          $(el).find(".item .film-poster")?.attr("href")?.slice(1)?.trim() ||
+          null,
         name: $(el)
           .find(".item .number .film-title.dynamic-name")
           ?.text()
           ?.trim(),
-        jname: $(el)
-          .find(".item .number .film-title.dynamic-name")
-          ?.attr("data-jname")
-          ?.trim(),
-        poster: $(el)
-          .find(".item .film-poster .film-poster-img")
-          ?.attr("data-src")
-          ?.trim(),
+        jname:
+          $(el)
+            .find(".item .number .film-title.dynamic-name")
+            ?.attr("data-jname")
+            ?.trim() || null,
+        poster:
+          $(el)
+            .find(".item .film-poster .film-poster-img")
+            ?.attr("data-src")
+            ?.trim() || null,
       });
     });
 
     const latestEpisodeSelector: SelectorType =
       "#main-content .block_area_home:nth-of-type(1) .tab-content .film_list-wrap .flw-item";
-    res.latestEpisodeAnimes = extractAnimes($, latestEpisodeSelector);
+    res.latestEpisodeAnimes = extractAnimes(
+      $,
+      latestEpisodeSelector,
+      getHomePage.name
+    );
 
     const topUpcomingSelector: SelectorType =
       "#main-content .block_area_home:nth-of-type(3) .tab-content .film_list-wrap .flw-item";
-    res.topUpcomingAnimes = extractAnimes($, topUpcomingSelector);
+    res.topUpcomingAnimes = extractAnimes(
+      $,
+      topUpcomingSelector,
+      getHomePage.name
+    );
 
     const genreSelector: SelectorType =
       "#main-sidebar .block_area.block_area_sidebar.block_area-genres .sb-genre-list li";
@@ -146,45 +162,41 @@ async function scrapeHomePage(): Promise<ScrapedHomePage | HttpError> {
       const period = $(el).attr("id")?.split("-")?.pop()?.trim();
 
       if (period === "day") {
-        res.top10Animes.today = extractTop10Animes($, period);
+        res.top10Animes.today = extractTop10Animes($, period, getHomePage.name);
         return;
       }
       if (period === "week") {
-        res.top10Animes.week = extractTop10Animes($, period);
+        res.top10Animes.week = extractTop10Animes($, period, getHomePage.name);
         return;
       }
       if (period === "month") {
-        res.top10Animes.month = extractTop10Animes($, period);
+        res.top10Animes.month = extractTop10Animes($, period, getHomePage.name);
       }
     });
 
     res.topAiringAnimes = extractMostPopularAnimes(
       $,
-      "#anime-featured .row div:nth-of-type(1) .anif-block-ul ul li"
+      "#anime-featured .row div:nth-of-type(1) .anif-block-ul ul li",
+      getHomePage.name
     );
     res.mostPopularAnimes = extractMostPopularAnimes(
       $,
-      "#anime-featured .row div:nth-of-type(2) .anif-block-ul ul li"
+      "#anime-featured .row div:nth-of-type(2) .anif-block-ul ul li",
+      getHomePage.name
     );
     res.mostFavoriteAnimes = extractMostPopularAnimes(
       $,
-      "#anime-featured .row div:nth-of-type(3) .anif-block-ul ul li"
+      "#anime-featured .row div:nth-of-type(3) .anif-block-ul ul li",
+      getHomePage.name
     );
     res.latestCompletedAnimes = extractMostPopularAnimes(
       $,
-      "#anime-featured .row div:nth-of-type(4) .anif-block-ul ul li"
+      "#anime-featured .row div:nth-of-type(4) .anif-block-ul ul li",
+      getHomePage.name
     );
 
     return res;
   } catch (err: any) {
-    if (err instanceof AxiosError) {
-      throw createHttpError(
-        err?.response?.status || 500,
-        err?.response?.statusText || "Something went wrong"
-      );
-    }
-    throw createHttpError.InternalServerError(err?.message);
+    throw AniwatchError.wrapError(err, getHomePage.name);
   }
 }
-
-export default scrapeHomePage;
