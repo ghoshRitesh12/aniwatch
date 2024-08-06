@@ -3,10 +3,9 @@
   "version": "1.0.1",
   "description": "📦 Scraper package for obtaining anime information from hianime.to (formerly aniwatch.to)",
   "license": "MIT",
-  "main": "dist/index.cjs",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "module": "dist/index.js",
-  "type": "module",
+  "module": "dist/index.mjs",
   "scripts": {
     "lint": "tsc",
     "build": "tsup",
