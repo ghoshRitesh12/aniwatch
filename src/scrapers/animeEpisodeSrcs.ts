@@ -113,7 +113,7 @@ async function _getAnimeEpisodeSources(
     } = await client.get(`${SRC_AJAX_URL}/v2/episode/sources?id=${serverId}`);
     console.log("THE LINK: ", link);
 
-    return await getAnimeEpisodeSources(link, server);
+    return await _getAnimeEpisodeSources(link, server);
   } catch (err: any) {
     throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
   }
@@ -140,7 +140,7 @@ export async function getAnimeEpisodeSources(
   ScrapedAnimeEpisodesSources & { anilistID: AnilistID; malID: MalID }
 > {
   try {
-    if (episodeId.trim() === "" || episodeId.indexOf("?ep=") === -1) {
+    if (episodeId === "" || episodeId.indexOf("?ep=") === -1) {
       throw new AniwatchError(
         "invalid anime episode id",
         getAnimeEpisodeSources.name
