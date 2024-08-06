@@ -2,7 +2,7 @@
 .husky
 node_modules
 src
-test
+__tests__
 
 README.md
 CHANGELOG.md
