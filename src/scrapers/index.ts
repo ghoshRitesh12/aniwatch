@@ -1,25 +1,25 @@
-import scrapeHomePage from "./homePage.js";
-import scrapeGenreAnime from "./animeGenre.js";
-import scrapeAnimeSearch from "./animeSearch.js";
-import scrapeAnimeEpisodes from "./animeEpisodes.js";
-import scrapeAnimeCategory from "./animeCategory.js";
-import scrapeProducerAnimes from "./animeProducer.js";
-import scrapeEpisodeServers from "./episodeServers.js";
-import scrapeAnimeAboutInfo from "./animeAboutInfo.js";
-import scrapeEstimatedSchedule from "./estimatedSchedule.js";
-import scrapeAnimeEpisodeSources from "./animeEpisodeSrcs.js";
-import scrapeAnimeSearchSuggestion from "./animeSearchSuggestion.js";
+import { getHomePage } from "./homePage.js";
+import { getGenreAnime } from "./animeGenre.js";
+import { getAnimeSearch } from "./animeSearch.js";
+import { getAnimeEpisodes } from "./animeEpisodes.js";
+import { getAnimeCategory } from "./animeCategory.js";
+import { getProducerAnimes } from "./animeProducer.js";
+import { getEpisodeServers } from "./episodeServers.js";
+import { getAnimeAboutInfo } from "./animeAboutInfo.js";
+import { getEstimatedSchedule } from "./estimatedSchedule.js";
+import { getAnimeEpisodeSources } from "./animeEpisodeSrcs.js";
+import { getAnimeSearchSuggestion } from "./animeSearchSuggestion.js";
 
 export {
-  scrapeHomePage,
-  scrapeGenreAnime,
-  scrapeAnimeSearch,
-  scrapeAnimeEpisodes,
-  scrapeAnimeCategory,
-  scrapeEpisodeServers,
-  scrapeProducerAnimes,
-  scrapeAnimeAboutInfo,
-  scrapeEstimatedSchedule,
-  scrapeAnimeEpisodeSources,
-  scrapeAnimeSearchSuggestion,
+  getHomePage,
+  getGenreAnime,
+  getAnimeSearch,
+  getAnimeEpisodes,
+  getAnimeCategory,
+  getEpisodeServers,
+  getProducerAnimes,
+  getAnimeAboutInfo,
+  getEstimatedSchedule,
+  getAnimeEpisodeSources,
+  getAnimeSearchSuggestion,
 };
