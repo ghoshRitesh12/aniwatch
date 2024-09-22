@@ -418,8 +418,8 @@ getAnimeAboutInfo("steinsgate-3")
 |   `genres`   | string |   Genre of the anime, separated by commas. eg: `isekai,shounen`   |    No     |   --    |
 
 > [!TIP]
-> For both `start_date` and `end_date`, year must be mentioned. If you wanna omit date or month specify `0` instead.
-> Eg: omitting date -> 2014-10-0, omitting month -> 2014-0-12, omitting both -> 2014-0-0
+>
+> For both `start_date` and `end_date`, year must be mentioned. If you wanna omit date or month specify `0` instead. Eg: omitting date -> 2014-10-0, omitting month -> 2014-0-12, omitting both -> 2014-0-0
 
 #### Sample Usage
 
