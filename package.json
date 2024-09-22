@@ -14,7 +14,10 @@
     "test": "vitest run --config vitest.config.ts",
     "prepare": "node .husky/install.mjs"
   },
-  "author": "https://github.com/ghoshRitesh12",
+  "author": {
+    "name": "Ritesh Ghosh",
+    "url": "https://github.com/ghoshRitesh12"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
@@ -44,5 +47,10 @@
     "tsup": "^8.2.4",
     "typescript": "^5.5.4",
     "vitest": "^2.0.5"
-  }
+  },
+  "files": [
+    "dist",
+    "LICENSE",
+    "package.json"
+  ]
 }
