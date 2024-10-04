@@ -22,6 +22,7 @@ import type { SearchFilters } from "./types/animeSearch.js";
 class Scraper {
   /**
    * @param {string} animeId - unique anime id
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -39,6 +40,7 @@ class Scraper {
   /**
    * @param {string} category - anime category
    * @param {number} page - page number, defaults to `1`
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -55,6 +57,7 @@ class Scraper {
 
   /**
    * @param {string} animeId - unique anime id
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -71,6 +74,7 @@ class Scraper {
 
   /**
    * @param {string} episodeId - unique episode id
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -92,6 +96,7 @@ class Scraper {
   /**
    * @param {string} genreName - anime genre name
    * @param {number} page - page number, defaults to `1`
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -109,6 +114,7 @@ class Scraper {
   /**
    * @param {string} producerName - anime producer name
    * @param {number} page - page number, defaults to `1`
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -127,6 +133,7 @@ class Scraper {
    * @param {string} q - search query
    * @param {number} page - page number, defaults to `1`
    * @param {SearchFilters} filters - optional advance search filters
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -150,6 +157,7 @@ class Scraper {
 
   /**
    * @param {string} q - search query
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -166,6 +174,7 @@ class Scraper {
 
   /**
    * @param {string} animeEpisodeId - unique anime episode id
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -182,6 +191,7 @@ class Scraper {
 
   /**
    * @param {string} date - date in `YYYY-MM-DD` format
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
@@ -197,6 +207,7 @@ class Scraper {
   }
 
   /**
+   * @throws {AniwatchError}
    * @example
    * import { HiAnime } from "aniwatch";
    *
