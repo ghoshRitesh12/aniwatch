@@ -35,10 +35,9 @@ type extractedSrc = {
   server: number;
 };
 
-interface ExtractedData
-  extends Pick<extractedSrc, "intro" | "outro" | "tracks"> {
+type ExtractedData = Pick<extractedSrc, "intro" | "outro" | "tracks"> & {
   sources: { url: string; type: string }[];
-}
+};
 
 class MegaCloud {
   // private serverName = "megacloud";
