@@ -1,17 +1,8 @@
-// scraper exports
-export * from "./scrapers/index.js";
+// hianime class export
+export * as HiAnime from "./hianime/hianime.js";
 
 // aniwatch error
 export { AniwatchError } from "./config/error.js";
-
-// scraper type exports
-// export * from "./types/scrapers/index.js";
-
-// common anime type exports
-// export * from "./types/anime.js";
-
-// // anime search type exports
-// export * from "./types/animeSearch.js";
 
 // helpful constant exports
 // export {
