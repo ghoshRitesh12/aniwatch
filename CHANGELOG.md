@@ -1,3 +1,12 @@
+# [2.1.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.0.1...v2.1.0) (2024-10-04)
+
+
+### Features
+
+* remove `cjs` support ([b160df5](https://github.com/ghoshRitesh12/aniwatch/commit/b160df552ffbce1dcae14010220070313ea73b3d))
+
+
+
 ## [2.0.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.0.0...v2.0.1) (2024-10-04)
 
 
@@ -23,15 +32,6 @@
 
 
 ## [1.2.2](https://github.com/ghoshRitesh12/aniwatch/compare/v1.2.1...v1.2.2) (2024-09-22)
-
-
-
-## [1.2.1](https://github.com/ghoshRitesh12/aniwatch/compare/v1.2.0...v1.2.1) (2024-08-06)
-
-
-### Bug Fixes
-
-* **animeEpisodeSrcs:** fix bug where internal fn would call outer wrapper ([4ae88c3](https://github.com/ghoshRitesh12/aniwatch/commit/4ae88c3c80ee12c9ae3912066a1533467df7624f))
 
 
 
