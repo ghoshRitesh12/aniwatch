@@ -26,7 +26,7 @@ export class AniwatchError extends Error {
 
     if (err instanceof AxiosError) {
       const statusText = err?.response?.statusText || DEFAULT_ERROR_MESSAGE;
-      return new AniwatchError("fetch_err: " + statusText, scraperName);
+      return new AniwatchError("fetch_error: " + statusText, scraperName);
     }
 
     return new AniwatchError(
