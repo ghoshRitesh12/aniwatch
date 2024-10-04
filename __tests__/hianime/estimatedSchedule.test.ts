@@ -6,7 +6,7 @@ function padZero(num: number) {
 }
 
 test("returns estimated schedule anime release", async () => {
-  const hianime = new HiAnime();
+  const hianime = new HiAnime.Scraper();
 
   const d = new Date();
   const data = await hianime.getEstimatedSchedule(

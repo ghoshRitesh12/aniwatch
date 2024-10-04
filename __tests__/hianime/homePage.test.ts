@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
 test("returns anime information present in homepage", async () => {
-  const hianime = new HiAnime();
+  const hianime = new HiAnime.Scraper();
   const data = await hianime.getHomePage();
 
   expect(data.spotlightAnimes).not.toEqual([]);

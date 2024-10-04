@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
 test("returns animes produced by a producer", async () => {
-  const hianime = new HiAnime();
+  const hianime = new HiAnime.Scraper();
   const data = await hianime.getProducerAnimes("toei-animation", 2);
 
   expect(data.animes).not.toEqual([]);

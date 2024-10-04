@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
 test("returns animes belonging to a category", async () => {
-  const hianime = new HiAnime();
+  const hianime = new HiAnime.Scraper();
   const data = await hianime.getCategoryAnime("subbed-anime");
 
   expect(data.animes).not.toEqual([]);

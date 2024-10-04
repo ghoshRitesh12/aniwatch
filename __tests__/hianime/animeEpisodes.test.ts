@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
 test("returns episodes info of an anime", async () => {
-  const hianime = new HiAnime();
+  const hianime = new HiAnime.Scraper();
   const data = await hianime.getEpisodes("steinsgate-3");
 
   expect(data.totalEpisodes).not.toEqual(0);
