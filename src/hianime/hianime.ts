@@ -1,0 +1,218 @@
+import {
+  getHomePage,
+  getAnimeCategory,
+  getAnimeEpisodes,
+  getAnimeEpisodeSources,
+  getAnimeSearchResults,
+  getAnimeSearchSuggestion,
+  getEpisodeServers,
+  getEstimatedSchedule,
+  getGenreAnime,
+  getAnimeAboutInfo,
+  getProducerAnimes,
+} from "./scrapers/index.js";
+
+import {
+  Servers,
+  type AnimeServers,
+  type AnimeCategories,
+} from "./types/anime.js";
+import type { SearchFilters } from "./types/animeSearch.js";
+
+class Scraper {
+  /**
+   * @param {string} animeId - unique anime id
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getInfo("steinsgate-3")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getInfo(animeId: string) {
+    return getAnimeAboutInfo(animeId);
+  }
+
+  /**
+   * @param {string} category - anime category
+   * @param {number} page - page number, defaults to `1`
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getCategoryAnime("subbed-anime")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getCategoryAnime(category: AnimeCategories, page: number = 1) {
+    return getAnimeCategory(category, page);
+  }
+
+  /**
+   * @param {string} animeId - unique anime id
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getEpisodes("attack-on-titan-112")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getEpisodes(animeId: string) {
+    return getAnimeEpisodes(animeId);
+  }
+
+  /**
+   * @param {string} episodeId - unique episode id
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getEpisodeSources("steinsgate-3?ep=230", "hd-1", "sub")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getEpisodeSources(
+    episodeId: string,
+    server: AnimeServers = Servers.VidStreaming,
+    category: "sub" | "dub" | "raw" = "sub"
+  ) {
+    return getAnimeEpisodeSources(episodeId, server, category);
+  }
+
+  /**
+   * @param {string} genreName - anime genre name
+   * @param {number} page - page number, defaults to `1`
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getGenreAnime("shounen", 2)
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getGenreAnime(genreName: string, page: number = 1) {
+    return getGenreAnime(genreName, page);
+  }
+
+  /**
+   * @param {string} producerName - anime producer name
+   * @param {number} page - page number, defaults to `1`
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getProducerAnimes("toei-animation", 2)
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getProducerAnimes(producerName: string, page: number = 1) {
+    return getProducerAnimes(producerName, page);
+  }
+
+  /**
+   * @param {string} q - search query
+   * @param {number} page - page number, defaults to `1`
+   * @param {SearchFilters} filters - optional advance search filters
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper();
+   *
+   * hianime
+   *   .search("monster", 1, {
+   *     genres: "seinen,psychological",
+   *   })
+   *   .then((data) => {
+   *     console.log(data);
+   *   })
+   *   .catch((err) => {
+   *     console.error(err);
+   *   });
+   *
+   */
+  async search(q: string, page: number = 1, filters: SearchFilters = {}) {
+    return getAnimeSearchResults(q, page, filters);
+  }
+
+  /**
+   * @param {string} q - search query
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.searchSuggestions("one piece")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async searchSuggestions(q: string) {
+    return getAnimeSearchSuggestion(q);
+  }
+
+  /**
+   * @param {string} animeEpisodeId - unique anime episode id
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getEpisodeServers("steinsgate-0-92?ep=2055")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getEpisodeServers(animeEpisodeId: string) {
+    return getEpisodeServers(animeEpisodeId);
+  }
+
+  /**
+   * @param {string} date - date in `YYYY-MM-DD` format
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getEstimatedSchedule("2024-08-09")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getEstimatedSchedule(date: string) {
+    return getEstimatedSchedule(date);
+  }
+
+  /**
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getHomePage()
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getHomePage() {
+    return getHomePage();
+  }
+}
+
+export { Scraper };
+export * from "./types/anime.js";
+export * from "./types/animeSearch.js";
+export * from "./types/scrapers/index.js";
