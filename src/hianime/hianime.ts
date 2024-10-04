@@ -60,7 +60,7 @@ class Scraper {
    *
    * const hianime = new HiAnime.Scraper()
    *
-   * hianime.getEpisodes("attack-on-titan-112")
+   * hianime.getEpisodes("steinsgate-3")
    *  .then((data) => console.log(data))
    *  .catch((err) => console.error(err));
    *
