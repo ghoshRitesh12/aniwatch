@@ -1,8 +1,9 @@
 import { expect, test } from "vitest";
-import { getAnimeCategory } from "../src/index.js";
+import { HiAnime } from "../../src/index.js";
 
 test("returns animes belonging to a category", async () => {
-  const data = await getAnimeCategory("subbed-anime");
+  const hianime = new HiAnime();
+  const data = await hianime.getCategoryAnime("subbed-anime");
 
   expect(data.animes).not.toEqual([]);
   expect(data.genres).not.toEqual([]);

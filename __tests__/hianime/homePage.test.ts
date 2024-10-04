@@ -1,8 +1,9 @@
 import { expect, test } from "vitest";
-import { getHomePage } from "../src/index.js";
+import { HiAnime } from "../../src/index.js";
 
 test("returns anime information present in homepage", async () => {
-  const data = await getHomePage();
+  const hianime = new HiAnime();
+  const data = await hianime.getHomePage();
 
   expect(data.spotlightAnimes).not.toEqual([]);
   expect(data.trendingAnimes).not.toEqual([]);

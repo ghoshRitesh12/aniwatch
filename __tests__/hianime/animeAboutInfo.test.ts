@@ -1,8 +1,9 @@
 import { expect, test } from "vitest";
-import { getAnimeAboutInfo } from "../src/index.js";
+import { HiAnime } from "../../src/index.js";
 
 test("returns information about an anime", async () => {
-  const data = await getAnimeAboutInfo("steinsgate-3");
+  const hianime = new HiAnime();
+  const data = await hianime.getInfo("steinsgate-3");
 
   expect(data.anime.info.name).not.toEqual(null);
   expect(data.recommendedAnimes).not.toEqual([]);

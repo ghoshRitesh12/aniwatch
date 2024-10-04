@@ -1,8 +1,9 @@
 import { expect, test } from "vitest";
-import { getAnimeSearchResults } from "../src/index.js";
+import { HiAnime } from "../../src/index.js";
 
 test("returns animes related to search query", async () => {
-  const data = await getAnimeSearchResults("monster", 1, {
+  const hianime = new HiAnime();
+  const data = await hianime.search("monster", 1, {
     genres: "seinen,psychological",
   });
 

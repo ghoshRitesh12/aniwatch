@@ -1,8 +1,9 @@
 import { expect, test } from "vitest";
-import { getEpisodeServers } from "../src/index.js";
+import { HiAnime } from "../../src/index.js";
 
 test("returns episode source servers", async () => {
-  const data = await getEpisodeServers("steinsgate-0-92?ep=2055");
+  const hianime = new HiAnime();
+  const data = await hianime.getEpisodeServers("steinsgate-0-92?ep=2055");
 
   expect(data.episodeId).not.toEqual(null);
   expect(data.episodeNo).not.toEqual(0);
