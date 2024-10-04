@@ -1,7 +1,7 @@
 import axios from "axios";
 import CryptoJS from "crypto-js";
 import { substringAfter, substringBefore } from "../utils/index.js";
-import type { Video, Subtitle, Intro } from "../types/extractor.js";
+import type { Video, Subtitle, Intro } from "../hianime/types/extractor.js";
 
 type extractReturn = {
   sources: Video[];
