@@ -4,7 +4,7 @@ import type {
   Top10Anime,
   MostPopularAnime,
   Top10AnimeTimePeriod,
-} from "../types/anime.js";
+} from "../hianime/types/anime.js";
 import {
   genresIdMap,
   languageIdMap,
@@ -16,15 +16,15 @@ import {
   typeIdMap,
 } from "./constants.js";
 import type { CheerioAPI, SelectorType } from "cheerio";
-import type { FilterKeys } from "../types/animeSearch.js";
+import type { FilterKeys } from "../hianime/types/animeSearch.js";
 
 export const extractAnimes = (
   $: CheerioAPI,
   selector: SelectorType,
   scraperName: string
-): Array<Anime> => {
+): Anime[] => {
   try {
-    const animes: Array<Anime> = [];
+    const animes: Anime[] = [];
 
     $(selector).each((_, el) => {
       const animeId =
@@ -92,9 +92,9 @@ export const extractTop10Animes = (
   $: CheerioAPI,
   period: Top10AnimeTimePeriod,
   scraperName: string
-): Array<Top10Anime> => {
+): Top10Anime[] => {
   try {
-    const animes: Array<Top10Anime> = [];
+    const animes: Top10Anime[] = [];
     const selector = `#top-viewed-${period} ul li`;
 
     $(selector).each((_, el) => {
@@ -146,9 +146,9 @@ export const extractMostPopularAnimes = (
   $: CheerioAPI,
   selector: SelectorType,
   scraperName: string
-): Array<MostPopularAnime> => {
+): MostPopularAnime[] => {
   try {
-    const animes: Array<MostPopularAnime> = [];
+    const animes: MostPopularAnime[] = [];
 
     $(selector).each((_, el) => {
       animes.push({
