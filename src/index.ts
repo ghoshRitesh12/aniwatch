@@ -1,8 +1,10 @@
 // hianime class export
 export * as HiAnime from "./hianime/hianime.js";
 
-// aniwatch error
-export { AniwatchError } from "./config/error.js";
+// hianime error
+export { HiAnimeError } from "./hianime/error.js";
+
+export type { AniwatchError } from "./config/error.js";
 
 // helpful constant exports
 // export {
