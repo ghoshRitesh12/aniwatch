@@ -1,3 +1,12 @@
+# [2.4.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.3.0...v2.4.0) (2024-10-05)
+
+
+### Features
+
+* **HiAnimeError:** add `json()` for convenience ([3590da0](https://github.com/ghoshRitesh12/aniwatch/commit/3590da04d145ed734e34a795739224b9206306ae))
+
+
+
 # [2.3.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.2.1...v2.3.0) (2024-10-05)
 
 
@@ -26,15 +35,6 @@
 
 
 ## [2.1.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.1.0...v2.1.1) (2024-10-04)
-
-
-
-# [2.1.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.0.1...v2.1.0) (2024-10-04)
-
-
-### Features
-
-* remove `cjs` support ([b160df5](https://github.com/ghoshRitesh12/aniwatch/commit/b160df552ffbce1dcae14010220070313ea73b3d))
 
 
 
