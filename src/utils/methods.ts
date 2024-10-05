@@ -1,4 +1,4 @@
-import { AniwatchError } from "../config/error.js";
+import { HiAnimeError } from "../hianime/error.js";
 import type {
   Anime,
   Top10Anime,
@@ -84,7 +84,7 @@ export const extractAnimes = (
 
     return animes;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, scraperName);
+    throw HiAnimeError.wrapError(err, scraperName);
   }
 };
 
@@ -138,7 +138,7 @@ export const extractTop10Animes = (
 
     return animes;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, scraperName);
+    throw HiAnimeError.wrapError(err, scraperName);
   }
 };
 
@@ -190,7 +190,7 @@ export const extractMostPopularAnimes = (
 
     return animes;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, scraperName);
+    throw HiAnimeError.wrapError(err, scraperName);
   }
 };
 
