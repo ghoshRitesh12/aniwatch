@@ -8,7 +8,7 @@ const DEFAULT_ERROR_STATUS = 500;
 const DEFAULT_ERROR_MESSAGE = "Something went wrong";
 
 export class HiAnimeError extends Error implements AniwatchError {
-  public scraper: string;
+  public scraper: string = DEFAULT_ERROR_MESSAGE;
   public status: number = DEFAULT_ERROR_STATUS;
 
   constructor(errMsg: string, scraperName: string, status?: number) {
@@ -46,13 +46,21 @@ export class HiAnimeError extends Error implements AniwatchError {
     return new HiAnimeError(err?.message || DEFAULT_ERROR_MESSAGE, scraperName);
   }
 
+  public json(): { status: number; message: string } {
+    return {
+      status: this.status,
+      message: this.message,
+    };
+  }
+
   private logError() {
     console.error(
       ANSI_RED_COLOR +
         JSON.stringify(
           {
+            status: this.status,
             scraper: this.scraper,
-            message: this?.message || DEFAULT_ERROR_MESSAGE,
+            message: this.message,
           },
           null,
           2
