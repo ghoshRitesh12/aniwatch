@@ -96,14 +96,18 @@ pnpm add aniwatch
 Example - getting information about an anime by providing it's unique anime id, using anime [Steins;Gate](https://www.imdb.com/title/tt1910272/) with `steinsgate-3` unique anime id as an example.
 
 ```javascript
-import { HiAnime } from "aniwatch";
+import { HiAnime, HiAnimeError } from "aniwatch";
 
 const hianime = new HiAnime.Scraper();
 
-hianime
-  .getInfo("steinsgate-3")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+try {
+  const result: HiAnime.ScrapedAnimeAboutInfo = await hianime.getInfo(
+    "steinsgate-3"
+  );
+  console.log(result);
+} catch (err) {
+  console.error(err instanceof HiAnimeError, err);
+}
 ```
 
 <details>
