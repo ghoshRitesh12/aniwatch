@@ -7,10 +7,12 @@ export default defineConfig({
   shims: true,
   clean: true,
   splitting: true,
-  minify: true,
-  minifySyntax: true,
-  minifyIdentifiers: true,
-  minifyWhitespace: true,
+  // minify: true,
+  // minifySyntax: true,
+  // minifyIdentifiers: true,
+  // minifyWhitespace: true,
   globalName: "aniwatch",
   skipNodeModulesBundle: true,
+
+  // sourcemap: true,
 });
