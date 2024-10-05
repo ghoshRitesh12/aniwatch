@@ -13,7 +13,7 @@
 # <p align="center">Aniwatch</p>
 
 <div align="center">
-  📦 A scraper npm package serving anime information from <a href="https://hianime.to/home" target="_blank">hianime.to (formerly aniwatch.to)</a>
+  📦 A scraper package serving anime information from <a href="https://hianime.to/home" target="_blank">hianime.to</a>
   <br/>
   <strong>
     <a 
