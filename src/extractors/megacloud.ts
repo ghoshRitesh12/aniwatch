@@ -1,6 +1,6 @@
 import axios from "axios";
 import crypto from "crypto";
-import { AniwatchError } from "../config/error.js";
+import { HiAnimeError } from "../hianime/error.js";
 
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
@@ -71,9 +71,10 @@ class MegaCloud {
         }
       );
       if (!srcsData) {
-        throw new AniwatchError(
+        throw new HiAnimeError(
           "Url may have an invalid video id",
-          "getAnimeEpisodeSources"
+          "getAnimeEpisodeSources",
+          400
         );
       }
 
@@ -99,9 +100,10 @@ class MegaCloud {
 
       text = data;
       if (!text) {
-        throw new AniwatchError(
+        throw new HiAnimeError(
           "Couldn't fetch script to decrypt resource",
-          "getAnimeEpisodeSources"
+          "getAnimeEpisodeSources",
+          500
         );
       }
 
@@ -129,9 +131,10 @@ class MegaCloud {
 
         return extractedData;
       } catch (error) {
-        throw new AniwatchError(
+        throw new HiAnimeError(
           "Failed to decrypt resource",
-          "getAnimeEpisodeSources"
+          "getAnimeEpisodeSources",
+          500
         );
       }
     } catch (err) {
