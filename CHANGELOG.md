@@ -1,3 +1,7 @@
+## [2.4.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.4.0...v2.4.1) (2024-10-05)
+
+
+
 # [2.4.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.3.0...v2.4.0) (2024-10-05)
 
 
@@ -31,10 +35,6 @@
 * update HiAnime error handling ([4bbc194](https://github.com/ghoshRitesh12/aniwatch/commit/4bbc194623e91d16be6f550eaf985e1cfccf0b72))
 * update HiAnime error handling ([4ee16bb](https://github.com/ghoshRitesh12/aniwatch/commit/4ee16bbe604e3f17f97217c0e8bd42ca342a386b))
 * update package config error, replaced with interface ([9d62023](https://github.com/ghoshRitesh12/aniwatch/commit/9d6202353ec6bc2f6fa779fdbbfd42e6590552e9))
-
-
-
-## [2.1.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.1.0...v2.1.1) (2024-10-04)
 
 
 
