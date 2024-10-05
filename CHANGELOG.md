@@ -1,3 +1,12 @@
+# [2.3.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.2.1...v2.3.0) (2024-10-05)
+
+
+### Features
+
+* **docs:** update sample usage showcasing different exports ([184ba26](https://github.com/ghoshRitesh12/aniwatch/commit/184ba2664de2a075613da1a2943c90f6429a6e63))
+
+
+
 ## [2.2.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.2.0...v2.2.1) (2024-10-05)
 
 
@@ -26,10 +35,6 @@
 ### Features
 
 * remove `cjs` support ([b160df5](https://github.com/ghoshRitesh12/aniwatch/commit/b160df552ffbce1dcae14010220070313ea73b3d))
-
-
-
-## [2.0.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.0.0...v2.0.1) (2024-10-04)
 
 
 
