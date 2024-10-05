@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_BASE_URL,
   extractAnimes,
@@ -43,7 +43,7 @@ export async function getAnimeAboutInfo(
 
   try {
     if (animeId.trim() === "" || animeId.indexOf("-") === -1) {
-      throw new AniwatchError("invalid anime id", getAnimeAboutInfo.name);
+      throw new HiAnimeError("invalid anime id", getAnimeAboutInfo.name, 400);
     }
 
     const animeUrl: URL = new URL(animeId, SRC_BASE_URL);
@@ -236,6 +236,6 @@ export async function getAnimeAboutInfo(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeAboutInfo.name);
+    throw HiAnimeError.wrapError(err, getAnimeAboutInfo.name);
   }
 }

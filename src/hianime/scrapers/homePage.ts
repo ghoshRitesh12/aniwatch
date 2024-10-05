@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_HOME_URL,
   extractTop10Animes,
@@ -205,6 +205,6 @@ export async function getHomePage(): Promise<ScrapedHomePage> {
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getHomePage.name);
+    throw HiAnimeError.wrapError(err, getHomePage.name);
   }
 }

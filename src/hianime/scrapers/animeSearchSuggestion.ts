@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import { SRC_HOME_URL, SRC_AJAX_URL } from "../../utils/index.js";
 import type { ScrapedAnimeSearchSuggestion } from "../types/scrapers/index.js";
 
@@ -14,9 +14,10 @@ export async function getAnimeSearchSuggestion(
 
     q = q.trim() ? decodeURIComponent(q.trim()) : "";
     if (q.trim() === "") {
-      throw new AniwatchError(
+      throw new HiAnimeError(
         "invalid search query",
-        getAnimeSearchSuggestion.name
+        getAnimeSearchSuggestion.name,
+        400
       );
     }
 
@@ -65,6 +66,6 @@ export async function getAnimeSearchSuggestion(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeSearchSuggestion.name);
+    throw HiAnimeError.wrapError(err, getAnimeSearchSuggestion.name);
   }
 }

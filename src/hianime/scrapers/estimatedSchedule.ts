@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import { SRC_HOME_URL, SRC_AJAX_URL } from "../../utils/index.js";
 import type { ScrapedEstimatedSchedule } from "../types/scrapers/index.js";
 
@@ -14,7 +14,11 @@ export async function getEstimatedSchedule(
   try {
     date = date?.trim();
     if (date === "" || /^\d{4}-\d{2}-\d{2}$/.test(date) === false) {
-      throw new AniwatchError("invalid date format", getEstimatedSchedule.name);
+      throw new HiAnimeError(
+        "invalid date format",
+        getEstimatedSchedule.name,
+        400
+      );
     }
 
     const estScheduleURL =
@@ -60,6 +64,6 @@ export async function getEstimatedSchedule(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getEstimatedSchedule.name);
+    throw HiAnimeError.wrapError(err, getEstimatedSchedule.name);
   }
 }

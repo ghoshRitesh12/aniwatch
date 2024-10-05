@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_BASE_URL,
   extractMostPopularAnimes,
@@ -29,7 +29,11 @@ export async function getProducerAnimes(
 
   try {
     if (producerName.trim() === "") {
-      throw new AniwatchError("invalid producer name", getProducerAnimes.name);
+      throw new HiAnimeError(
+        "invalid producer name",
+        getProducerAnimes.name,
+        400
+      );
     }
     page = page < 1 ? 1 : page;
 
@@ -118,6 +122,6 @@ export async function getProducerAnimes(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getProducerAnimes.name);
+    throw HiAnimeError.wrapError(err, getProducerAnimes.name);
   }
 }

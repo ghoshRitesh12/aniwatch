@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_BASE_URL,
   extractAnimes,
@@ -27,7 +27,7 @@ export async function getGenreAnime(
 
   try {
     if (genreName.trim() === "") {
-      throw new AniwatchError("invalid genre name", getGenreAnime.name);
+      throw new HiAnimeError("invalid genre name", getGenreAnime.name, 400);
     }
     page = page < 1 ? 1 : page;
 
@@ -90,6 +90,6 @@ export async function getGenreAnime(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getGenreAnime.name);
+    throw HiAnimeError.wrapError(err, getGenreAnime.name);
   }
 }

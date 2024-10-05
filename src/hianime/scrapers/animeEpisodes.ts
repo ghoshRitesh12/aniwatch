@@ -1,6 +1,6 @@
 import { load, type CheerioAPI } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import { SRC_BASE_URL, SRC_AJAX_URL } from "../../utils/index.js";
 import type { ScrapedAnimeEpisodes } from "../types/scrapers/index.js";
 
@@ -24,7 +24,7 @@ export async function getAnimeEpisodes(
 
   try {
     if (animeId.trim() === "" || animeId.indexOf("-") === -1) {
-      throw new AniwatchError("invalid anime id", getAnimeEpisodes.name);
+      throw new HiAnimeError("invalid anime id", getAnimeEpisodes.name, 400);
     }
 
     const episodesAjax = await client.get(
@@ -52,6 +52,6 @@ export async function getAnimeEpisodes(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeEpisodes.name);
+    throw HiAnimeError.wrapError(err, getAnimeEpisodes.name);
   }
 }

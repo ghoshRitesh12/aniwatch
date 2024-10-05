@@ -1,6 +1,6 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_SEARCH_URL,
   extractAnimes,
@@ -113,7 +113,7 @@ async function _getAnimeSearchResults(
 
     return res;
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeSearchResults.name);
+    throw HiAnimeError.wrapError(err, getAnimeSearchResults.name);
   }
 }
 
@@ -125,9 +125,10 @@ export async function getAnimeSearchResults(
   try {
     q = q.trim() ? decodeURIComponent(q.trim()) : "";
     if (q.trim() === "") {
-      throw new AniwatchError(
+      throw new HiAnimeError(
         "invalid search query",
-        getAnimeSearchResults.name
+        getAnimeSearchResults.name,
+        400
       );
     }
     page = page < 1 ? 1 : page;
@@ -142,6 +143,6 @@ export async function getAnimeSearchResults(
 
     return _getAnimeSearchResults(q, page, parsedFilters);
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeSearchResults.name);
+    throw HiAnimeError.wrapError(err, getAnimeSearchResults.name);
   }
 }

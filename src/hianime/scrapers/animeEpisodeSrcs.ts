@@ -1,7 +1,7 @@
 import axios from "axios";
 import { load, type CheerioAPI } from "cheerio";
 import { client } from "../../config/client.js";
-import { AniwatchError } from "../../config/error.js";
+import { HiAnimeError } from "../error.js";
 import {
   SRC_AJAX_URL,
   SRC_BASE_URL,
@@ -102,9 +102,10 @@ async function _getAnimeEpisodeSources(
         }
       }
     } catch (err) {
-      throw new AniwatchError(
+      throw new HiAnimeError(
         "Couldn't find server. Try another server",
-        getAnimeEpisodeSources.name
+        getAnimeEpisodeSources.name,
+        500
       );
     }
 
@@ -115,7 +116,7 @@ async function _getAnimeEpisodeSources(
 
     return await _getAnimeEpisodeSources(link, server);
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
+    throw HiAnimeError.wrapError(err, getAnimeEpisodeSources.name);
   }
 }
 
@@ -131,15 +132,17 @@ export async function getAnimeEpisodeSources(
 > {
   try {
     if (episodeId === "" || episodeId.indexOf("?ep=") === -1) {
-      throw new AniwatchError(
+      throw new HiAnimeError(
         "invalid anime episode id",
-        getAnimeEpisodeSources.name
+        getAnimeEpisodeSources.name,
+        400
       );
     }
     if (category.trim() === "") {
-      throw new AniwatchError(
+      throw new HiAnimeError(
         "invalid anime episode category",
-        getAnimeEpisodeSources.name
+        getAnimeEpisodeSources.name,
+        400
       );
     }
 
@@ -176,6 +179,6 @@ export async function getAnimeEpisodeSources(
       malID,
     };
   } catch (err: any) {
-    throw AniwatchError.wrapError(err, getAnimeEpisodeSources.name);
+    throw HiAnimeError.wrapError(err, getAnimeEpisodeSources.name);
   }
 }
