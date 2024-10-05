@@ -1,3 +1,7 @@
+## [2.2.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.2.0...v2.2.1) (2024-10-05)
+
+
+
 # [2.2.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.1.1...v2.2.0) (2024-10-05)
 
 
@@ -26,22 +30,6 @@
 
 
 ## [2.0.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.0.0...v2.0.1) (2024-10-04)
-
-
-
-# [2.0.0](https://github.com/ghoshRitesh12/aniwatch/compare/v1.2.3...v2.0.0) (2024-10-04)
-
-
-### Features
-
-* add `HiAnime` namespace exports ([dddd32e](https://github.com/ghoshRitesh12/aniwatch/commit/dddd32e5728485a0ea7cf72572951cd9d8107450))
-* add hianime main export file ([aee3b6d](https://github.com/ghoshRitesh12/aniwatch/commit/aee3b6d4cb65274c3b46619df3ad112bb794a35f))
-* update certain types for readability and other types' paths ([cd26d97](https://github.com/ghoshRitesh12/aniwatch/commit/cd26d9710fe0e75df1b8ee181dd5931266702544))
-
-
-### BREAKING CHANGES
-
-* update code structure and revamped hianime namespace exports, inorder to accomodate other future providers
 
 
 
