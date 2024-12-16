@@ -1,7 +1,12 @@
 import axios from "axios";
+import path from "path";
 import crypto from "crypto";
+import fs from "fs";
+import puppeteer from "puppeteer-extra";
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { HiAnimeError } from "../hianime/error.js";
 
+puppeteer.default.use(StealthPlugin());
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
 const megacloud = {
@@ -41,6 +46,26 @@ type ExtractedData = Pick<extractedSrc, "intro" | "outro" | "tracks"> & {
 
 class MegaCloud {
   // private serverName = "megacloud";
+  static injectableJS: string | null = null;
+  static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
+
+  private REQ_TIMEOUT = 6000; // 6 seconds
+  private PAGE_TIMEOUT = this.REQ_TIMEOUT / 2;
+
+  /**
+   *
+   * @param reqTimeoutMs defaults to 6000ms or 6 seconds
+   */
+  constructor(reqTimeoutMs: number = this.REQ_TIMEOUT) {
+    this.REQ_TIMEOUT = reqTimeoutMs;
+
+    if (MegaCloud.injectableJS === null) {
+      MegaCloud.injectableJS = fs.readFileSync(
+        path.resolve(`./src/extractors/${MegaCloud.BUNDLED_FILE_NAME}`),
+        "utf-8"
+      );
+    }
+  }
 
   async extract(videoUrl: URL) {
     try {
@@ -229,6 +254,132 @@ class MegaCloud {
       return match[1].replace(/^0x/, "");
     } else {
       throw new Error("Failed to match the key");
+    }
+  }
+
+  // inspired from https://github.com/luslucifer/megaTube-resolver/blob/main/simulate_hianime/index.js
+  async extractUsingPuppeteer(embedIframeURL: URL): Promise<ExtractedData> {
+    // let brwsr: Browser | null = null;
+    try {
+      const extractedData: ExtractedData = {
+        tracks: [],
+        intro: {
+          start: 0,
+          end: 0,
+        },
+        outro: {
+          start: 0,
+          end: 0,
+        },
+        sources: [],
+      };
+
+      const browser = await puppeteer.default.launch({
+        headless: true,
+        devtools: false,
+        args: [
+          "--no-sandbox",
+          "--disable-setuid-sandbox",
+          "--disable-infobars",
+          "--disable-web-security",
+          "--disable-extensions",
+          "--disable-gpu",
+          "--disable-dev-shm-usage",
+          "--disable-features=IsolateOrigins,site-per-process",
+          "--disable-software-rasterizer",
+          "--mute-audio",
+          "--start-maximized",
+        ],
+      });
+
+      const page = await browser.newPage();
+
+      await page.setExtraHTTPHeaders({
+        Referer: embedIframeURL.href,
+      });
+      await page.setViewport({ width: 640, height: 480 });
+      await page.setRequestInterception(true);
+      page.setDefaultNavigationTimeout(this.PAGE_TIMEOUT);
+
+      page.on("request", (req) => {
+        const reqURL = req.url();
+        // console.log("Request URL:", reqURL);
+
+        if (
+          reqURL.includes(".js") ||
+          reqURL.includes("google") ||
+          reqURL.includes("css") ||
+          reqURL.includes("favicon.png")
+        ) {
+          // console.log("Blocking req to:", reqURL);
+          req.abort();
+        } else {
+          req.continue();
+        }
+      });
+
+      page.on("response", async (res) => {
+        try {
+          if (res.url().includes(megacloud.sources)) {
+            const resp = await res.json();
+            extractedData.intro = resp.intro ? resp.intro : extractedData.intro;
+            extractedData.outro = resp.outro ? resp.outro : extractedData.outro;
+          }
+        } catch (err) {}
+      });
+
+      await page.goto(embedIframeURL.href, { waitUntil: "domcontentloaded" });
+
+      // inject js into the page
+      await page.evaluate((jsContent) => {
+        try {
+          eval(jsContent);
+        } catch (err) {
+          console.error("error executing js:", err);
+          throw err;
+        }
+      }, MegaCloud.injectableJS || "");
+
+      return new Promise((resolve, reject) => {
+        page.on("console", async (msg) => {
+          try {
+            const args = msg.args();
+
+            for (const arg of args) {
+              const extractedSrc = (await arg.jsonValue()) as extractedSrc;
+
+              if (
+                typeof extractedSrc === "object" &&
+                extractedSrc?.sources !== undefined
+              ) {
+                // console.log("Found sources:", extractedSrc);
+
+                if (Array.isArray(extractedSrc.sources)) {
+                  extractedData.sources = extractedSrc.sources.map((s) => ({
+                    url: s.file,
+                    type: s.type,
+                  }));
+                }
+                extractedData.tracks = extractedSrc.tracks;
+
+                await browser.close();
+                resolve(extractedData);
+                return;
+              }
+            }
+          } catch (err) {
+            reject(err);
+          }
+        });
+
+        // Optional timeout to ensure the browser doesn't hang indefinitely
+        setTimeout(async () => {
+          await browser.close();
+          reject(new Error("timeout waiting for sources"));
+        }, this.REQ_TIMEOUT);
+      });
+    } catch (err) {
+      throw err;
     }
   }
 }
