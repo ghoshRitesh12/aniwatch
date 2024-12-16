@@ -61,7 +61,7 @@ class MegaCloud {
 
     if (MegaCloud.injectableJS === null) {
       MegaCloud.injectableJS = fs.readFileSync(
-        path.resolve(`./src/extractors/${MegaCloud.BUNDLED_FILE_NAME}`),
+        path.resolve(`./dist/${MegaCloud.BUNDLED_FILE_NAME}`),
         "utf-8"
       );
     }
