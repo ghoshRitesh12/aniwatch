@@ -49,18 +49,14 @@ class MegaCloud {
   // static injectableJS: string | null = null;
   // static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
 
-  private REQ_TIMEOUT = 6000; // 6 seconds
+  private REQ_TIMEOUT = 8000; // 6 seconds
   private PAGE_TIMEOUT = this.REQ_TIMEOUT / 2;
 
   /**
    *
    * @param reqTimeoutMs defaults to 6000ms or 6 seconds
    */
-  constructor(
-    minInjectableJS: string,
-    reqTimeoutMs: number = this.REQ_TIMEOUT
-  ) {
-    this.REQ_TIMEOUT = reqTimeoutMs;
+  constructor(minInjectableJS: string) {
     this.injectableJS = minInjectableJS;
 
     // if (MegaCloud.injectableJS === null) {
