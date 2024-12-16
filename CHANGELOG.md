@@ -1,3 +1,13 @@
+# [2.8.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.7.0...v2.8.0) (2024-12-16)
+
+
+### Features
+
+* add `__dirname` and `__filename` constants ([3e2ee94](https://github.com/ghoshRitesh12/aniwatch/commit/3e2ee944bbd7765b1d3324af32a4ac7277a5a629))
+* update injectableJS file import path ([47eda52](https://github.com/ghoshRitesh12/aniwatch/commit/47eda527b2a9c004fc3e7705595d8c796fe04758))
+
+
+
 # [2.7.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.6.0...v2.7.0) (2024-12-16)
 
 
@@ -23,15 +33,6 @@
 
 
 ## [2.4.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.4.0...v2.4.1) (2024-10-05)
-
-
-
-# [2.4.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.3.0...v2.4.0) (2024-10-05)
-
-
-### Features
-
-* **HiAnimeError:** add `json()` for convenience ([3590da0](https://github.com/ghoshRitesh12/aniwatch/commit/3590da04d145ed734e34a795739224b9206306ae))
 
 
 
