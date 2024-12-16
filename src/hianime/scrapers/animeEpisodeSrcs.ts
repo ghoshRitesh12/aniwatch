@@ -33,7 +33,9 @@ async function _getAnimeEpisodeSources(
       case Servers.VidStreaming:
       case Servers.VidCloud:
         return {
-          ...(await new MegaCloud().extract(serverUrl)),
+          // disabled for the timebeing
+          // ...(await new MegaCloud().extract(serverUrl)),
+          ...(await new MegaCloud().extractUsingPuppeteer(serverUrl)),
         };
       case Servers.StreamSB:
         return {
