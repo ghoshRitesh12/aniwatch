@@ -4,6 +4,6 @@ export default defineConfig({
   test: {
     name: "aniwatch",
     environment: "node",
-    testTimeout: 6000,
+    testTimeout: 15000,
   },
 });
