@@ -5,6 +5,7 @@ import fs from "fs";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { HiAnimeError } from "../hianime/error.js";
+import { __dirname } from "../utils/constants.js";
 
 puppeteer.default.use(StealthPlugin());
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
@@ -61,7 +62,7 @@ class MegaCloud {
 
     if (MegaCloud.injectableJS === null) {
       MegaCloud.injectableJS = fs.readFileSync(
-        path.resolve(`./dist/${MegaCloud.BUNDLED_FILE_NAME}`),
+        path.resolve(__dirname, `./dist/${MegaCloud.BUNDLED_FILE_NAME}`),
         "utf-8"
       );
     }
