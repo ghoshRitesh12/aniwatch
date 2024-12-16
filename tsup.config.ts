@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import { execSync } from "child_process";
 
 export default defineConfig({
   format: ["esm"],
@@ -14,5 +15,11 @@ export default defineConfig({
   globalName: "aniwatch",
   skipNodeModulesBundle: true,
 
-  // sourcemap: true,
+  // @ts-ignore
+  onSuccess() {
+    execSync(
+      "cp ./src/extractors/__megacloud.min.js ./dist/__megacloud.min.js"
+    );
+    return undefined;
+  },
 });
