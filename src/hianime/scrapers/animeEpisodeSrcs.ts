@@ -25,7 +25,8 @@ import type { ScrapedAnimeEpisodesSources } from "../types/scrapers/index.js";
 async function _getAnimeEpisodeSources(
   episodeId: string,
   server: AnimeServers = Servers.VidStreaming,
-  category: "sub" | "dub" | "raw" = "sub"
+  category: "sub" | "dub" | "raw" = "sub",
+  injectableJS: string = ""
 ): Promise<ScrapedAnimeEpisodesSources> {
   if (episodeId.startsWith("http")) {
     const serverUrl = new URL(episodeId);
@@ -35,7 +36,9 @@ async function _getAnimeEpisodeSources(
         return {
           // disabled for the timebeing
           // ...(await new MegaCloud().extract(serverUrl)),
-          ...(await new MegaCloud().extractUsingPuppeteer(serverUrl)),
+          ...(await new MegaCloud(injectableJS).extractUsingPuppeteer(
+            serverUrl
+          )),
         };
       case Servers.StreamSB:
         return {
@@ -128,7 +131,8 @@ type MalID = number | null;
 export async function getAnimeEpisodeSources(
   episodeId: string,
   server: AnimeServers,
-  category: "sub" | "dub" | "raw"
+  category: "sub" | "dub" | "raw",
+  injectableJS: string = ""
 ): Promise<
   ScrapedAnimeEpisodesSources & { anilistID: AnilistID; malID: MalID }
 > {
@@ -153,7 +157,7 @@ export async function getAnimeEpisodeSources(
     const animeURL = new URL(episodeId?.split("?ep=")[0], SRC_BASE_URL)?.href;
 
     const [episodeSrcData, animeSrc] = await Promise.all([
-      _getAnimeEpisodeSources(episodeId, server, category),
+      _getAnimeEpisodeSources(episodeId, server, category, injectableJS),
       axios.get(animeURL, {
         headers: {
           Referer: SRC_BASE_URL,

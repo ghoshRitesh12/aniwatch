@@ -1,7 +1,5 @@
 import axios from "axios";
-import path from "path";
 import crypto from "crypto";
-import fs from "fs";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { HiAnimeError } from "../hianime/error.js";
@@ -47,8 +45,9 @@ type ExtractedData = Pick<extractedSrc, "intro" | "outro" | "tracks"> & {
 
 class MegaCloud {
   // private serverName = "megacloud";
-  static injectableJS: string | null = null;
-  static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
+  private injectableJS: string = "";
+  // static injectableJS: string | null = null;
+  // static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
 
   private REQ_TIMEOUT = 6000; // 6 seconds
   private PAGE_TIMEOUT = this.REQ_TIMEOUT / 2;
@@ -57,15 +56,19 @@ class MegaCloud {
    *
    * @param reqTimeoutMs defaults to 6000ms or 6 seconds
    */
-  constructor(reqTimeoutMs: number = this.REQ_TIMEOUT) {
+  constructor(
+    minInjectableJS: string,
+    reqTimeoutMs: number = this.REQ_TIMEOUT
+  ) {
     this.REQ_TIMEOUT = reqTimeoutMs;
+    this.injectableJS = minInjectableJS;
 
-    if (MegaCloud.injectableJS === null) {
-      MegaCloud.injectableJS = fs.readFileSync(
-        path.resolve(process.cwd(), `./dist/${MegaCloud.BUNDLED_FILE_NAME}`),
-        "utf-8"
-      );
-    }
+    // if (MegaCloud.injectableJS === null) {
+    //   MegaCloud.injectableJS = fs.readFileSync(
+    //     path.resolve(process.cwd(), `./dist/${MegaCloud.BUNDLED_FILE_NAME}`),
+    //     "utf-8"
+    //   );
+    // }
   }
 
   async extract(videoUrl: URL) {
@@ -339,7 +342,7 @@ class MegaCloud {
           console.error("error executing js:", err);
           throw err;
         }
-      }, MegaCloud.injectableJS || "");
+      }, this.injectableJS);
 
       return new Promise((resolve, reject) => {
         page.on("console", async (msg) => {
