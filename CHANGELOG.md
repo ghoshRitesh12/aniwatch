@@ -1,3 +1,12 @@
+# [2.6.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.5.0...v2.6.0) (2024-12-16)
+
+
+### Features
+
+* **try_megacloud:** update injectable js file resolved path ([e248c79](https://github.com/ghoshRitesh12/aniwatch/commit/e248c7920dc56f2eddb86464ca2907ae8efc721b))
+
+
+
 # [2.5.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.4.1...v2.5.0) (2024-12-16)
 
 
@@ -28,10 +37,6 @@
 ### Features
 
 * **docs:** update sample usage showcasing different exports ([184ba26](https://github.com/ghoshRitesh12/aniwatch/commit/184ba2664de2a075613da1a2943c90f6429a6e63))
-
-
-
-## [2.2.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.2.0...v2.2.1) (2024-10-05)
 
 
 
