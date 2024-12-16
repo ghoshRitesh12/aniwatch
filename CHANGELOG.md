@@ -1,3 +1,12 @@
+# [2.11.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.10.0...v2.11.0) (2024-12-16)
+
+
+### Features
+
+* update req timeout ([e5e3168](https://github.com/ghoshRitesh12/aniwatch/commit/e5e31682e7745808619ce1b19282487033cd3db7))
+
+
+
 # [2.10.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.9.0...v2.10.0) (2024-12-16)
 
 
@@ -27,15 +36,6 @@
 
 
 # [2.7.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.6.0...v2.7.0) (2024-12-16)
-
-
-
-# [2.6.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.5.0...v2.6.0) (2024-12-16)
-
-
-### Features
-
-* **try_megacloud:** update injectable js file resolved path ([e248c79](https://github.com/ghoshRitesh12/aniwatch/commit/e248c7920dc56f2eddb86464ca2907ae8efc721b))
 
 
 
