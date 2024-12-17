@@ -14,4 +14,12 @@ export default defineConfig({
   // minifyWhitespace: true,
   globalName: "aniwatch",
   skipNodeModulesBundle: true,
+
+  // @ts-ignore
+  onSuccess() {
+    execSync(
+      "pwd && cp ./src/extractors/__megacloud.min.js ./dist/__megacloud.min.js"
+    );
+    return undefined;
+  },
 });
