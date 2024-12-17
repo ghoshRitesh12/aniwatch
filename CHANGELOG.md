@@ -1,3 +1,12 @@
+## [2.13.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.13.0...v2.13.1) (2024-12-17)
+
+
+### Bug Fixes
+
+* **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([79f540d](https://github.com/ghoshRitesh12/aniwatch/commit/79f540d719c2ee8398f338f2e0d6aa10315e73ea)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
+
+
+
 # [2.13.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.2...v2.13.0) (2024-12-17)
 
 
@@ -31,10 +40,6 @@
 ### Features
 
 * add loading of injectable js file from raw githubusercontent instead ([d3fe5e9](https://github.com/ghoshRitesh12/aniwatch/commit/d3fe5e9d4f39eec65bcba3cbf81e3a72031449bf))
-
-
-
-## [2.11.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.0...v2.11.1) (2024-12-17)
 
 
 
