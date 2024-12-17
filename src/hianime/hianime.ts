@@ -88,10 +88,9 @@ class Scraper {
   async getEpisodeSources(
     episodeId: string,
     server: AnimeServers = Servers.VidStreaming,
-    category: "sub" | "dub" | "raw" = "sub",
-    injectableJS: string = ""
+    category: "sub" | "dub" | "raw" = "sub"
   ) {
-    return getAnimeEpisodeSources(episodeId, server, category, injectableJS);
+    return getAnimeEpisodeSources(episodeId, server, category);
   }
 
   /**
