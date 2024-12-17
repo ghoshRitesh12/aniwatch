@@ -1,3 +1,7 @@
+## [2.11.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.0...v2.11.1) (2024-12-17)
+
+
+
 # [2.11.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.10.0...v2.11.0) (2024-12-16)
 
 
@@ -32,10 +36,6 @@
 
 * add `__dirname` and `__filename` constants ([3e2ee94](https://github.com/ghoshRitesh12/aniwatch/commit/3e2ee944bbd7765b1d3324af32a4ac7277a5a629))
 * update injectableJS file import path ([47eda52](https://github.com/ghoshRitesh12/aniwatch/commit/47eda527b2a9c004fc3e7705595d8c796fe04758))
-
-
-
-# [2.7.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.6.0...v2.7.0) (2024-12-16)
 
 
 
