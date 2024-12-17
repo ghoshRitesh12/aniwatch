@@ -1,3 +1,12 @@
+# [2.13.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.2...v2.13.0) (2024-12-17)
+
+
+### Bug Fixes
+
+* **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([d2966e5](https://github.com/ghoshRitesh12/aniwatch/commit/d2966e5e5d3509ff7108cf4a2136ccf7846c1427)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
+
+
+
 ## [2.12.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.1...v2.12.2) (2024-12-17)
 
 
@@ -26,15 +35,6 @@
 
 
 ## [2.11.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.0...v2.11.1) (2024-12-17)
-
-
-
-# [2.11.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.10.0...v2.11.0) (2024-12-16)
-
-
-### Features
-
-* update req timeout ([e5e3168](https://github.com/ghoshRitesh12/aniwatch/commit/e5e31682e7745808619ce1b19282487033cd3db7))
 
 
 
