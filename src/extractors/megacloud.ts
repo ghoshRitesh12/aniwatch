@@ -1,9 +1,28 @@
 import axios from "axios";
 import crypto from "crypto";
 import puppeteer from "puppeteer-extra";
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { HiAnimeError } from "../hianime/error.js";
 import { __dirname } from "../utils/constants.js";
+
+import "puppeteer-extra-plugin-stealth/evasions/chrome.app";
+import "puppeteer-extra-plugin-stealth/evasions/chrome.csi";
+import "puppeteer-extra-plugin-stealth/evasions/chrome.loadTimes";
+import "puppeteer-extra-plugin-stealth/evasions/chrome.runtime";
+import "puppeteer-extra-plugin-stealth/evasions/defaultArgs"; // pkg warned me this one was missing
+import "puppeteer-extra-plugin-stealth/evasions/iframe.contentWindow";
+import "puppeteer-extra-plugin-stealth/evasions/media.codecs";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.hardwareConcurrency";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.languages";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.permissions";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.plugins";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.vendor";
+import "puppeteer-extra-plugin-stealth/evasions/navigator.webdriver";
+import "puppeteer-extra-plugin-stealth/evasions/sourceurl";
+import "puppeteer-extra-plugin-stealth/evasions/user-agent-override";
+import "puppeteer-extra-plugin-stealth/evasions/webgl.vendor";
+import "puppeteer-extra-plugin-stealth/evasions/window.outerdimensions";
+
+import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
 puppeteer.default.use(StealthPlugin());
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
