@@ -1,3 +1,12 @@
+# [2.12.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.1...v2.12.0) (2024-12-17)
+
+
+### Features
+
+* add loading of injectable js file from raw githubusercontent instead ([d3fe5e9](https://github.com/ghoshRitesh12/aniwatch/commit/d3fe5e9d4f39eec65bcba3cbf81e3a72031449bf))
+
+
+
 ## [2.11.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.0...v2.11.1) (2024-12-17)
 
 
@@ -26,16 +35,6 @@
 ### Features
 
 * update injectableJS file import path ([3e11e5d](https://github.com/ghoshRitesh12/aniwatch/commit/3e11e5d2b796d11c4f4aa9ca80cc0657614e5b16))
-
-
-
-# [2.8.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.7.0...v2.8.0) (2024-12-16)
-
-
-### Features
-
-* add `__dirname` and `__filename` constants ([3e2ee94](https://github.com/ghoshRitesh12/aniwatch/commit/3e2ee944bbd7765b1d3324af32a4ac7277a5a629))
-* update injectableJS file import path ([47eda52](https://github.com/ghoshRitesh12/aniwatch/commit/47eda527b2a9c004fc3e7705595d8c796fe04758))
 
 
 
