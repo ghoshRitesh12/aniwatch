@@ -21,6 +21,8 @@ import "puppeteer-extra-plugin-stealth/evasions/sourceurl/index.js";
 import "puppeteer-extra-plugin-stealth/evasions/user-agent-override/index.js";
 import "puppeteer-extra-plugin-stealth/evasions/webgl.vendor/index.js";
 import "puppeteer-extra-plugin-stealth/evasions/window.outerdimensions/index.js";
+import "puppeteer-extra-plugin-user-preferences/index.js";
+import "puppeteer-extra-plugin-user-data-dir/index.js";
 
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 
