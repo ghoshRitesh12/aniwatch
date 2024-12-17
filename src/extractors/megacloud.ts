@@ -1,7 +1,5 @@
 import axios from "axios";
 import crypto from "crypto";
-import { resolve } from "path";
-import { readFileSync } from "fs";
 import puppeteer from "puppeteer-extra";
 import StealthPlugin from "puppeteer-extra-plugin-stealth";
 import { HiAnimeError } from "../hianime/error.js";
@@ -49,22 +47,11 @@ class MegaCloud {
   // private serverName = "megacloud";
   static injectableJS: string | null = null;
   static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
+  private injectableJSRawContentURL =
+    `https://raw.githubusercontent.com/ghoshRitesh12/aniwatch/refs/heads/main/src/extractors/${MegaCloud.BUNDLED_FILE_NAME}` as const;
 
   private REQ_TIMEOUT = 8000; // 6 seconds
   private PAGE_TIMEOUT = this.REQ_TIMEOUT / 2;
-
-  /**
-   *
-   * @param reqTimeoutMs defaults to 6000ms or 6 seconds
-   */
-  constructor() {
-    if (MegaCloud.injectableJS === null) {
-      MegaCloud.injectableJS = readFileSync(
-        resolve(__dirname, MegaCloud.BUNDLED_FILE_NAME),
-        "utf-8"
-      );
-    }
-  }
 
   async extract(videoUrl: URL) {
     try {
@@ -258,7 +245,6 @@ class MegaCloud {
 
   // inspired from https://github.com/luslucifer/megaTube-resolver/blob/main/simulate_hianime/index.js
   async extractUsingPuppeteer(embedIframeURL: URL): Promise<ExtractedData> {
-    // let brwsr: Browser | null = null;
     try {
       const extractedData: ExtractedData = {
         tracks: [],
@@ -272,6 +258,8 @@ class MegaCloud {
         },
         sources: [],
       };
+
+      await this.setInjectableJS();
 
       const browser = await puppeteer.default.launch({
         headless: true,
@@ -379,6 +367,15 @@ class MegaCloud {
       });
     } catch (err) {
       throw err;
+    }
+  }
+
+  private async setInjectableJS() {
+    if (MegaCloud.injectableJS === null) {
+      try {
+        const resp = await axios.get(this.injectableJSRawContentURL);
+        MegaCloud.injectableJS = resp.data;
+      } catch (err) {}
     }
   }
 }
