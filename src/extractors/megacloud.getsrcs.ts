@@ -1,3 +1,5 @@
+// solution inspired from https://github.com/drblgn/rabbit_wasm/blob/main/rabbit.ts
+
 import { decoded_png } from "./megacloud.decodedpng.js";
 import util from "util";
 import CryptoJS from "crypto-js";
