@@ -39,14 +39,12 @@
     "axios": "^1.7.7",
     "cheerio": "1.0.0",
     "crypto-js": "^4.2.0",
-    "puppeteer": "^23.10.4",
-    "puppeteer-extra": "^3.3.6",
-    "puppeteer-extra-plugin-stealth": "^2.11.2",
-    "puppeteer-extra-plugin-user-data-dir": "^2.4.1",
-    "puppeteer-extra-plugin-user-preferences": "^2.4.1"
+    "jsdom": "^25.0.1",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^22.1.0",
     "husky": "^9.1.4",
     "tsup": "^8.2.4",
