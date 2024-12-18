@@ -1,32 +1,8 @@
 import axios from "axios";
 import crypto from "crypto";
-import puppeteer from "puppeteer-extra";
 import { HiAnimeError } from "../hianime/error.js";
-import { __dirname } from "../utils/constants.js";
+import { getSources } from "./megacloud.getsrcs.js";
 
-import "puppeteer-extra-plugin-stealth/evasions/chrome.app/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/chrome.csi/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/chrome.loadTimes/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/chrome.runtime/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/defaultArgs/index.js"; // pkg warned me this one was missing
-import "puppeteer-extra-plugin-stealth/evasions/iframe.contentWindow/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/media.codecs/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.hardwareConcurrency/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.languages/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.permissions/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.plugins/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.vendor/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/navigator.webdriver/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/sourceurl/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/user-agent-override/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/webgl.vendor/index.js";
-import "puppeteer-extra-plugin-stealth/evasions/window.outerdimensions/index.js";
-import "puppeteer-extra-plugin-user-preferences/index.js";
-import "puppeteer-extra-plugin-user-data-dir/index.js";
-
-import StealthPlugin from "puppeteer-extra-plugin-stealth";
-
-puppeteer.default.use(StealthPlugin());
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
 const megacloud = {
@@ -34,7 +10,7 @@ const megacloud = {
   sources: "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=",
 } as const;
 
-type track = {
+export type track = {
   file: string;
   kind: string;
   label?: string;
@@ -46,12 +22,12 @@ type intro_outro = {
   end: number;
 };
 
-type unencryptedSrc = {
+export type unencryptedSrc = {
   file: string;
   type: string;
 };
 
-type extractedSrc = {
+export type extractedSrc = {
   sources: string | unencryptedSrc[];
   tracks: track[];
   encrypted: boolean;
@@ -66,13 +42,6 @@ type ExtractedData = Pick<extractedSrc, "intro" | "outro" | "tracks"> & {
 
 class MegaCloud {
   // private serverName = "megacloud";
-  static injectableJS: string | null = null;
-  static BUNDLED_FILE_NAME = "__megacloud.min.js" as const;
-  private injectableJSRawContentURL =
-    `https://raw.githubusercontent.com/ghoshRitesh12/aniwatch/refs/heads/main/src/extractors/${MegaCloud.BUNDLED_FILE_NAME}` as const;
-
-  private REQ_TIMEOUT = 8000; // 6 seconds
-  private PAGE_TIMEOUT = this.REQ_TIMEOUT / 2;
 
   async extract(videoUrl: URL) {
     try {
@@ -175,7 +144,7 @@ class MegaCloud {
     }
   }
 
-  extractVariables(text: string) {
+  private extractVariables(text: string) {
     // copied from github issue #30 'https://github.com/ghoshRitesh12/aniwatch-api/issues/30'
     const regex =
       /case\s*0x[0-9a-f]+:(?![^;]*=partKey)\s*\w+\s*=\s*(\w+)\s*,\s*\w+\s*=\s*(\w+);/g;
@@ -193,7 +162,7 @@ class MegaCloud {
     return vars;
   }
 
-  getSecret(encryptedString: string, values: number[][]) {
+  private getSecret(encryptedString: string, values: number[][]) {
     let secret = "",
       encryptedSource = "",
       encryptedSourceArray = encryptedString.split(""),
@@ -215,7 +184,7 @@ class MegaCloud {
     return { secret, encryptedSource };
   }
 
-  decrypt(encrypted: string, keyOrSecret: string, maybe_iv?: string) {
+  private decrypt(encrypted: string, keyOrSecret: string, maybe_iv?: string) {
     let key;
     let iv;
     let contents;
@@ -254,7 +223,7 @@ class MegaCloud {
   }
 
   // function copied from github issue #30 'https://github.com/ghoshRitesh12/aniwatch-api/issues/30'
-  matchingKey(value: string, script: string) {
+  private matchingKey(value: string, script: string) {
     const regex = new RegExp(`,${value}=((?:0x)?([0-9a-fA-F]+))`);
     const match = script.match(regex);
     if (match) {
@@ -264,8 +233,8 @@ class MegaCloud {
     }
   }
 
-  // inspired from https://github.com/luslucifer/megaTube-resolver/blob/main/simulate_hianime/index.js
-  async extractUsingPuppeteer(embedIframeURL: URL): Promise<ExtractedData> {
+  // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1
+  async extract2(embedIframeURL: URL): Promise<ExtractedData> {
     try {
       const extractedData: ExtractedData = {
         tracks: [],
@@ -280,123 +249,22 @@ class MegaCloud {
         sources: [],
       };
 
-      await this.setInjectableJS();
+      const xrax = embedIframeURL.pathname.split("/").pop() || "";
 
-      const browser = await puppeteer.default.launch({
-        headless: true,
-        devtools: false,
-        args: [
-          "--no-sandbox",
-          "--disable-setuid-sandbox",
-          "--disable-infobars",
-          "--disable-web-security",
-          "--disable-extensions",
-          "--disable-gpu",
-          "--disable-dev-shm-usage",
-          "--disable-features=IsolateOrigins,site-per-process",
-          "--disable-software-rasterizer",
-          "--mute-audio",
-          "--start-maximized",
-        ],
-      });
+      const resp = await getSources(xrax);
+      if (Array.isArray(resp.sources)) {
+        extractedData.sources = resp.sources.map((s) => ({
+          url: s.file,
+          type: s.type,
+        }));
+      }
+      extractedData.intro = resp.intro ? resp.intro : extractedData.intro;
+      extractedData.outro = resp.outro ? resp.outro : extractedData.outro;
+      extractedData.tracks = resp.tracks;
 
-      const page = await browser.newPage();
-
-      await page.setExtraHTTPHeaders({
-        Referer: embedIframeURL.href,
-      });
-      await page.setViewport({ width: 640, height: 480 });
-      await page.setRequestInterception(true);
-      page.setDefaultNavigationTimeout(this.PAGE_TIMEOUT);
-
-      page.on("request", (req) => {
-        const reqURL = req.url();
-        // console.log("Request URL:", reqURL);
-
-        if (
-          reqURL.includes(".js") ||
-          reqURL.includes("google") ||
-          reqURL.includes("css") ||
-          reqURL.includes("favicon.png")
-        ) {
-          // console.log("Blocking req to:", reqURL);
-          req.abort();
-        } else {
-          req.continue();
-        }
-      });
-
-      page.on("response", async (res) => {
-        try {
-          if (res.url().includes(megacloud.sources)) {
-            const resp = await res.json();
-            extractedData.intro = resp.intro ? resp.intro : extractedData.intro;
-            extractedData.outro = resp.outro ? resp.outro : extractedData.outro;
-          }
-        } catch (err) {}
-      });
-
-      await page.goto(embedIframeURL.href, { waitUntil: "domcontentloaded" });
-
-      // inject js into the page
-      await page.evaluate((jsContent) => {
-        try {
-          eval(jsContent);
-        } catch (err) {
-          console.error("error executing js:", err);
-          throw err;
-        }
-      }, MegaCloud.injectableJS || "");
-
-      return new Promise((resolve, reject) => {
-        page.on("console", async (msg) => {
-          try {
-            const args = msg.args();
-
-            for (const arg of args) {
-              const extractedSrc = (await arg.jsonValue()) as extractedSrc;
-
-              if (
-                typeof extractedSrc === "object" &&
-                extractedSrc?.sources !== undefined
-              ) {
-                // console.log("Found sources:", extractedSrc);
-
-                if (Array.isArray(extractedSrc.sources)) {
-                  extractedData.sources = extractedSrc.sources.map((s) => ({
-                    url: s.file,
-                    type: s.type,
-                  }));
-                }
-                extractedData.tracks = extractedSrc.tracks;
-
-                await browser.close();
-                resolve(extractedData);
-                return;
-              }
-            }
-          } catch (err) {
-            reject(err);
-          }
-        });
-
-        // Optional timeout to ensure the browser doesn't hang indefinitely
-        setTimeout(async () => {
-          await browser.close();
-          reject(new Error("timeout waiting for sources"));
-        }, this.REQ_TIMEOUT);
-      });
+      return extractedData;
     } catch (err) {
       throw err;
-    }
-  }
-
-  private async setInjectableJS() {
-    if (MegaCloud.injectableJS === null) {
-      try {
-        const resp = await axios.get(this.injectableJSRawContentURL);
-        MegaCloud.injectableJS = resp.data;
-      } catch (err) {}
     }
   }
 }
