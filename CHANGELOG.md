@@ -1,3 +1,16 @@
+# [2.14.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.13.1...v2.14.0) (2024-12-18)
+
+
+### Features
+
+* **megacloud:** add megacloud decoded png ([223c197](https://github.com/ghoshRitesh12/aniwatch/commit/223c197d8467b8e3605be5b69f02883b5c20d98d))
+* **megacloud:** integrate https://github.com/drblgn/rabbit_wasm 's solution ([e2744f8](https://github.com/ghoshRitesh12/aniwatch/commit/e2744f8fe7107f2395a826802d89dd3488d3369f))
+* **megacloud:** integrate https://github.com/drblgn/rabbit_wasm 's solution ([1725dd0](https://github.com/ghoshRitesh12/aniwatch/commit/1725dd04ce479b6a3bdc3ef9ffe3a6bf4ffa26c1))
+* **megacloud:** remove `extractUsingPuppeteer` method & add `extract2` ([a6a622e](https://github.com/ghoshRitesh12/aniwatch/commit/a6a622e0cdbadcb80cd96abd12e04f9b71039728))
+* **megacloud:** use `extract2` method ([9b4b620](https://github.com/ghoshRitesh12/aniwatch/commit/9b4b6206218ae712966ea25eea2c4596197888e5))
+
+
+
 ## [2.13.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.13.0...v2.13.1) (2024-12-17)
 
 
@@ -31,15 +44,6 @@
 ### Bug Fixes
 
 * **vercel:** try1 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([c7081aa](https://github.com/ghoshRitesh12/aniwatch/commit/c7081aa5b9cf3fe50065cfdabba71dd198bdc2e4)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1032839383](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1032839383)
-
-
-
-# [2.12.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.11.1...v2.12.0) (2024-12-17)
-
-
-### Features
-
-* add loading of injectable js file from raw githubusercontent instead ([d3fe5e9](https://github.com/ghoshRitesh12/aniwatch/commit/d3fe5e9d4f39eec65bcba3cbf81e3a72031449bf))
 
 
 
