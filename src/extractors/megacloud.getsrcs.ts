@@ -258,9 +258,13 @@ function Qj(QP: ArrayLike<number>, Qn: any) {
   );
 }
 
+function isResponse(obj: Object) {
+  return Object.prototype.toString.call(obj) === "[object Response]";
+}
+
 async function QN(QP: Response, Qn: WebAssembly.Imports) {
   let QT: ArrayBuffer, Qt: any;
-  return "function" == typeof Response && QP instanceof Response
+  return "function" == typeof Response && isResponse(QP)
     ? ((QT = await QP.arrayBuffer()),
       (Qt = await WebAssembly.instantiate(QT, Qn)),
       Object.assign(Qt, { bytes: QT }))
@@ -803,47 +807,51 @@ export async function getSources(xrax: string) {
 
   let browser_version = 1878522368;
 
-  await V();
-  let getSourcesUrl =
-    "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=" +
-    fake_window.pid +
-    "&v=" +
-    fake_window.localStorage.kversion +
-    "&h=" +
-    fake_window.localStorage.kid +
-    "&b=" +
-    browser_version;
+  try {
+    await V();
+    let getSourcesUrl =
+      "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=" +
+      fake_window.pid +
+      "&v=" +
+      fake_window.localStorage.kversion +
+      "&h=" +
+      fake_window.localStorage.kid +
+      "&b=" +
+      browser_version;
 
-  let resp_json = await (
-    await fetch(getSourcesUrl, {
-      headers: {
-        "User-Agent": user_agent,
-        //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
-        // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1
-        Referrer: "https://megacloud.tv" + "/embed-2/e-1/" + xrax + "?k=1",
-      },
-      method: "GET",
-      mode: "cors",
-    })
-  ).json();
+    let resp_json = await (
+      await fetch(getSourcesUrl, {
+        headers: {
+          "User-Agent": user_agent,
+          //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
+          // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1
+          Referrer: "https://megacloud.tv" + "/embed-2/e-1/" + xrax + "?k=1",
+        },
+        method: "GET",
+        mode: "cors",
+      })
+    ).json();
 
-  //let encrypted = resp_json.sources;
-  let Q3 = fake_window.localStorage.kversion;
-  let Q1 = z(Q3);
-  let Q5 = fake_window.navigate();
-  Q5 = new Uint8Array(Q5);
-  let Q8: any;
-  Q8 = resp_json.t != 0 ? (i(Q5, Q1), Q5) : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
+    //let encrypted = resp_json.sources;
+    let Q3 = fake_window.localStorage.kversion;
+    let Q1 = z(Q3);
+    let Q5 = fake_window.navigate();
+    Q5 = new Uint8Array(Q5);
+    let Q8: any;
+    Q8 =
+      resp_json.t != 0 ? (i(Q5, Q1), Q5) : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
 
-  const res = resp_json as extractedSrc;
-  // @ts-ignore
-  const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
+    const res = resp_json as extractedSrc;
+    // @ts-ignore
+    const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
 
-  // decoding encrypted .m3u8 file url
-  res.sources = M(res.sources, str) as unencryptedSrc[];
+    // decoding encrypted .m3u8 file url
+    res.sources = M(res.sources, str) as unencryptedSrc[];
 
-  // console.log(res);
-  return res;
+    return res;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex
