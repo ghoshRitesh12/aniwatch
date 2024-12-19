@@ -1,3 +1,12 @@
+## [2.14.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.1...v2.14.2) (2024-12-19)
+
+
+### Bug Fixes
+
+* **megacloud): `WebAssembly.instantiate(:** Argument 0 must be a buffer source` issue ([e9f973f](https://github.com/ghoshRitesh12/aniwatch/commit/e9f973f0d236cac77eeb575591e1ba7150d183d5))
+
+
+
 ## [2.14.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.0...v2.14.1) (2024-12-19)
 
 
@@ -35,15 +44,6 @@
 ### Bug Fixes
 
 * **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([d2966e5](https://github.com/ghoshRitesh12/aniwatch/commit/d2966e5e5d3509ff7108cf4a2136ccf7846c1427)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
-
-
-
-## [2.12.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.1...v2.12.2) (2024-12-17)
-
-
-### Bug Fixes
-
-* **vercel:** try2 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([9d5fe79](https://github.com/ghoshRitesh12/aniwatch/commit/9d5fe795475a4405bd072d44e5de9f013e3b13a8)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1032839383](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1032839383)
 
 
 
