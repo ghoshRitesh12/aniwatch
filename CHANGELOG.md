@@ -1,3 +1,12 @@
+## [2.14.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.2...v2.14.3) (2024-12-19)
+
+
+### Bug Fixes
+
+* **megacloud:** extracted sources undefined case ([559d7af](https://github.com/ghoshRitesh12/aniwatch/commit/559d7afa4add337ee1853ab6c6661aae105c4633))
+
+
+
 ## [2.14.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.1...v2.14.2) (2024-12-19)
 
 
@@ -35,15 +44,6 @@
 ### Bug Fixes
 
 * **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([79f540d](https://github.com/ghoshRitesh12/aniwatch/commit/79f540d719c2ee8398f338f2e0d6aa10315e73ea)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
-
-
-
-# [2.13.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.2...v2.13.0) (2024-12-17)
-
-
-### Bug Fixes
-
-* **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([d2966e5](https://github.com/ghoshRitesh12/aniwatch/commit/d2966e5e5d3509ff7108cf4a2136ccf7846c1427)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
 
 
 
