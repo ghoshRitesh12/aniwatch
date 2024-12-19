@@ -14,7 +14,7 @@ const user_agent = USER_AGENT_HEADER;
 const crypto = webcrypto as unknown as Crypto;
 let wasm: any;
 let arr = new Array(128).fill(void 0);
-const dateNow = Date.now();
+let dateNow = Date.now();
 let content: string = "";
 
 function isDetached(buffer: ArrayBuffer): boolean {
@@ -66,6 +66,7 @@ const fake_window: fakeWindow = {
       fake_window.localStorage[item] = value;
     },
   },
+  error: false,
   navigator: {
     webdriver: false,
     userAgent: user_agent,
@@ -258,13 +259,10 @@ function Qj(QP: ArrayLike<number>, Qn: any) {
   );
 }
 
-function isResponse(obj: Object) {
-  return Object.prototype.toString.call(obj) === "[object Response]";
-}
-
 async function QN(QP: Response, Qn: WebAssembly.Imports) {
   let QT: ArrayBuffer, Qt: any;
-  return "function" == typeof Response && isResponse(QP)
+
+  return "function" == typeof Response && QP instanceof Response
     ? ((QT = await QP.arrayBuffer()),
       (Qt = await WebAssembly.instantiate(QT, Qn)),
       Object.assign(Qt, { bytes: QT }))
@@ -695,17 +693,18 @@ function QZ(QP: any) {
 
 // todo!
 async function loadWasm(url: any) {
-  let mod: any, buffer: any;
-  return void 0 !== wasm
-    ? wasm
-    : ((mod = initWasm()),
-      ({
-        instance: url,
-        module: mod,
-        bytes: buffer,
-      } = ((url = fetch(url)), void 0, await QN(await url, mod))),
-      assignWasm(url),
-      buffer);
+  const mod = initWasm();
+  const response = fetch(url, {
+    headers: {
+      Referer: fake_window.location.href,
+      Host: "megacloud.tv",
+    },
+  });
+
+  // Process the fetched binary with QN
+  const { instance, bytes } = await QN(await response, mod);
+  assignWasm(instance);
+  return bytes;
 }
 
 const grootLoader = {
@@ -746,14 +745,18 @@ function r(z: number) {
 }
 
 const V = async () => {
-  let Q0 = await wasmLoader("https://megacloud.tv/images/loading.png?v=0.0.9");
-  fake_window.bytes = Q0;
   try {
+    let Q0 = await wasmLoader(
+      "https://megacloud.tv/images/loading.png?v=0.0.9"
+    );
+
+    fake_window.bytes = Q0;
     wasmLoader.groot();
-  } catch (error) {
-    console.log("error: ", error);
+    fake_window.jwt_plugin(Q0);
+  } catch (err) {
+    console.log("wasm_load_error: ", err);
+    fake_window.error = true;
   }
-  fake_window.jwt_plugin(Q0);
 };
 
 const getMeta = async (url: string) => {
@@ -804,11 +807,15 @@ export async function getSources(xrax: string) {
   await getMeta(embed_url + xrax + "?k=1");
   fake_window.xrax = xrax;
   fake_window.G = xrax;
+  canvas.baseUrl = embed_url + xrax + "?k=1";
+  fake_window.location.href = embed_url + xrax + "?k=1";
 
   let browser_version = 1878522368;
+  let res = {} as extractedSrc;
 
   try {
     await V();
+
     let getSourcesUrl =
       "https://megacloud.tv/embed-2/ajax/e-1/getSources?id=" +
       fake_window.pid +
@@ -824,8 +831,8 @@ export async function getSources(xrax: string) {
         headers: {
           "User-Agent": user_agent,
           //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
-          // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1
-          Referrer: "https://megacloud.tv" + "/embed-2/e-1/" + xrax + "?k=1",
+          Referer: embed_url + xrax + "?k=1",
+          "X-Reuested-With": "XMLHttpRequest",
         },
         method: "GET",
         mode: "cors",
@@ -841,7 +848,7 @@ export async function getSources(xrax: string) {
     Q8 =
       resp_json.t != 0 ? (i(Q5, Q1), Q5) : ((Q8 = resp_json.k), i(Q8, Q1), Q8);
 
-    const res = resp_json as extractedSrc;
+    res = resp_json as extractedSrc;
     // @ts-ignore
     const str = btoa(String.fromCharCode.apply(null, new Uint8Array(Q8)));
 
