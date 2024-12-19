@@ -36,7 +36,6 @@ const image_data = {
   height: 50,
   width: 65,
   data: decoded_png,
-  // data: data,
 };
 
 interface fakeLocalStorage {
@@ -97,7 +96,7 @@ const fake_window: fakeWindow = {
   },
   crypto: crypto,
   msCrypto: crypto,
-  browser_version: 1676800512,
+  browser_version: 1878522368,
 };
 
 const nodeList = {
@@ -802,7 +801,7 @@ export async function getSources(xrax: string) {
   fake_window.xrax = xrax;
   fake_window.G = xrax;
 
-  let browser_version = 1676800512;
+  let browser_version = 1878522368;
 
   await V();
   let getSourcesUrl =
@@ -821,7 +820,7 @@ export async function getSources(xrax: string) {
         "User-Agent": user_agent,
         //"Referrer": fake_window.origin + "/v2/embed-4/" + xrax + "?z=",
         // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex?k=1
-        Referrer: "https://megacloud.tv" + "embed-2/e-1/" + xrax + "?k=1",
+        Referrer: "https://megacloud.tv" + "/embed-2/e-1/" + xrax + "?k=1",
       },
       method: "GET",
       mode: "cors",
@@ -843,8 +842,10 @@ export async function getSources(xrax: string) {
   // decoding encrypted .m3u8 file url
   res.sources = M(res.sources, str) as unencryptedSrc[];
 
+  // console.log(res);
   return res;
 }
 
 // https://megacloud.tv/embed-2/e-1/1hnXq7VzX0Ex
-// getSources("1hnXq7VzX0Ex");
+// https://megacloud.tv/embed-2/e-1/JSwUe6aP7TxJ
+// getSources("JSwUe6aP7TxJ");
