@@ -252,6 +252,8 @@ class MegaCloud {
       const xrax = embedIframeURL.pathname.split("/").pop() || "";
 
       const resp = await getSources(xrax);
+      if (!resp) return extractedData;
+
       if (Array.isArray(resp.sources)) {
         extractedData.sources = resp.sources.map((s) => ({
           url: s.file,
