@@ -1,3 +1,12 @@
+## [2.14.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.0...v2.14.1) (2024-12-19)
+
+
+### Bug Fixes
+
+* **megacloud:** update incorrect megacloud referer header ([51b6583](https://github.com/ghoshRitesh12/aniwatch/commit/51b658305519ddd4786b752c10cb7e80025bca86))
+
+
+
 # [2.14.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.13.1...v2.14.0) (2024-12-18)
 
 
@@ -35,15 +44,6 @@
 ### Bug Fixes
 
 * **vercel:** try2 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([9d5fe79](https://github.com/ghoshRitesh12/aniwatch/commit/9d5fe795475a4405bd072d44e5de9f013e3b13a8)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1032839383](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1032839383)
-
-
-
-## [2.12.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.12.0...v2.12.1) (2024-12-17)
-
-
-### Bug Fixes
-
-* **vercel:** try1 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([c7081aa](https://github.com/ghoshRitesh12/aniwatch/commit/c7081aa5b9cf3fe50065cfdabba71dd198bdc2e4)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1032839383](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1032839383)
 
 
 
