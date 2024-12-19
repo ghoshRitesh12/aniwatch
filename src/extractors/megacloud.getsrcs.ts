@@ -259,10 +259,14 @@ function Qj(QP: ArrayLike<number>, Qn: any) {
   );
 }
 
+function isResponse(obj: Object) {
+  return Object.prototype.toString.call(obj) === "[object Response]";
+}
+
 async function QN(QP: Response, Qn: WebAssembly.Imports) {
   let QT: ArrayBuffer, Qt: any;
 
-  return "function" == typeof Response && QP instanceof Response
+  return "function" == typeof Response && isResponse(QP)
     ? ((QT = await QP.arrayBuffer()),
       (Qt = await WebAssembly.instantiate(QT, Qn)),
       Object.assign(Qt, { bytes: QT }))
