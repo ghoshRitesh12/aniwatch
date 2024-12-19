@@ -1,3 +1,12 @@
+# [2.15.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.3...v2.15.0) (2024-12-19)
+
+
+### Features
+
+* **megacloud:** fix wasm module load error hindering source extraction ([5f7925a](https://github.com/ghoshRitesh12/aniwatch/commit/5f7925a2de58280b2f1540d68004e1702db68fc9))
+
+
+
 ## [2.14.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.2...v2.14.3) (2024-12-19)
 
 
@@ -35,15 +44,6 @@
 * **megacloud:** integrate https://github.com/drblgn/rabbit_wasm 's solution ([1725dd0](https://github.com/ghoshRitesh12/aniwatch/commit/1725dd04ce479b6a3bdc3ef9ffe3a6bf4ffa26c1))
 * **megacloud:** remove `extractUsingPuppeteer` method & add `extract2` ([a6a622e](https://github.com/ghoshRitesh12/aniwatch/commit/a6a622e0cdbadcb80cd96abd12e04f9b71039728))
 * **megacloud:** use `extract2` method ([9b4b620](https://github.com/ghoshRitesh12/aniwatch/commit/9b4b6206218ae712966ea25eea2c4596197888e5))
-
-
-
-## [2.13.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.13.0...v2.13.1) (2024-12-17)
-
-
-### Bug Fixes
-
-* **vercel:** try3 to fix 'cannot find module puppeteer-extra-plugin-stealth' ([79f540d](https://github.com/ghoshRitesh12/aniwatch/commit/79f540d719c2ee8398f338f2e0d6aa10315e73ea)), closes [/github.com/vercel/pkg/issues/910#issuecomment-1374872029](https://github.com//github.com/vercel/pkg/issues/910/issues/issuecomment-1374872029)
 
 
 
