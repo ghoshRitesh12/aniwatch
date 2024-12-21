@@ -22,7 +22,7 @@ export async function getProducerAnimes(
       month: [],
     },
     topAiringAnimes: [],
-    totalPages: 1,
+    totalPages: 0,
     hasNextPage: false,
     currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
@@ -35,7 +35,7 @@ export async function getProducerAnimes(
         400
       );
     }
-    page = page < 1 ? 1 : page;
+    page = res.currentPage;
 
     const producerUrl: URL = new URL(
       `/producer/${producerName}?page=${page}`,

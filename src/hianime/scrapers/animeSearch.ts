@@ -36,14 +36,14 @@ async function _getAnimeSearchResults(
       mostPopularAnimes: [],
       searchQuery: q,
       searchFilters: filters,
-      totalPages: 1,
+      totalPages: 0,
       hasNextPage: false,
       currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
     };
 
     const url = new URL(SRC_SEARCH_URL);
     url.searchParams.set("keyword", q);
-    url.searchParams.set("page", `${page}`);
+    url.searchParams.set("page", `${res.currentPage}`);
     url.searchParams.set("sort", "default");
 
     for (const key in filters) {

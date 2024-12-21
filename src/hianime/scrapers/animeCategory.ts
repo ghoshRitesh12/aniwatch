@@ -22,7 +22,7 @@ export async function getAnimeCategory(
       month: [],
     },
     category,
-    totalPages: 1,
+    totalPages: 0,
     hasNextPage: false,
     currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
@@ -35,7 +35,7 @@ export async function getAnimeCategory(
         400
       );
     }
-    page = page < 1 ? 1 : page;
+    page = res.currentPage;
 
     const scrapeUrl: URL = new URL(category, SRC_BASE_URL);
     const mainPage = await client.get(`${scrapeUrl}?page=${page}`);

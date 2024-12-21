@@ -13,7 +13,8 @@ export async function getGenreAnime(
   page: number
 ): Promise<ScrapedGenreAnime> {
   const res: ScrapedGenreAnime = {
-    genreName,
+    // there's a typo with hianime where "martial" arts is "marial" arts
+    genreName: genreName === "martial-arts" ? "marial-arts" : genreName.trim(),
     animes: [],
     genres: [],
     topAiringAnimes: [],
@@ -22,14 +23,13 @@ export async function getGenreAnime(
     currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
 
-  // there's a typo with zoro where martial arts is marial arts
-  genreName = genreName === "martial-arts" ? "marial-arts" : genreName;
+  genreName = res.genreName;
+  page = res.currentPage;
 
   try {
-    if (genreName.trim() === "") {
+    if (genreName === "") {
       throw new HiAnimeError("invalid genre name", getGenreAnime.name, 400);
     }
-    page = page < 1 ? 1 : page;
 
     const genreUrl: URL = new URL(
       `/genre/${genreName}?page=${page}`,
