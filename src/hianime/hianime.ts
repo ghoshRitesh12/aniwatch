@@ -1,21 +1,23 @@
 import {
+  getAZList,
   getHomePage,
-  getAnimeCategory,
-  getAnimeEpisodes,
-  getAnimeEpisodeSources,
-  getAnimeSearchResults,
-  getAnimeSearchSuggestion,
-  getEpisodeServers,
-  getEstimatedSchedule,
   getGenreAnime,
+  getAnimeEpisodes,
+  getAnimeCategory,
   getAnimeAboutInfo,
+  getEpisodeServers,
   getProducerAnimes,
+  getEstimatedSchedule,
+  getAnimeSearchResults,
+  getAnimeEpisodeSources,
+  getAnimeSearchSuggestion,
 } from "./scrapers/index.js";
 
 import {
   Servers,
   type AnimeServers,
   type AnimeCategories,
+  type AZListSortOptions,
 } from "./types/anime.js";
 import type { SearchFilters } from "./types/animeSearch.js";
 
@@ -221,9 +223,31 @@ class Scraper {
   async getHomePage() {
     return getHomePage();
   }
+
+  /**
+   * @param {AZListSortOptions} sortOption az-list sort option
+   * @param {number} page - page number, defaults to `1`
+   * @throws {HiAnimeError}
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getAZList("0-9", 1)
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getAZList(sortOption: AZListSortOptions, page: number = 1) {
+    return getAZList(sortOption, page);
+  }
 }
 
 export { Scraper };
+export {
+  SEARCH_PAGE_FILTERS,
+  AZ_LIST_SORT_OPTIONS,
+} from "../utils/constants.js";
 export * from "./types/anime.js";
 export * from "./types/animeSearch.js";
 export * from "./types/scrapers/index.js";
