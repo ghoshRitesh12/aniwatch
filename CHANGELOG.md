@@ -1,3 +1,17 @@
+# [2.17.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.16.0...v2.17.0) (2024-12-21)
+
+
+### Bug Fixes
+
+* **totalPages prop:** update `totalPages` default value to be 0 ([d69b052](https://github.com/ghoshRitesh12/aniwatch/commit/d69b05209c6c0d06a684fac4b30f0d9d10a7e721))
+
+
+### Features
+
+* **az-list:** update `azSortOption` prop name to `sortOption` ([afe76fe](https://github.com/ghoshRitesh12/aniwatch/commit/afe76fe4f64122b44e0030d84d83877aed411abb))
+
+
+
 # [2.16.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.15.2...v2.16.0) (2024-12-21)
 
 
@@ -32,15 +46,6 @@
 ### Features
 
 * **megacloud:** fix wasm module load error hindering source extraction ([5f7925a](https://github.com/ghoshRitesh12/aniwatch/commit/5f7925a2de58280b2f1540d68004e1702db68fc9))
-
-
-
-## [2.14.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.2...v2.14.3) (2024-12-19)
-
-
-### Bug Fixes
-
-* **megacloud:** extracted sources undefined case ([559d7af](https://github.com/ghoshRitesh12/aniwatch/commit/559d7afa4add337ee1853ab6c6661aae105c4633))
 
 
 
