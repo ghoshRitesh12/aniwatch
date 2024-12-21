@@ -14,13 +14,13 @@ export async function getAZList(
   page: number
 ): Promise<ScrapedAnimeAZList> {
   const res: ScrapedAnimeAZList = {
-    azSortOption: sortOption.trim() as AZListSortOptions,
+    sortOption: sortOption.trim() as AZListSortOptions,
     animes: [],
-    totalPages: 1,
+    totalPages: 0,
     hasNextPage: false,
     currentPage: (Number(page) || 0) < 1 ? 1 : Number(page),
   };
-  sortOption = res.azSortOption;
+  sortOption = res.sortOption;
   page = res.currentPage;
 
   try {

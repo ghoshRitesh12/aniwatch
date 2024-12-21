@@ -8,5 +8,5 @@ export type ScrapedAnimeAZList = Pick<
   ScrapedAnimeCategory,
   CommonAnimeScrapeTypes
 > & {
-  azSortOption: AZListSortOptions;
+  sortOption: AZListSortOptions;
 };
