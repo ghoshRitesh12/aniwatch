@@ -5,16 +5,7 @@ import type {
   MostPopularAnime,
   Top10AnimeTimePeriod,
 } from "../hianime/types/anime.js";
-import {
-  genresIdMap,
-  languageIdMap,
-  ratedIdMap,
-  scoreIdMap,
-  seasonIdMap,
-  sortIdMap,
-  statusIdMap,
-  typeIdMap,
-} from "./constants.js";
+import { SEARCH_PAGE_FILTERS } from "./constants.js";
 import type { CheerioAPI, SelectorType } from "cheerio";
 import type { FilterKeys } from "../hianime/types/animeSearch.js";
 
@@ -213,7 +204,9 @@ function getGenresFilterVal(genreNames: string[]): string | undefined {
   if (genreNames.length < 1) {
     return undefined;
   }
-  return genreNames.map((name) => genresIdMap[name]).join(",");
+  return genreNames
+    .map((name) => SEARCH_PAGE_FILTERS["GENRES_ID_MAP"][name])
+    .join(",");
 }
 
 export function getSearchFilterValue(
@@ -228,31 +221,31 @@ export function getSearchFilterValue(
       return getGenresFilterVal(rawValue.split(","));
     }
     case "type": {
-      const val = typeIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["TYPE_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "status": {
-      const val = statusIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["STATUS_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "rated": {
-      const val = ratedIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["RATED_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "score": {
-      const val = scoreIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["SCORE_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "season": {
-      const val = seasonIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["SEASON_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "language": {
-      const val = languageIdMap[rawValue] ?? 0;
+      const val = SEARCH_PAGE_FILTERS["LANGUAGE_ID_MAP"][rawValue] ?? 0;
       return val === 0 ? undefined : `${val}`;
     }
     case "sort": {
-      return sortIdMap[rawValue] ?? undefined;
+      return SEARCH_PAGE_FILTERS["SORT_ID_MAP"][rawValue] ?? undefined;
     }
     default:
       return undefined;
