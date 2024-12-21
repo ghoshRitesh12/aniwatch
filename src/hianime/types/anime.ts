@@ -1,3 +1,5 @@
+import type { AZ_LIST_SORT_OPTIONS } from "../../utils/constants.js";
+
 export type Anime = {
   id: string | null;
   name: string | null;
@@ -102,6 +104,12 @@ export type SubEpisode = {
 };
 export type DubEpisode = SubEpisode;
 export type RawEpisode = SubEpisode;
+
+type ObjectToSumType<Obj> = {
+  [K in keyof Obj]: Obj[K] extends Readonly<Obj[K]> ? K : never;
+}[keyof Obj];
+
+export type AZListSortOptions = ObjectToSumType<typeof AZ_LIST_SORT_OPTIONS>;
 
 export type AnimeCategories =
   | "most-favorite"
