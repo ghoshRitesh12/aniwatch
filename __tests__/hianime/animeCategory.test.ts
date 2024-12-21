@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
+// npx vitest run animeCategory.test.ts
 test("returns animes belonging to a category", async () => {
   const hianime = new HiAnime.Scraper();
   const data = await hianime.getCategoryAnime("subbed-anime");

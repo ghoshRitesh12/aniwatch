@@ -1,6 +1,7 @@
 import { expect, test } from "vitest";
 import { HiAnime } from "../../src/index.js";
 
+// npx vitest run animeAboutInfo.test.ts
 test("returns information about an anime", async () => {
   const hianime = new HiAnime.Scraper();
   const data = await hianime.getInfo("steinsgate-3");

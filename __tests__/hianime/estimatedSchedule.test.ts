@@ -5,6 +5,7 @@ function padZero(num: number) {
   return num < 10 ? `0${num}` : num.toString();
 }
 
+// npx vitest run episodeSchedule.test.ts
 test("returns estimated schedule anime release", async () => {
   const hianime = new HiAnime.Scraper();
 
