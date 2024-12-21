@@ -62,6 +62,7 @@
   - [Example Usage](#example-usage)
 - [Documentation](#documentation)
   - [getHomePage](#gethomepage)
+  - [getAZList](#getazlist)
   - [getAnimeAboutInfo](#getanimeaboutinfo)
   - [getAnimeSearchResults](#getanimesearchresults)
   - [getAnimeSearchSuggestion](#getanimesearchsuggestion)
@@ -256,6 +257,65 @@ hianime
   ],
 }
 
+```
+
+[🔼 Back to Top](#table-of-contents)
+
+</details>
+
+<details>
+
+<summary>
+
+### `getAZList`
+
+</summary>
+
+#### Parameters
+
+|  Parameter   |  Type  |                                             Description                                             | Required? | Default |
+| :----------: | :----: | :-------------------------------------------------------------------------------------------------: | :-------: | :-----: |
+| `sortOption` | string | The az-list sort option. Possible values include: "all", "other", "0-9" and all english alphabets . |    Yes    |   --    |
+|    `page`    | number |                                   The page number of the result.                                    |    No     |   `1`   |
+
+#### Sample Usage
+
+```javascript
+import { HiAnime } from "aniwatch";
+
+const hianime = new HiAnime.Scraper();
+
+hianime
+  .getAZList("0-9", 1)
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+```
+
+#### Response Schema
+
+```javascript
+{
+  sortOption: "0-9",
+  animes: [
+    {
+      id: string,
+      name: string,
+      jname: string,
+      poster: string,
+      duration: string,
+      type: string,
+      rating: string,
+      episodes: {
+        sub: number ,
+        dub: number
+      }
+    },
+    {...}
+  ],
+  totalPages: 1,
+  currentPage: 1,
+  hasNextPage: false
+}
 ```
 
 [🔼 Back to Top](#table-of-contents)
