@@ -355,21 +355,23 @@ hianime
 
 ```javascript
 {
-  id: "one-piece-100",
-  name: "One Piece",
-  malscore: string,
-  quality: string,
-  episodes: {
-    sub: number,
-    dub: number
-  },
-  type: string,
-  description: string,
-  jname: string,
-  synonyms: string,
-  aired: string,
-  status: string,
-  genres: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Shounen", "Drama", "Fantasy", "Shounen", "Fantasy", "Shounen", "Shounen", "Super Power"]
+  anime: {
+    id: "one-piece-100",
+    name: "One Piece",
+    malscore: string,
+    quality: string,
+    episodes: {
+      sub: number,
+      dub: number
+    },
+    type: string,
+    description: string,
+    jname: string,
+    synonyms: string,
+    aired: string,
+    status: string,
+    genres: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Shounen", "Drama", "Fantasy", "Shounen", "Fantasy", "Shounen", "Shounen", "Super Power"]
+  }
 }
 ```
 
