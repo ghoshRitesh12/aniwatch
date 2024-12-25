@@ -1,3 +1,14 @@
+# [2.18.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.17.0...v2.18.0) (2024-12-25)
+
+
+### Features
+
+* **animeQtip:** add `getAnimeQtipInfo` scraper ([f01e51d](https://github.com/ghoshRitesh12/aniwatch/commit/f01e51ddbd1772eb412512b74dea0025eac9c7f7))
+* **animeQtip:** add `ScrapedAnimeQtipInfo` type ([22e8ae0](https://github.com/ghoshRitesh12/aniwatch/commit/22e8ae05227b54e3249dfb92689f2a3f835f5bff))
+* **animeQtip:** add new `getQtipInfo` method ([2a9768d](https://github.com/ghoshRitesh12/aniwatch/commit/2a9768d3d9380a18ad478878bd309fc4dfa22500))
+
+
+
 # [2.17.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.16.0...v2.17.0) (2024-12-21)
 
 
@@ -37,15 +48,6 @@
 ### Bug Fixes
 
 * **megacloud): `WebAssembly.instantiate(:** Argument 0 must be a buffer source` error ([277719e](https://github.com/ghoshRitesh12/aniwatch/commit/277719eb50150ddb77be609b5e014a51aef6657e))
-
-
-
-# [2.15.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.14.3...v2.15.0) (2024-12-19)
-
-
-### Features
-
-* **megacloud:** fix wasm module load error hindering source extraction ([5f7925a](https://github.com/ghoshRitesh12/aniwatch/commit/5f7925a2de58280b2f1540d68004e1702db68fc9))
 
 
 
