@@ -1,5 +1,4 @@
 import { defineConfig } from "tsup";
-import { execSync } from "child_process";
 
 export default defineConfig({
   format: ["esm"],
