@@ -1,6 +1,7 @@
 import type { ScrapedHomePage } from "./homePage.js";
 import type { ScrapedGenreAnime } from "./animeGenre.js";
 import type { ScrapedAnimeAZList } from "./animeAZList.js";
+import type { ScrapedAnimeQtipInfo } from "./animeQtip.js";
 import type { ScrapedAnimeEpisodes } from "./animeEpisodes.js";
 import type { ScrapedAnimeCategory } from "./animeCategory.js";
 import type { ScrapedProducerAnime } from "./animeProducer.js";
@@ -15,6 +16,7 @@ export type {
   ScrapedHomePage,
   ScrapedGenreAnime,
   ScrapedAnimeAZList,
+  ScrapedAnimeQtipInfo,
   ScrapedAnimeEpisodes,
   ScrapedProducerAnime,
   ScrapedAnimeCategory,
