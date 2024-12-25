@@ -1,15 +1,15 @@
 import { AxiosError } from "axios";
 import type { AniwatchError } from "../config/error.js";
 
-const ANSI_RED_COLOR = "\x1b[31m";
-const ANSI_RESET_COLOR = "\x1b[0m";
-
-const DEFAULT_ERROR_STATUS = 500;
-const DEFAULT_ERROR_MESSAGE = "Something went wrong";
+const ANSI_ESC_CODE_COLOR_RED = "\x1b[31m";
+const ANSI_ESC_CODE_COLOR_RESET = "\x1b[0m";
 
 export class HiAnimeError extends Error implements AniwatchError {
-  public scraper: string = DEFAULT_ERROR_MESSAGE;
-  public status: number = DEFAULT_ERROR_STATUS;
+  static DEFAULT_ERROR_STATUS = 500;
+  static DEFAULT_ERROR_MESSAGE = "Something went wrong";
+
+  public scraper: string = HiAnimeError.DEFAULT_ERROR_MESSAGE;
+  public status: number = HiAnimeError.DEFAULT_ERROR_STATUS;
 
   constructor(errMsg: string, scraperName: string, status?: number) {
     super(`${scraperName}: ${errMsg}`);
@@ -19,7 +19,9 @@ export class HiAnimeError extends Error implements AniwatchError {
 
     if (status) {
       this.status =
-        status >= 400 && status < 600 ? status : DEFAULT_ERROR_STATUS; // default status
+        status >= 400 && status < 600
+          ? status
+          : HiAnimeError.DEFAULT_ERROR_STATUS; // default status
     }
 
     if (Error.captureStackTrace) {
@@ -35,15 +37,19 @@ export class HiAnimeError extends Error implements AniwatchError {
     }
 
     if (err instanceof AxiosError) {
-      const statusText = err?.response?.statusText || DEFAULT_ERROR_MESSAGE;
+      const statusText =
+        err?.response?.statusText || HiAnimeError.DEFAULT_ERROR_MESSAGE;
       return new HiAnimeError(
         "fetchError: " + statusText,
         scraperName,
-        err.status || DEFAULT_ERROR_STATUS
+        err.status || HiAnimeError.DEFAULT_ERROR_STATUS
       );
     }
 
-    return new HiAnimeError(err?.message || DEFAULT_ERROR_MESSAGE, scraperName);
+    return new HiAnimeError(
+      err?.message || HiAnimeError.DEFAULT_ERROR_MESSAGE,
+      scraperName
+    );
   }
 
   public json(): { status: number; message: string } {
@@ -55,7 +61,7 @@ export class HiAnimeError extends Error implements AniwatchError {
 
   private logError() {
     console.error(
-      ANSI_RED_COLOR +
+      ANSI_ESC_CODE_COLOR_RED +
         JSON.stringify(
           {
             status: this.status,
@@ -65,7 +71,7 @@ export class HiAnimeError extends Error implements AniwatchError {
           null,
           2
         ) +
-        ANSI_RESET_COLOR
+        ANSI_ESC_CODE_COLOR_RESET
     );
   }
 }
