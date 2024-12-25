@@ -8,26 +8,28 @@ export async function getAnimeQtipInfo(
   animeId: string
 ): Promise<ScrapedAnimeQtipInfo> {
   const res: ScrapedAnimeQtipInfo = {
-    id: animeId.trim(),
-    name: null,
-    malscore: null,
-    quality: null,
-    episodes: {
-      sub: null,
-      dub: null,
-    },
-    type: null,
-    description: null,
+    anime: {
+      id: animeId.trim(),
+      name: null,
+      malscore: null,
+      quality: null,
+      episodes: {
+        sub: null,
+        dub: null,
+      },
+      type: null,
+      description: null,
 
-    jname: null,
-    synonyms: null,
-    aired: null,
-    status: null,
-    genres: [],
+      jname: null,
+      synonyms: null,
+      aired: null,
+      status: null,
+      genres: [],
+    },
   };
 
   try {
-    animeId = String(res.id);
+    animeId = String(res.anime.id);
     const id = animeId.split("-").pop();
     if (animeId === "" || animeId.indexOf("-") === -1 || !id) {
       throw new HiAnimeError("invalid anime id", getAnimeQtipInfo.name, 400);
@@ -42,32 +44,33 @@ export async function getAnimeQtipInfo(
     const $: CheerioAPI = load(mainPage.data);
     const selector: SelectorType = ".pre-qtip-content";
 
-    res.id =
+    res.anime.id =
       $(selector)
         ?.find(".pre-qtip-button a.btn-play")
         ?.attr("href")
         ?.trim()
         ?.split("/")
         ?.pop() || null;
-    res.name = $(selector)?.find(".pre-qtip-title")?.text()?.trim() || null;
-    res.malscore =
+    res.anime.name =
+      $(selector)?.find(".pre-qtip-title")?.text()?.trim() || null;
+    res.anime.malscore =
       $(selector)
         ?.find(".pre-qtip-detail")
         ?.children()
         ?.first()
         ?.text()
         ?.trim() || null;
-    res.quality =
+    res.anime.quality =
       $(selector)?.find(".tick .tick-quality")?.text()?.trim() || null;
-    res.type =
+    res.anime.type =
       $(selector)?.find(".badge.badge-quality")?.text()?.trim() || null;
 
-    res.episodes.sub =
+    res.anime.episodes.sub =
       Number($(selector)?.find(".tick .tick-sub")?.text()?.trim()) || null;
-    res.episodes.dub =
+    res.anime.episodes.dub =
       Number($(selector)?.find(".tick .tick-dub")?.text()?.trim()) || null;
 
-    res.description =
+    res.anime.description =
       $(selector)?.find(".pre-qtip-description")?.text()?.trim() || null;
 
     $(`${selector} .pre-qtip-line`).each((_, el) => {
@@ -82,19 +85,19 @@ export async function getAnimeQtipInfo(
 
       switch (key) {
         case "japanese":
-          res.jname = value;
+          res.anime.jname = value;
           break;
         case "synonyms":
-          res.synonyms = value;
+          res.anime.synonyms = value;
           break;
         case "aired":
-          res.aired = value;
+          res.anime.aired = value;
           break;
         case "status":
-          res.status = value;
+          res.anime.status = value;
           break;
         case "genres":
-          res.genres = value?.split(",")?.map((i) => i?.trim()) || [];
+          res.anime.genres = value?.split(",")?.map((i) => i?.trim()) || [];
           break;
       }
     });

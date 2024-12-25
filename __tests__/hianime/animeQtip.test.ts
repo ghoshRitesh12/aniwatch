@@ -8,8 +8,8 @@ test(`returns ${animeId} anime qtip info`, async () => {
   const hianime = new HiAnime.Scraper();
   const data = await hianime.getQtipInfo(animeId);
 
-  expect(data.id).not.toEqual(null);
-  expect(data.name).not.toEqual(null);
-  expect(data.description).not.toEqual(null);
-  expect(data.genres).not.toEqual([]);
+  expect(data.anime.id).not.toEqual(null);
+  expect(data.anime.name).not.toEqual(null);
+  expect(data.anime.description).not.toEqual(null);
+  expect(data.anime.genres).not.toEqual([]);
 });
