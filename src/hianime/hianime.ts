@@ -2,6 +2,7 @@ import {
   getAZList,
   getHomePage,
   getGenreAnime,
+  getAnimeQtipInfo,
   getAnimeEpisodes,
   getAnimeCategory,
   getAnimeAboutInfo,
@@ -240,6 +241,23 @@ class Scraper {
    */
   async getAZList(sortOption: AZListSortOptions, page: number = 1) {
     return getAZList(sortOption, page);
+  }
+
+  /**
+   * @param {string} animeId - unique anime id
+   * @throws {HiAnimeError}
+   * @example
+   * import { HiAnime } from "aniwatch";
+   *
+   * const hianime = new HiAnime.Scraper()
+   *
+   * hianime.getQtipInfo("one-piece-100")
+   *  .then((data) => console.log(data))
+   *  .catch((err) => console.error(err));
+   *
+   */
+  async getQtipInfo(animeId: string) {
+    return getAnimeQtipInfo(animeId);
   }
 }
 
