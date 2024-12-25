@@ -36,8 +36,9 @@
 
 [![Publish Package](https://github.com/ghoshRitesh12/aniwatch/actions/workflows/publish.yml/badge.svg)](https://github.com/ghoshRitesh12/aniwatch/actions/workflows/publish.yml)
 ![NPM Downloads](https://img.shields.io/npm/dw/aniwatch?logo=npm&logoColor=e78284&label=Downloads&labelColor=292e34&color=31c754)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/aniwatch?logo=npm&logoColor=e78284&label=MinZipped%20Size&labelColor=292e34&color=31c754)
 [![GitHub License](https://img.shields.io/github/license/ghoshRitesh12/aniwatch?logo=github&logoColor=%23959da5&labelColor=%23292e34&color=%2331c754)](https://github.com/ghoshRitesh12/aniwatch/blob/main/LICENSE)
+
+<!-- ![npm bundle size](https://img.shields.io/bundlephobia/minzip/aniwatch?logo=npm&logoColor=e78284&label=MinZipped%20Size&labelColor=292e34&color=31c754) -->
 
 </div>
 
@@ -63,6 +64,7 @@
 - [Documentation](#documentation)
   - [getHomePage](#gethomepage)
   - [getAZList](#getazlist)
+  - [getQtipInfo](#getqtipinfo)
   - [getAnimeAboutInfo](#getanimeaboutinfo)
   - [getAnimeSearchResults](#getanimesearchresults)
   - [getAnimeSearchSuggestion](#getanimesearchsuggestion)
@@ -78,7 +80,7 @@
 - [Support](#support)
 - [License](#license)
   <!-- - [Contributors](#contributors) -->
-  <!-- - [Star History](#star-history) -->
+- [Star History](#star-history)
 
 ## Quick start
 
@@ -102,10 +104,10 @@ import { HiAnime, HiAnimeError } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 try {
-  const result: HiAnime.ScrapedAnimeAboutInfo = await hianime.getInfo(
+  const data: HiAnime.ScrapedAnimeAboutInfo = await hianime.getInfo(
     "steinsgate-3"
   );
-  console.log(result);
+  console.log(data);
 } catch (err) {
   console.error(err instanceof HiAnimeError, err);
 }
@@ -315,6 +317,59 @@ hianime
   totalPages: 1,
   currentPage: 1,
   hasNextPage: false
+}
+```
+
+[🔼 Back to Top](#table-of-contents)
+
+</details>
+
+<details>
+
+<summary>
+
+### `getQtipInfo`
+
+</summary>
+
+#### Parameters
+
+| Parameter |  Type  |             Description              | Required? | Default |
+| :-------: | :----: | :----------------------------------: | :-------: | :-----: |
+| `animeId` | string | The unique anime id (in kebab case). |    Yes    |   --    |
+
+#### Sample Usage
+
+```javascript
+import { HiAnime } from "aniwatch";
+
+const hianime = new HiAnime.Scraper();
+
+hianime
+  .getQtipInfo("one-piece-100")
+  .then((data) => console.log(data))
+  .catch((err) => console.error(err));
+```
+
+#### Response Schema
+
+```javascript
+{
+  id: "one-piece-100",
+  name: "One Piece",
+  malscore: string,
+  quality: string,
+  episodes: {
+    sub: number,
+    dub: number
+  },
+  type: string,
+  description: string,
+  jname: string,
+  synonyms: string,
+  aired: string,
+  status: string,
+  genres: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Shounen", "Drama", "Fantasy", "Shounen", "Fantasy", "Shounen", "Shounen", "Super Power"]
 }
 ```
 
@@ -1098,8 +1153,9 @@ This project is licensed under the [MIT License](https://opensource.org/license/
 <!-- <br/>
 -->
 
+## Star History
+
 <img
-  id="star-history"
   src="https://starchart.cc/ghoshRitesh12/aniwatch.svg?variant=adaptive"
   alt=""
 />
