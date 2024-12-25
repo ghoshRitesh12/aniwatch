@@ -1,3 +1,7 @@
+## [2.18.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.0...v2.18.1) (2024-12-25)
+
+
+
 # [2.18.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.17.0...v2.18.0) (2024-12-25)
 
 
@@ -39,15 +43,6 @@
 
 
 ## [2.15.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.15.1...v2.15.2) (2024-12-19)
-
-
-
-## [2.15.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.15.0...v2.15.1) (2024-12-19)
-
-
-### Bug Fixes
-
-* **megacloud): `WebAssembly.instantiate(:** Argument 0 must be a buffer source` error ([277719e](https://github.com/ghoshRitesh12/aniwatch/commit/277719eb50150ddb77be609b5e014a51aef6657e))
 
 
 
