@@ -42,8 +42,8 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
-    "@types/node": "^22.10.2",
-    "husky": "^9.1.4",
+    "@types/node": "^22.10.3",
+    "husky": "^9.1.7",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
