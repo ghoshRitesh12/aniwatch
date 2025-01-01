@@ -1,3 +1,7 @@
+## [2.18.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.1...v2.18.2) (2025-01-01)
+
+
+
 ## [2.18.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.0...v2.18.1) (2024-12-25)
 
 
@@ -39,10 +43,6 @@
 * **az-list:** add `getAZList` scraper method ([08dbc26](https://github.com/ghoshRitesh12/aniwatch/commit/08dbc266e5d6cc6f91df518fc67f0a6324d62980))
 * combine all `SEARCH_PAGE_FILTERS` into a single map ([2bbeb25](https://github.com/ghoshRitesh12/aniwatch/commit/2bbeb2545e2f5fa025e8d7a95c13876d9d2336a6))
 * update `SEARCH_PAGE_FILTERS` and add `AZ_LIST_SORT_OPTIONS` ([2676eb1](https://github.com/ghoshRitesh12/aniwatch/commit/2676eb175340991f7ffec9ab80c2d982723cecb9))
-
-
-
-## [2.15.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.15.1...v2.15.2) (2024-12-19)
 
 
 
