@@ -33,7 +33,7 @@ async function _getAnimeEpisodeSources(
       case Servers.VidStreaming:
       case Servers.VidCloud:
         return {
-          headers: { Referer: serverUrl.href },
+          headers: { Referer: serverUrl.origin },
           // disabled for the timebeing
           // ...(await new MegaCloud().extract(serverUrl)),
           ...(await new MegaCloud().extract2(serverUrl)),
