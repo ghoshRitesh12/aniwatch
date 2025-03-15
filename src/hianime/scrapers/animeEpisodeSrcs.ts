@@ -33,6 +33,7 @@ async function _getAnimeEpisodeSources(
       case Servers.VidStreaming:
       case Servers.VidCloud:
         return {
+          headers: { Referer: `${serverUrl.origin}/` },
           // disabled for the timebeing
           // ...(await new MegaCloud().extract(serverUrl)),
           ...(await new MegaCloud().extract2(serverUrl)),
@@ -162,6 +163,7 @@ export async function getAnimeEpisodeSources(
         },
       }),
     ]);
+    console.log("EPISODE_SRC_DATA: ", episodeSrcData);
 
     const $: CheerioAPI = load(animeSrc?.data);
 
