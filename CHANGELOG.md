@@ -1,3 +1,14 @@
+## [2.18.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.2...v2.18.3) (2025-03-15)
+
+
+### Bug Fixes
+
+* **scraper:** add Referer header and log episode source data ([d28f1ad](https://github.com/ghoshRitesh12/aniwatch/commit/d28f1ad775c9e64e40b5dc1d2aa1a3566e2ec410))
+* **scraper:** append trailing slash to Referer header URL ([1f3a10c](https://github.com/ghoshRitesh12/aniwatch/commit/1f3a10cb7f824bfd38c4e723b2e28c203a4e6932))
+* **scraper:** update Referer header to use serverUrl.origin ([249c3f9](https://github.com/ghoshRitesh12/aniwatch/commit/249c3f938a06596119f7cb34dd5b54057c5887c0))
+
+
+
 ## [2.18.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.1...v2.18.2) (2025-01-01)
 
 
@@ -28,21 +39,6 @@
 ### Features
 
 * **az-list:** update `azSortOption` prop name to `sortOption` ([afe76fe](https://github.com/ghoshRitesh12/aniwatch/commit/afe76fe4f64122b44e0030d84d83877aed411abb))
-
-
-
-# [2.16.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.15.2...v2.16.0) (2024-12-21)
-
-
-### Features
-
-* add `ScrapedAnimeAZList` scraper type ([4d67d49](https://github.com/ghoshRitesh12/aniwatch/commit/4d67d492d7084edaac1971db3a642c27a315949f))
-* add `ScrapedAnimeAZList` scraper type ([cb2cc2e](https://github.com/ghoshRitesh12/aniwatch/commit/cb2cc2e9b1ea0580c0de5f60f59e1ab9cc7bc0bd))
-* **az-list:** add `AZListSortOptions` type ([78d9adc](https://github.com/ghoshRitesh12/aniwatch/commit/78d9adcec28108716b1bf12f17547714d7dc2f5a))
-* **az-list:** add `getAZList` scraper method ([eb352f0](https://github.com/ghoshRitesh12/aniwatch/commit/eb352f026c25c3e4e1496b81ba5be23e7f9d34cf))
-* **az-list:** add `getAZList` scraper method ([08dbc26](https://github.com/ghoshRitesh12/aniwatch/commit/08dbc266e5d6cc6f91df518fc67f0a6324d62980))
-* combine all `SEARCH_PAGE_FILTERS` into a single map ([2bbeb25](https://github.com/ghoshRitesh12/aniwatch/commit/2bbeb2545e2f5fa025e8d7a95c13876d9d2336a6))
-* update `SEARCH_PAGE_FILTERS` and add `AZ_LIST_SORT_OPTIONS` ([2676eb1](https://github.com/ghoshRitesh12/aniwatch/commit/2676eb175340991f7ffec9ab80c2d982723cecb9))
 
 
 
