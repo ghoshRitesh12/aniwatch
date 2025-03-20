@@ -22,7 +22,7 @@ export async function getEstimatedSchedule(
     }
 
     const estScheduleURL =
-      `${SRC_AJAX_URL}/schedule/list?tzOffset=-330&date=${date}` as const;
+      `${SRC_AJAX_URL}/schedule/list?tzOffset=0&date=${date}` as const;
 
     const mainPage = await client.get(estScheduleURL, {
       headers: {
