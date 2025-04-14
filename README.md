@@ -58,30 +58,30 @@
 
 ## Table of Contents
 
--   [Quick Start](#quick-start)
-    -   [Installation](#installation)
-    -   [Example Usage](#example-usage)
--   [Documentation](#documentation)
-    -   [getHomePage](#gethomepage)
-    -   [getAZList](#getazlist)
-    -   [getQtipInfo](#getqtipinfo)
-    -   [getAnimeAboutInfo](#getanimeaboutinfo)
-    -   [getAnimeSearchResults](#getanimesearchresults)
-    -   [getAnimeSearchSuggestion](#getanimesearchsuggestion)
-    -   [getProducerAnimes](#getproduceranimes)
-    -   [getGenreAnime](#getgenreanime)
-    -   [getAnimeCategory](#getanimecategory)
-    -   [getEstimatedSchedule](#getestimatedschedule)
-    -   [getNextEpisodeSchedule](#getnextepisodeschedule)
-    -   [getAnimeEpisodes](#getanimeepisodes)
-    -   [getEpisodeServers](#getepisodeservers)
-    -   [getAnimeEpisodeSources](#getanimeepisodesources)
--   [Development](#development)
--   [Thanks](#thanks)
--   [Support](#support)
--   [License](#license)
-    <!-- - [Contributors](#contributors) -->
--   [Star History](#star-history)
+- [Quick Start](#quick-start)
+    - [Installation](#installation)
+    - [Example Usage](#example-usage)
+- [Documentation](#documentation)
+    - [getHomePage](#gethomepage)
+    - [getAZList](#getazlist)
+    - [getQtipInfo](#getqtipinfo)
+    - [getAnimeAboutInfo](#getanimeaboutinfo)
+    - [getAnimeSearchResults](#getanimesearchresults)
+    - [getAnimeSearchSuggestion](#getanimesearchsuggestion)
+    - [getProducerAnimes](#getproduceranimes)
+    - [getGenreAnime](#getgenreanime)
+    - [getAnimeCategory](#getanimecategory)
+    - [getEstimatedSchedule](#getestimatedschedule)
+    - [getNextEpisodeSchedule](#getnextepisodeschedule)
+    - [getAnimeEpisodes](#getanimeepisodes)
+    - [getEpisodeServers](#getepisodeservers)
+    - [getAnimeEpisodeSources](#getanimeepisodesources)
+- [Development](#development)
+- [Thanks](#thanks)
+- [Support](#support)
+- [License](#license)
+  <!-- - [Contributors](#contributors) -->
+- [Star History](#star-history)
 
 ## Quick start
 
@@ -923,6 +923,7 @@ hianime
 |      Parameter      |  Type  |                             Description                              | Required? | Default |
 | :-----------------: | :----: | :------------------------------------------------------------------: | :-------: | :-----: |
 | `date (yyyy-mm-dd)` | string | The date of the desired schedule. (months & days must have 2 digits) |    Yes    |   --    |
+|     `tzOffset`      | number |      The timezone offset in minutes (defaults to -330 i.e. IST)      |    No     | `-330`  |
 
 #### Sample Usage
 
@@ -930,9 +931,10 @@ hianime
 import { HiAnime } from "aniwatch";
 
 const hianime = new HiAnime.Scraper();
+const timezoneOffset = -330; // IST offset in minutes
 
 hianime
-    .getEstimatedSchedule("2024-08-09")
+    .getEstimatedSchedule("2025-06-09", timezoneOffset)
     .then((data) => console.log(data))
     .catch((err) => console.error(err));
 ```
@@ -1185,8 +1187,8 @@ Thanks to the following people for keeping this project alive and relevant.
 
 ## Thanks
 
--   [consumet.ts](https://github.com/consumet/consumet.ts)
--   [api.consumet.org](https://github.com/consumet/api.consumet.org)
+- [consumet.ts](https://github.com/consumet/consumet.ts)
+- [api.consumet.org](https://github.com/consumet/api.consumet.org)
 
 ## Support
 

@@ -195,19 +195,21 @@ class Scraper {
 
     /**
      * @param {string} date - date in `YYYY-MM-DD` format
+     * @param {number} tzOffset - timezone offset in minutes, defaults to `-330` (IST)
      * @throws {HiAnimeError}
      * @example
      * import { HiAnime } from "aniwatch";
      *
      * const hianime = new HiAnime.Scraper()
+     * const timezoneOffset = -330; // IST offset in minutes
      *
-     * hianime.getEstimatedSchedule("2024-08-09")
+     * hianime.getEstimatedSchedule("2025-06-09", timezoneOffset)
      *  .then((data) => console.log(data))
      *  .catch((err) => console.error(err));
      *
      */
-    async getEstimatedSchedule(date: string) {
-        return getEstimatedSchedule(date);
+    async getEstimatedSchedule(date: string, tzOffset: number = -330) {
+        return getEstimatedSchedule(date, tzOffset);
     }
 
     /**

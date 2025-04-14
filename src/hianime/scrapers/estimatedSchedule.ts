@@ -1,9 +1,11 @@
 import { load, type CheerioAPI, type SelectorType } from "cheerio";
+import type {
+    ScrapedEstimatedSchedule,
+    ScrapedNextEpisodeSchedule,
+} from "../types/scrapers/index.js";
 import { client } from "../../config/client.js";
 import { HiAnimeError } from "../error.js";
 import { SRC_HOME_URL, SRC_AJAX_URL, SRC_BASE_URL } from "../../utils/index.js";
-import type { ScrapedEstimatedSchedule } from "../types/scrapers/index.js";
-import type { ScrapedNextEpisodeSchedule } from "../types/scrapers/estimatedSchedule.js";
 
 export async function getEstimatedSchedule(
     date: string,
