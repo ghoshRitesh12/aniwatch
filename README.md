@@ -13,7 +13,7 @@
 # <p align="center">Aniwatch</p>
 
 <div align="center">
-  📦 A scraper package serving anime information from <a href="https://hianime.to/home" target="_blank">hianime.to</a>
+  📦 A scraper package serving anime information from <a href="https://hianimez.to/home" target="_blank">hianimez.to</a>
   <br/>
   <strong>
     <a 
@@ -53,34 +53,35 @@
 
 > [!IMPORTANT]
 >
-> 1. This package is just an unofficial package for [hianime.to](https://hianime.to) and is in no other way officially related to the same.
+> 1. This package is just an unofficial package for [hianimez.to](https://hianimez.to) and is in no other way officially related to the same.
 > 2. The content that this package provides is not mine, nor is it hosted by me. These belong to their respective owners. This package just demonstrates how to build a package that scrapes websites and uses their content.
 
 ## Table of Contents
 
-- [Quick Start](#quick-start)
-  - [Installation](#installation)
-  - [Example Usage](#example-usage)
-- [Documentation](#documentation)
-  - [getHomePage](#gethomepage)
-  - [getAZList](#getazlist)
-  - [getQtipInfo](#getqtipinfo)
-  - [getAnimeAboutInfo](#getanimeaboutinfo)
-  - [getAnimeSearchResults](#getanimesearchresults)
-  - [getAnimeSearchSuggestion](#getanimesearchsuggestion)
-  - [getProducerAnimes](#getproduceranimes)
-  - [getGenreAnime](#getgenreanime)
-  - [getAnimeCategory](#getanimecategory)
-  - [getEstimatedSchedule](#getestimatedschedule)
-  - [getAnimeEpisodes](#getanimeepisodes)
-  - [getEpisodeServers](#getepisodeservers)
-  - [getAnimeEpisodeSources](#getanimeepisodesources)
-- [Development](#development)
-- [Thanks](#thanks)
-- [Support](#support)
-- [License](#license)
-  <!-- - [Contributors](#contributors) -->
-- [Star History](#star-history)
+-   [Quick Start](#quick-start)
+    -   [Installation](#installation)
+    -   [Example Usage](#example-usage)
+-   [Documentation](#documentation)
+    -   [getHomePage](#gethomepage)
+    -   [getAZList](#getazlist)
+    -   [getQtipInfo](#getqtipinfo)
+    -   [getAnimeAboutInfo](#getanimeaboutinfo)
+    -   [getAnimeSearchResults](#getanimesearchresults)
+    -   [getAnimeSearchSuggestion](#getanimesearchsuggestion)
+    -   [getProducerAnimes](#getproduceranimes)
+    -   [getGenreAnime](#getgenreanime)
+    -   [getAnimeCategory](#getanimecategory)
+    -   [getEstimatedSchedule](#getestimatedschedule)
+    -   [getNextEpisodeSchedule](#getnextepisodeschedule)
+    -   [getAnimeEpisodes](#getanimeepisodes)
+    -   [getEpisodeServers](#getepisodeservers)
+    -   [getAnimeEpisodeSources](#getanimeepisodesources)
+-   [Development](#development)
+-   [Thanks](#thanks)
+-   [Support](#support)
+-   [License](#license)
+    <!-- - [Contributors](#contributors) -->
+-   [Star History](#star-history)
 
 ## Quick start
 
@@ -104,12 +105,12 @@ import { HiAnime, HiAnimeError } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 try {
-  const data: HiAnime.ScrapedAnimeAboutInfo = await hianime.getInfo(
-    "steinsgate-3"
-  );
-  console.log(data);
+    const data: HiAnime.ScrapedAnimeAboutInfo = await hianime.getInfo(
+        "steinsgate-3"
+    );
+    console.log(data);
 } catch (err) {
-  console.error(err instanceof HiAnimeError, err);
+    console.error(err instanceof HiAnimeError, err);
 }
 ```
 
@@ -129,9 +130,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getHomePage()
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getHomePage()
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -288,9 +289,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getAZList("0-9", 1)
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getAZList("0-9", 1)
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -346,9 +347,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getQtipInfo("one-piece-100")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getQtipInfo("one-piece-100")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -401,9 +402,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getInfo("steinsgate-3")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getInfo("steinsgate-3")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -559,15 +560,15 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .search("monster", 1, {
-    genres: "seinen,psychological",
-  })
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => {
-    console.error(err);
-  });
+    .search("monster", 1, {
+        genres: "seinen,psychological",
+    })
+    .then((data) => {
+        console.log(data);
+    })
+    .catch((err) => {
+        console.error(err);
+    });
 ```
 
 #### Response Schema
@@ -640,9 +641,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .searchSuggestions("one piece")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .searchSuggestions("one piece")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -689,9 +690,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getProducerAnimes("toei-animation", 2)
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getProducerAnimes("toei-animation", 2)
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -778,9 +779,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getGenreAnime("shounen", 2)
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getGenreAnime("shounen", 2)
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -851,9 +852,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getCategoryAnime("subbed-anime")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getCategoryAnime("subbed-anime")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 
 // categories ->
 // "most-favorite", "most-popular", "subbed-anime", "dubbed-anime",
@@ -931,9 +932,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getEstimatedSchedule("2024-08-09")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getEstimatedSchedule("2024-08-09")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -951,6 +952,49 @@ hianime
     },
     {...}
   ]
+}
+```
+
+[🔼 Back to Top](#table-of-contents)
+
+</details>
+
+##
+
+<details>
+
+<summary>
+
+### `getNextEpisodeSchedule`
+
+</summary>
+
+#### Parameters
+
+| Parameter |  Type  |             Description              | Required? | Default |
+| :-------: | :----: | :----------------------------------: | :-------: | :-----: |
+| `animeId` | string | The unique anime id (in kebab case). |    Yes    |   --    |
+
+#### Sample Usage
+
+```javascript
+import { HiAnime } from "aniwatch";
+
+const hianime = new HiAnime.Scraper();
+
+hianime
+    .getNextEpisodeSchedule("one-piece-100")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
+```
+
+#### Response Schema
+
+```javascript
+{
+  airingISOTimestamp: string | null,
+  airingTimestamp: number | null,
+  secondsUntilAiring: number | null
 }
 ```
 
@@ -980,9 +1024,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getEpisodes("steinsgate-3")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getEpisodes("steinsgate-3")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -1028,9 +1072,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getEpisodeServers("steinsgate-0-92?ep=2055")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getEpisodeServers("steinsgate-0-92?ep=2055")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -1091,9 +1135,9 @@ import { HiAnime } from "aniwatch";
 const hianime = new HiAnime.Scraper();
 
 hianime
-  .getEpisodeSources("steinsgate-3?ep=230", "hd-1", "sub")
-  .then((data) => console.log(data))
-  .catch((err) => console.error(err));
+    .getEpisodeSources("steinsgate-3?ep=230", "hd-1", "sub")
+    .then((data) => console.log(data))
+    .catch((err) => console.error(err));
 ```
 
 #### Response Schema
@@ -1141,8 +1185,8 @@ Thanks to the following people for keeping this project alive and relevant.
 
 ## Thanks
 
-- [consumet.ts](https://github.com/consumet/consumet.ts)
-- [api.consumet.org](https://github.com/consumet/api.consumet.org)
+-   [consumet.ts](https://github.com/consumet/consumet.ts)
+-   [api.consumet.org](https://github.com/consumet/api.consumet.org)
 
 ## Support
 
