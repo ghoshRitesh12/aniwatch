@@ -1,30 +1,30 @@
 {
-  "compilerOptions": {
-    "strict": true,
-    "noImplicitAny": true,
-    "esModuleInterop": true,
-    "strictNullChecks": true,
-    "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "compilerOptions": {
+        "strict": true,
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "strictNullChecks": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
 
-    "noEmit": true,
-    "allowJs": true,
-    "declaration": true,
-    "skipLibCheck": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "verbatimModuleSyntax": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+        "noEmit": true,
+        "allowJs": true,
+        "declaration": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "moduleDetection": "force",
+        "verbatimModuleSyntax": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
 
-    "outDir": "dist",
-    "rootDir": "./",
-    "sourceMap": true,
-    // "removeComments": true,
-    "strictFunctionTypes": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+        "outDir": "dist",
+        "rootDir": "./",
+        "sourceMap": true,
+        // "removeComments": true,
+        "strictFunctionTypes": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules"]
 }
