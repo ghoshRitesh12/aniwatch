@@ -23,6 +23,15 @@ export async function getEstimatedSchedule(
                 400
             );
         }
+
+        if (tzOffset && (typeof tzOffset !== "number" || isNaN(tzOffset))) {
+            throw new HiAnimeError(
+                "invalid timezone offset",
+                getEstimatedSchedule.name,
+                400
+            );
+        }
+
         const estScheduleURL =
             `${SRC_AJAX_URL}/schedule/list?tzOffset=${tzOffset}&date=${date}` as const;
         const mainPage = await client.get(estScheduleURL, {
