@@ -1,3 +1,12 @@
+## [2.21.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.0...v2.21.1) (2025-04-14)
+
+
+### Bug Fixes
+
+* possible edge case of invalid tzOffset ([5075279](https://github.com/ghoshRitesh12/aniwatch/commit/5075279d9a07bc5b56ee8fb58292f6cd226e9366))
+
+
+
 # [2.21.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.20.0...v2.21.0) (2025-04-14)
 
 
@@ -35,17 +44,6 @@
 
 
 ## [2.18.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.18.0...v2.18.1) (2024-12-25)
-
-
-
-# [2.18.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.17.0...v2.18.0) (2024-12-25)
-
-
-### Features
-
-* **animeQtip:** add `getAnimeQtipInfo` scraper ([f01e51d](https://github.com/ghoshRitesh12/aniwatch/commit/f01e51ddbd1772eb412512b74dea0025eac9c7f7))
-* **animeQtip:** add `ScrapedAnimeQtipInfo` type ([22e8ae0](https://github.com/ghoshRitesh12/aniwatch/commit/22e8ae05227b54e3249dfb92689f2a3f835f5bff))
-* **animeQtip:** add new `getQtipInfo` method ([2a9768d](https://github.com/ghoshRitesh12/aniwatch/commit/2a9768d3d9380a18ad478878bd309fc4dfa22500))
 
 
 
