@@ -8,22 +8,26 @@ import { getProducerAnimes } from "./animeProducer.js";
 import { getEpisodeServers } from "./episodeServers.js";
 import { getAnimeAboutInfo } from "./animeAboutInfo.js";
 import { getAnimeSearchResults } from "./animeSearch.js";
-import { getEstimatedSchedule } from "./estimatedSchedule.js";
 import { getAnimeEpisodeSources } from "./animeEpisodeSrcs.js";
 import { getAnimeSearchSuggestion } from "./animeSearchSuggestion.js";
+import {
+    getEstimatedSchedule,
+    getNextEpisodeSchedule,
+} from "./estimatedSchedule.js";
 
 export {
-  getAZList,
-  getHomePage,
-  getGenreAnime,
-  getAnimeQtipInfo,
-  getAnimeEpisodes,
-  getAnimeCategory,
-  getEpisodeServers,
-  getProducerAnimes,
-  getAnimeAboutInfo,
-  getEstimatedSchedule,
-  getAnimeSearchResults,
-  getAnimeEpisodeSources,
-  getAnimeSearchSuggestion,
+    getAZList,
+    getHomePage,
+    getGenreAnime,
+    getAnimeQtipInfo,
+    getAnimeEpisodes,
+    getAnimeCategory,
+    getEpisodeServers,
+    getProducerAnimes,
+    getAnimeAboutInfo,
+    getEstimatedSchedule,
+    getAnimeSearchResults,
+    getNextEpisodeSchedule,
+    getAnimeEpisodeSources,
+    getAnimeSearchSuggestion,
 };
