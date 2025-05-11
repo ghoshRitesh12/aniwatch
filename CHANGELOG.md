@@ -1,3 +1,13 @@
+# [2.23.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.1...v2.23.0) (2025-05-11)
+
+
+### Features
+
+* add pre-commit hook for package.json formatting in release workflow ([ab68040](https://github.com/ghoshRitesh12/aniwatch/commit/ab680405d767ad175ee5acbcf811cd42fa549920))
+* add preCommit function to format package.json ([20b9de5](https://github.com/ghoshRitesh12/aniwatch/commit/20b9de5bc29cd1f3c8a1d80078680e7ae12aeec7))
+
+
+
 ## [2.22.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.0...v2.22.1) (2025-05-11)
 
 
@@ -23,15 +33,6 @@
 ### Bug Fixes
 
 * possible edge case of invalid tzOffset ([5075279](https://github.com/ghoshRitesh12/aniwatch/commit/5075279d9a07bc5b56ee8fb58292f6cd226e9366))
-
-
-
-# [2.21.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.20.0...v2.21.0) (2025-04-14)
-
-
-### Features
-
-* **getEstimatedSchedule:** update `getEstimatedSchedule` method signature ([238e108](https://github.com/ghoshRitesh12/aniwatch/commit/238e1082cf70d82715e025a27fa4f22db73c9fd8))
 
 
 
