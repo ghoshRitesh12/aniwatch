@@ -1,5 +1,6 @@
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import { log } from "../config/logger.js";
 import { substringAfter, substringBefore } from "../utils/index.js";
 import type { Video, Subtitle, Intro } from "../hianime/types/extractor.js";
 
@@ -90,7 +91,7 @@ class RapidCloud {
                     sources = JSON.parse(decrypt.toString(CryptoJS.enc.Utf8));
                 }
             } catch (err: any) {
-                console.log(err.message);
+                log.info(err.message);
                 throw new Error(
                     "Cannot decrypt sources. Perhaps the key is invalid."
                 );
@@ -172,7 +173,7 @@ class RapidCloud {
 
             return result;
         } catch (err: any) {
-            console.log(err.message);
+            log.info(err.message);
             throw err;
         }
     }

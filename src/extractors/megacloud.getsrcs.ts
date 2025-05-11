@@ -4,6 +4,7 @@ import { decoded_png } from "./megacloud.decodedpng.js";
 import util from "util";
 import CryptoJS from "crypto-js";
 import { webcrypto } from "crypto";
+import { log } from "../config/logger.js";
 import { SRC_BASE_URL, USER_AGENT_HEADER } from "../utils/constants.js";
 import type { extractedSrc, unencryptedSrc } from "./megacloud.js";
 
@@ -787,7 +788,7 @@ const V = async () => {
         wasmLoader.groot();
         fake_window.jwt_plugin(Q0);
     } catch (err) {
-        console.log("wasm_load_error: ", err);
+        log.info(`wasm_load_error: ${err}`);
         fake_window.error = true;
     }
 };
@@ -822,7 +823,7 @@ const M = (a: any, P: any) => {
         return JSON.parse(Q0.toString(CryptoJS.enc.Utf8));
     } catch (Q1) {
         // @ts-ignore
-        console.log(Q1.message);
+        log.info(Q1.message);
     }
     return [];
 };
@@ -892,7 +893,7 @@ export async function getSources(xrax: string) {
 
         return res;
     } catch (err) {
-        console.error(err);
+        log.error(err);
     }
 }
 

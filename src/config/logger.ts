@@ -9,7 +9,6 @@ function isDevEnv(): boolean {
 }
 
 const loggerOptions: LoggerOptions = {
-    redact: !isDevEnv() ? ["hostname"] : [],
     level: "info",
     transport: isDevEnv()
         ? {
@@ -24,10 +23,12 @@ const loggerOptions: LoggerOptions = {
         level(label) {
             return {
                 level: label.toUpperCase(),
+                context: "aniwatch-pkg",
             };
         },
     },
+    redact: !isDevEnv() ? ["hostname"] : [],
     timestamp: pino.stdTimeFunctions.isoTime,
 };
 
-export const logger = pino(loggerOptions);
+export const log = pino(loggerOptions);

@@ -79,7 +79,7 @@ class MegaCloud {
                 );
             }
 
-            // console.log(JSON.stringify(srcsData, null, 2));
+            // log.info(JSON.stringify(srcsData, null, 2));
 
             const encryptedString = srcsData.sources;
             if (!srcsData.encrypted && Array.isArray(encryptedString)) {
@@ -139,7 +139,7 @@ class MegaCloud {
                 );
             }
         } catch (err) {
-            // console.log(err);
+            // log.info(err);
             throw err;
         }
     }

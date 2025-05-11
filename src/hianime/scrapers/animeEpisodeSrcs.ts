@@ -14,6 +14,7 @@ import {
     StreamTape,
     MegaCloud,
 } from "../../extractors/index.js";
+import { log } from "../../config/logger.js";
 import { type AnimeServers, Servers } from "../types/anime.js";
 import type { ScrapedAnimeEpisodesSources } from "../types/scrapers/index.js";
 
@@ -64,7 +65,7 @@ async function _getAnimeEpisodeSources(
     }
 
     const epId = new URL(`/watch/${episodeId}`, SRC_BASE_URL).href;
-    console.log("EPISODE_ID: ", epId);
+    log.info(`EPISODE_ID: ${epId}`);
 
     try {
         const resp = await client.get(
@@ -82,7 +83,7 @@ async function _getAnimeEpisodeSources(
         let serverId: string | null = null;
 
         try {
-            console.log("THE SERVER: ", server);
+            log.info(`THE SERVER: ${JSON.stringify(server)}`);
 
             switch (server) {
                 case Servers.VidCloud: {
@@ -92,7 +93,7 @@ async function _getAnimeEpisodeSources(
                 }
                 case Servers.VidStreaming: {
                     serverId = retrieveServerId($, 4, category);
-                    console.log("SERVER_ID: ", serverId);
+                    log.info(`SERVER_ID: ${serverId}`);
                     if (!serverId) throw new Error("VidStreaming not found");
                     break;
                 }
@@ -120,7 +121,7 @@ async function _getAnimeEpisodeSources(
         } = await client.get(
             `${SRC_AJAX_URL}/v2/episode/sources?id=${serverId}`
         );
-        console.log("THE LINK: ", link);
+        log.info(`THE LINK: ${link}`);
 
         return await _getAnimeEpisodeSources(link, server);
     } catch (err: any) {
@@ -169,7 +170,7 @@ export async function getAnimeEpisodeSources(
                 },
             }),
         ]);
-        console.log("EPISODE_SRC_DATA: ", episodeSrcData);
+        log.info(`EPISODE_SRC_DATA: ${JSON.stringify(episodeSrcData)}`);
 
         const $: CheerioAPI = load(animeSrc?.data);
 
