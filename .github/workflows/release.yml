@@ -19,6 +19,9 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v5
         with:
           skip-on-empty: false
+          git-user-name: "github-actions[bot]"
+          git-user-email: "github-actions[bot]@users.noreply.github.com"
+          pre-commit: ./scripts/format-package-json.js
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create release
