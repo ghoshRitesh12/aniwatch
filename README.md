@@ -80,7 +80,7 @@
 - [Thanks](#thanks)
 - [Support](#support)
 - [License](#license)
-    <!-- - [Contributors](#contributors) -->
+- [Contributors](#contributors)
 - [Star History](#star-history)
 
 ## Quick start
@@ -1179,11 +1179,11 @@ hianime
 
 Pull requests are always welcome. If you encounter any bug or want to add a new feature to this package, consider creating a new [issue](https://github.com/ghoshRitesh12/aniwatch/issues). If you wish to contribute to this project, read the [CONTRIBUTING.md](https://github.com/ghoshRitesh12/aniwatch/blob/main/CONTRIBUTING.md) file.
 
-<!-- ## <span id="contributors">✨ Contributors</span>
+## Contributors
 
 Thanks to the following people for keeping this project alive and relevant.
 
-[![](https://contrib.rocks/image?repo=ghoshRitesh12/aniwatch)](https://github.com/ghoshRitesh12/aniwatch/graphs/contributors) -->
+[![](https://contrib.rocks/image?repo=ghoshRitesh12/aniwatch)](https://github.com/ghoshRitesh12/aniwatch/graphs/contributors)
 
 ## Thanks
 

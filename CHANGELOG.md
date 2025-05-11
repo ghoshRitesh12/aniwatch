@@ -1,3 +1,7 @@
+## [2.21.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.1...v2.21.2) (2025-04-16)
+
+
+
 ## [2.21.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.0...v2.21.1) (2025-04-14)
 
 ### Bug Fixes
