@@ -1,57 +1,61 @@
 {
-  "name": "aniwatch",
-  "version": "2.21.2",
-  "description": "📦 A scraper package serving anime information from hianimez.to",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "module": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "lint": "tsc",
-    "build": "tsup",
-    "ci": "tsc && pnpm test && tsup",
-    "test": "vitest run --config vitest.config.ts",
-    "prepare": "node .husky/install.mjs"
-  },
-  "author": {
-    "name": "Ritesh Ghosh",
-    "url": "https://github.com/ghoshRitesh12"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
-  },
-  "bugs": {
-    "url": "https://github.com/ghoshRitesh12/aniwatch/issues"
-  },
-  "homepage": "https://github.com/ghoshRitesh12/aniwatch#readme",
-  "keywords": [
-    "anime",
-    "hianime",
-    "aniwatch",
-    "hianimez.to",
-    "aniwatch.to",
-    "scraper",
-    "package"
-  ],
-  "dependencies": {
-    "axios": "^1.7.9",
-    "cheerio": "1.0.0",
-    "crypto-js": "^4.2.0"
-  },
-  "devDependencies": {
-    "@types/crypto-js": "^4.2.2",
-    "@types/node": "^22.10.3",
-    "husky": "^9.1.7",
-    "prettier": "^3.5.3",
-    "tsup": "^8.3.5",
-    "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
-  },
-  "files": [
-    "dist",
-    "LICENSE",
-    "package.json"
-  ]
+    "name": "aniwatch",
+    "version": "2.21.1",
+    "description": "📦 A scraper package serving anime information from hianimez.to",
+    "license": "MIT",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "module": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "lint": "tsc",
+        "build": "tsup",
+        "ci": "tsc && pnpm test && tsup",
+        "test": "vitest run --config vitest.config.ts",
+        "prepare": "node .husky/install.mjs",
+        "format": "prettier --cache --write .",
+        "format:check": "prettier --cache --check ."
+    },
+    "author": {
+        "name": "Ritesh Ghosh",
+        "url": "https://github.com/ghoshRitesh12"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ghoshRitesh12/aniwatch.git"
+    },
+    "bugs": {
+        "url": "https://github.com/ghoshRitesh12/aniwatch/issues"
+    },
+    "homepage": "https://github.com/ghoshRitesh12/aniwatch#readme",
+    "keywords": [
+        "anime",
+        "hianime",
+        "aniwatch",
+        "hianimez.to",
+        "aniwatch.to",
+        "scraper",
+        "package"
+    ],
+    "dependencies": {
+        "axios": "^1.7.9",
+        "cheerio": "1.0.0",
+        "crypto-js": "^4.2.0",
+        "pino": "^9.6.0"
+    },
+    "devDependencies": {
+        "@types/crypto-js": "^4.2.2",
+        "@types/node": "^22.10.3",
+        "husky": "^9.1.7",
+        "pino-pretty": "^13.0.0",
+        "prettier": "^3.5.3",
+        "tsup": "^8.3.5",
+        "typescript": "^5.7.2",
+        "vitest": "^2.1.8"
+    },
+    "files": [
+        "dist",
+        "LICENSE",
+        "package.json"
+    ]
 }

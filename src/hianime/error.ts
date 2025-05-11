@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import type { AniwatchError } from "../config/error.js";
+import { log } from "../config/logger.js";
 
 const ANSI_ESC_CODE_COLOR_RED = "\x1b[31m";
 const ANSI_ESC_CODE_COLOR_RESET = "\x1b[0m";
@@ -63,7 +64,7 @@ export class HiAnimeError extends Error implements AniwatchError {
     }
 
     private logError() {
-        console.error(
+        log.error(
             ANSI_ESC_CODE_COLOR_RED +
                 JSON.stringify(
                     {
