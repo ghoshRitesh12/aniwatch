@@ -80,7 +80,7 @@
 - [Thanks](#thanks)
 - [Support](#support)
 - [License](#license)
-  <!-- - [Contributors](#contributors) -->
+    <!-- - [Contributors](#contributors) -->
 - [Star History](#star-history)
 
 ## Quick start

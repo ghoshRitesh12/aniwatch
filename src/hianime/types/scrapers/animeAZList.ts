@@ -1,12 +1,12 @@
 import type { AZListSortOptions } from "../anime.js";
 import type {
-  ScrapedAnimeCategory,
-  CommonAnimeScrapeTypes,
+    ScrapedAnimeCategory,
+    CommonAnimeScrapeTypes,
 } from "./animeCategory.js";
 
 export type ScrapedAnimeAZList = Pick<
-  ScrapedAnimeCategory,
-  CommonAnimeScrapeTypes
+    ScrapedAnimeCategory,
+    CommonAnimeScrapeTypes
 > & {
-  sortOption: AZListSortOptions;
+    sortOption: AZListSortOptions;
 };
