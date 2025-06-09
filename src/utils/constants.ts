@@ -4,8 +4,8 @@ export const USER_AGENT_HEADER =
 export const ACCEPT_HEADER =
     "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9" as const;
 
-// previously zoro.to -> aniwatch.to -> aniwatchtv.to -> hianimez.to
-const DOMAIN = "hianimez.to" as const;
+// previously zoro.to -> aniwatch.to -> aniwatchtv.to -> hianime.to
+const DOMAIN = "hianime.to" as const;
 
 export const SRC_BASE_URL = `https://${DOMAIN}` as const;
 export const SRC_AJAX_URL = `${SRC_BASE_URL}/ajax` as const;
