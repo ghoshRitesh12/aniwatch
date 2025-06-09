@@ -1,3 +1,7 @@
+## [2.23.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.0...v2.23.1) (2025-06-09)
+
+
+
 # [2.23.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.1...v2.23.0) (2025-05-11)
 
 
@@ -24,15 +28,6 @@
 
 
 ## [2.21.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.1...v2.21.2) (2025-04-16)
-
-
-
-## [2.21.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.0...v2.21.1) (2025-04-14)
-
-
-### Bug Fixes
-
-* possible edge case of invalid tzOffset ([5075279](https://github.com/ghoshRitesh12/aniwatch/commit/5075279d9a07bc5b56ee8fb58292f6cd226e9366))
 
 
 
