@@ -37,7 +37,9 @@ async function _getAnimeEpisodeSources(
                     headers: { Referer: `${serverUrl.origin}/` },
                     // disabled for the timebeing
                     // ...(await new MegaCloud().extract(serverUrl)),
-                    ...(await new MegaCloud().extract2(serverUrl)),
+                    // disabled again for the timebeing
+                    // ...(await new MegaCloud().extract2(serverUrl)),
+                    ...(await new MegaCloud().extract3(serverUrl)),
                 };
             case Servers.StreamSB:
                 return {
