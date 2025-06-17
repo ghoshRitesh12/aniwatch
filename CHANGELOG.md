@@ -1,3 +1,12 @@
+## [2.23.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.2...v2.23.3) (2025-06-17)
+
+
+### Bug Fixes
+
+* megacloud sources ([e9ceb65](https://github.com/ghoshRitesh12/aniwatch/commit/e9ceb65a359ce272ae974c25e7071ffa2d25a0fe))
+
+
+
 ## [2.23.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.1...v2.23.2) (2025-06-09)
 
 
@@ -22,17 +31,6 @@
 
 
 ## [2.22.1](https://github.com/ghoshRitesh12/aniwatch/compare/v2.22.0...v2.22.1) (2025-05-11)
-
-
-
-# [2.22.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.21.2...v2.22.0) (2025-05-11)
-
-
-### Features
-
-* add custom logger ([6038366](https://github.com/ghoshRitesh12/aniwatch/commit/6038366bc328bc70fd60af8a311041f486145698))
-* add husky custom install script ([673a96b](https://github.com/ghoshRitesh12/aniwatch/commit/673a96b36a4680a637910e3a5713f2deeb395bfb))
-* add prettierignore file ([08c58d9](https://github.com/ghoshRitesh12/aniwatch/commit/08c58d9a74adb52e903fc308ed677835fb583884))
 
 
 
