@@ -92,7 +92,7 @@ async function _getAnimeEpisodeSources(
                 case Servers.VidCloud: {
                     return {
                         headers: { Referer: `https://megaplay.buzz/stream/s-2/${episodeId}/${category}` },
-                        ...(await new MegaCloud().extract4(episodeId))
+                        ...(await new MegaCloud().extract4(episodeId, category))
                     }
                 }
                 case Servers.StreamSB: {
