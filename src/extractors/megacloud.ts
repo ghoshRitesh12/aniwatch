@@ -339,7 +339,7 @@ class MegaCloud {
         }
     }
 
-    async extract4(embedIframeURL: string): Promise<ExtractedData> {
+    async extract4(embedIframeURL: string, category: "sub" | "dub" | "raw"): Promise<ExtractedData> {
         const extractedData: ExtractedData = {
             tracks: [],
             intro: {
@@ -356,7 +356,7 @@ class MegaCloud {
         const epId = embedIframeURL.split("?ep=")[1];
 
         const iframe = await fetch(
-            `https://megaplay.buzz/stream/s-2/${epId}/sub`,
+            `https://megaplay.buzz/stream/s-2/${epId}/${category}`,
             {
                 headers: {
                     Host: "megaplay.buzz",
