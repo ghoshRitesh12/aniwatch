@@ -37,9 +37,7 @@ async function _getAnimeEpisodeSources(
                     headers: { Referer: `${serverUrl.origin}/` },
                     // disabled for the timebeing
                     // ...(await new MegaCloud().extract(serverUrl)),
-                    // disabled again for the timebeing
-                    // ...(await new MegaCloud().extract2(serverUrl)),
-                    ...(await new MegaCloud().extract3(serverUrl)),
+                    ...(await new MegaCloud().extract5(serverUrl)),
                 };
             case Servers.StreamSB:
                 return {
@@ -88,12 +86,16 @@ async function _getAnimeEpisodeSources(
             log.info(`THE SERVER: ${JSON.stringify(server)}`);
 
             switch (server) {
-                case Servers.VidStreaming:
                 case Servers.VidCloud: {
-                    return {
-                        headers: { Referer: `https://megaplay.buzz/stream/s-2/${episodeId}/${category}` },
-                        ...(await new MegaCloud().extract4(episodeId))
-                    }
+                    serverId = retrieveServerId($, 1, category);
+                    if (!serverId) throw new Error("RapidCloud not found");
+                    break;
+                }
+                case Servers.VidStreaming: {
+                    serverId = retrieveServerId($, 4, category);
+                    log.info(`SERVER_ID: ${serverId}`);
+                    if (!serverId) throw new Error("VidStreaming not found");
+                    break;
                 }
                 case Servers.StreamSB: {
                     serverId = retrieveServerId($, 5, category);
