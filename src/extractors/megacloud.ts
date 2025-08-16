@@ -462,7 +462,7 @@ class MegaCloud {
                 throw new Error("Unable to extract client key from iframe");
 
             // endpoint changed
-            const megacloudUrl = `https://megacloud.blog/embed-2/v3/e-1/getSources?id=${sourceId}&_k=${clientKey}`
+            const megacloudUrl = `https://megacloud.blog/embed-2/v3/e-1/getSources?id=${sourceId}&_k=${clientKey}`;
             const { data: rawSourceData } = await axios.get(megacloudUrl);
             let decryptedSources;
             if (!(rawSourceData?.encrypted)){
@@ -473,7 +473,7 @@ class MegaCloud {
                     throw new Error("Encrypted source missing in response");
                 console.log(clientKey, megacloudKey, encrypted);
                 
-                const decrypted = decryptSrc2(encrypted, clientKey, megacloudKey)
+                const decrypted = decryptSrc2(encrypted, clientKey, megacloudKey);
             
                 try {
                     decryptedSources = JSON.parse(decrypted);
