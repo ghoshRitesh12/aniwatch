@@ -4,6 +4,7 @@ import { HiAnimeError } from "../hianime/error.js";
 // import { getSources } from "./megacloud.getsrcs.js";
 import CryptoJS from "crypto-js";
 import * as cheerio from "cheerio";
+import { getMegaCloudClientKey, decryptSrc2 } from '../utils/index.js';
 
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
@@ -426,6 +427,85 @@ class MegaCloud {
         ];
 
         return extractedData;
+    }
+    async extract5(embedIframeURL: URL): Promise<ExtractedData> {
+        // console.log("new extraction used")
+        try {
+            // this key is extracted the same way as extract3's key
+            const response = await axios.get(
+                "https://raw.githubusercontent.com/yogesh-hacker/MegacloudKeys/refs/heads/main/keys.json"
+            );
+            const key = response.data;
+            const megacloudKey = key["mega"];
+            const extractedData: ExtractedData = {
+                tracks: [],
+                intro: {
+                    start: 0,
+                    end: 0,
+                },
+                outro: {
+                    start: 0,
+                    end: 0,
+                },
+                sources: [],
+            };
+
+            const match = /\/([^\/\?]+)\?/.exec(embedIframeURL.href);
+
+            const sourceId = match?.[1];
+            if (!sourceId)
+                throw new Error("Unable to extract sourceId from embed URL");
+
+            // added gathering the client key
+            const clientKey = await getMegaCloudClientKey(sourceId);
+            if (!clientKey)
+                throw new Error("Unable to extract client key from iframe");
+
+            // endpoint changed
+            const megacloudUrl = `https://megacloud.blog/embed-2/v3/e-1/getSources?id=${sourceId}&_k=${clientKey}`;
+            const { data: rawSourceData } = await axios.get(megacloudUrl);
+            let decryptedSources;
+            if (!(rawSourceData?.encrypted)){
+                decryptedSources = rawSourceData?.sources;
+            } else {
+                const encrypted = rawSourceData?.sources;
+                if (!encrypted)
+                    throw new Error("Encrypted source missing in response");
+                console.log(clientKey, megacloudKey, encrypted);
+                
+                const decrypted = decryptSrc2(encrypted, clientKey, megacloudKey);
+            
+                try {
+                    decryptedSources = JSON.parse(decrypted);
+                } catch (e) {
+                    throw new Error("Decrypted data is not valid JSON");
+                }
+            }
+            extractedData.tracks = rawSourceData.tracks;
+            extractedData.intro = rawSourceData.intro;
+            extractedData.outro = rawSourceData.outro;
+            extractedData.intro = rawSourceData.intro
+                ? rawSourceData.intro
+                : extractedData.intro;
+            extractedData.outro = rawSourceData.outro
+                ? rawSourceData.outro
+                : extractedData.outro;
+
+            extractedData.tracks =
+                rawSourceData.tracks?.map((track: any) => ({
+                    url: track.file,
+                    lang: track.label ? track.label : track.kind,
+                })) || [];
+            extractedData.sources = decryptedSources.map((s: any) => ({
+                url: s.file,
+                isM3U8: s.type === "hls",
+                type: s.type,
+            }));
+            
+            return extractedData;
+        } catch (err){
+            throw err;
+        }
     }
 }
 
