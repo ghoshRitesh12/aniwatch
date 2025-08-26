@@ -1,3 +1,7 @@
+## [2.24.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.2...v2.24.3) (2025-08-26)
+
+
+
 ## [2.24.2](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.1...v2.24.2) (2025-08-26)
 
 
@@ -24,15 +28,6 @@
 
 
 ## [2.23.5](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.4...v2.23.5) (2025-07-27)
-
-
-
-## [2.23.4](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.3...v2.23.4) (2025-07-27)
-
-
-### Bug Fixes
-
-* temporary fix for the megacloud decryptor ([2314d3f](https://github.com/ghoshRitesh12/aniwatch/commit/2314d3f8c0a094067f39e9031f02687d166e6bd9))
 
 
 
