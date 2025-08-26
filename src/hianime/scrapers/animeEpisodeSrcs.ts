@@ -101,10 +101,6 @@ async function _getAnimeEpisodeSources(
                     serverId = retrieveServerId($, 1, category);
                     if (!serverId) throw new Error("RapidCloud not found");
                     break;
-                    // return {
-                    //     headers: { Referer: `https://megaplay.buzz/stream/s-2/${episodeId}/${category}` },
-                    //     ...(await new MegaCloud().extract4(episodeId))
-                    // }
                 }
                 case Servers.StreamSB: {
                     serverId = retrieveServerId($, 5, category);
