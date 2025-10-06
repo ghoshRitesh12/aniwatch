@@ -505,7 +505,6 @@ class MegaCloud {
                 isM3U8: s.type === "hls",
                 type: s.type,
             }));
-			console.log(extractedData);
 
             return extractedData;
         } catch (err){
