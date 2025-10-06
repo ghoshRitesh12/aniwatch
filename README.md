@@ -1163,6 +1163,7 @@ hianime
     {
       lang: "English",
       url: string, // .vtt subtitle file
+      default: boolean,
     },
     {...}
   ],

@@ -5,6 +5,7 @@ import { HiAnimeError } from "../hianime/error.js";
 import CryptoJS from "crypto-js";
 import * as cheerio from "cheerio";
 import { getMegaCloudClientKey, decryptSrc2 } from '../utils/index.js';
+import type { Subtitle } from "../hianime/types/extractor.js";
 
 // https://megacloud.tv/embed-2/e-1/dBqCr5BcOhnD?k=1
 
@@ -39,8 +40,9 @@ export type extractedSrc = {
     server: number;
 };
 
-type ExtractedData = Pick<extractedSrc, "intro" | "outro" | "tracks"> & {
+type ExtractedData = Pick<extractedSrc, "intro" | "outro"> & {
     sources: { url: string; type: string }[];
+	subtitles: Subtitle[];
 };
 
 class MegaCloud {
@@ -438,7 +440,7 @@ class MegaCloud {
             const key = response.data;
             const megacloudKey = key["mega"];
             const extractedData: ExtractedData = {
-                tracks: [],
+                subtitles: [],
                 intro: {
                     start: 0,
                     end: 0,
@@ -472,16 +474,15 @@ class MegaCloud {
                 if (!encrypted)
                     throw new Error("Encrypted source missing in response");
                 console.log(clientKey, megacloudKey, encrypted);
-                
+
                 const decrypted = decryptSrc2(encrypted, clientKey, megacloudKey);
-            
+
                 try {
                     decryptedSources = JSON.parse(decrypted);
                 } catch (e) {
                     throw new Error("Decrypted data is not valid JSON");
                 }
             }
-            extractedData.tracks = rawSourceData.tracks;
             extractedData.intro = rawSourceData.intro;
             extractedData.outro = rawSourceData.outro;
             extractedData.intro = rawSourceData.intro
@@ -491,17 +492,21 @@ class MegaCloud {
                 ? rawSourceData.outro
                 : extractedData.outro;
 
-            extractedData.tracks =
-                rawSourceData.tracks?.map((track: any) => ({
-                    url: track.file,
-                    lang: track.label ? track.label : track.kind,
-                })) || [];
+            extractedData.subtitles =
+                rawSourceData.tracks
+					?.filter((track: any) => track.kind === "captions")
+					?.map((track: any) => ({
+						url: track.file,
+						lang: track.label ? track.label : track.kind,
+						default: track.default || false,
+					})) || [];
             extractedData.sources = decryptedSources.map((s: any) => ({
                 url: s.file,
                 isM3U8: s.type === "hls",
                 type: s.type,
             }));
-            
+			console.log(extractedData);
+
             return extractedData;
         } catch (err){
             throw err;
