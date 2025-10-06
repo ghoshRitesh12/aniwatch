@@ -1,3 +1,12 @@
+## [2.24.4](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.3...v2.24.4) (2025-10-06)
+
+
+### Bug Fixes
+
+* use the correct data structed ([3d5881d](https://github.com/ghoshRitesh12/aniwatch/commit/3d5881dc9547d821b9eff4048cd4c74b42386b56))
+
+
+
 ## [2.24.3](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.2...v2.24.3) (2025-08-26)
 
 
@@ -24,10 +33,6 @@
 
 
 # [2.24.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.5...v2.24.0) (2025-07-27)
-
-
-
-## [2.23.5](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.4...v2.23.5) (2025-07-27)
 
 
 
