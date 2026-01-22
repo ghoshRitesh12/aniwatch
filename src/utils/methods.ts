@@ -6,7 +6,7 @@ import type {
     Top10AnimeTimePeriod,
 } from "../hianime/types/anime.js";
 import { SEARCH_PAGE_FILTERS } from "./constants.js";
-import type { CheerioAPI, SelectorType } from "cheerio";
+import type { CheerioAPI, SelectorType, Cheerio, AnyNode } from "cheerio";
 import type { FilterKeys } from "../hianime/types/animeSearch.js";
 
 export const extractAnimes = (
@@ -145,13 +145,15 @@ export const extractTop10Animes = (
 
 export const extractMostPopularAnimes = (
     $: CheerioAPI,
-    selector: SelectorType,
+    selector: SelectorType | Cheerio<AnyNode>,
     scraperName: string
 ): MostPopularAnime[] => {
     try {
         const animes: MostPopularAnime[] = [];
+        const elements =
+            typeof selector === "string" ? $(selector) : selector;
 
-        $(selector).each((_, el) => {
+        elements.each((_, el) => {
             animes.push({
                 id:
                     $(el)
