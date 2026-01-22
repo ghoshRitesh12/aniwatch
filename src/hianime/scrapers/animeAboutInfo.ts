@@ -230,21 +230,32 @@ export async function getAnimeAboutInfo(
             });
         });
 
-        const relatedAnimeSelector: SelectorType =
-            "#main-sidebar .block_area.block_area_sidebar.block_area-realtime:nth-of-type(1) .anif-block-ul ul li";
-        res.relatedAnimes = extractMostPopularAnimes(
-            $,
-            relatedAnimeSelector,
-            getAnimeAboutInfo.name
-        );
+        // Find related and most popular sections by their header text instead of position
+        // This handles pages where one section may be missing
+        $(
+            "#main-sidebar .block_area.block_area_sidebar.block_area-realtime"
+        ).each((_, blockEl) => {
+            const blockTitle = $(blockEl)
+                .find(".block_area-header .cat-heading")
+                .text()
+                .trim()
+                .toLowerCase();
+            const listSelector: SelectorType = ".anif-block-ul ul li";
 
-        const mostPopularSelector: SelectorType =
-            "#main-sidebar .block_area.block_area_sidebar.block_area-realtime:nth-of-type(2) .anif-block-ul ul li";
-        res.mostPopularAnimes = extractMostPopularAnimes(
-            $,
-            mostPopularSelector,
-            getAnimeAboutInfo.name
-        );
+            if (blockTitle.includes("related")) {
+                res.relatedAnimes = extractMostPopularAnimes(
+                    $,
+                    $(blockEl).find(listSelector),
+                    getAnimeAboutInfo.name
+                );
+            } else if (blockTitle.includes("most popular")) {
+                res.mostPopularAnimes = extractMostPopularAnimes(
+                    $,
+                    $(blockEl).find(listSelector),
+                    getAnimeAboutInfo.name
+                );
+            }
+        });
 
         const recommendedAnimeSelector: SelectorType =
             "#main-content .block_area.block_area_category .tab-content .flw-item";
