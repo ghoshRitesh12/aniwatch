@@ -1,3 +1,12 @@
+## [2.24.5](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.4...v2.24.5) (2026-01-22)
+
+
+### Bug Fixes
+
+* improve mostPopular animes extraction for various anime pages ([cf24d2a](https://github.com/ghoshRitesh12/aniwatch/commit/cf24d2a7d4e6cfcd6b9fd32d23292022a0784adb))
+
+
+
 ## [2.24.4](https://github.com/ghoshRitesh12/aniwatch/compare/v2.24.3...v2.24.4) (2025-10-06)
 
 
@@ -29,10 +38,6 @@
 * hehe ([5687791](https://github.com/ghoshRitesh12/aniwatch/commit/568779102c8ee429337a9870e8171db3bc0d4951))
 * missing category param in megacloud extractor ([ecc839a](https://github.com/ghoshRitesh12/aniwatch/commit/ecc839ae83a2c1c592df837b00f46ca1ca0dfabe))
 * remove episodeSources.test.ts ([c599543](https://github.com/ghoshRitesh12/aniwatch/commit/c5995436ec5bb34dcf9c02e092605a8b5836b422))
-
-
-
-# [2.24.0](https://github.com/ghoshRitesh12/aniwatch/compare/v2.23.5...v2.24.0) (2025-07-27)
 
 
 
